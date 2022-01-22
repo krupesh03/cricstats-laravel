@@ -1,8 +1,32 @@
 //variable declaration
-@themeColor: #6db9e4;
+@themeColor: #9dd5f4;
+@background: #E3E6E3;
 
 body {
+    font-family: helvetica,"Segoe UI",Arial,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    background: @background;
+    @media only screen and (min-width: 768px) {
+        /* For desktop: */
+        .site-layout {
+            padding-left: 15%;
+            padding-right: 15%;
+        }
+    }
     .background-blue {
         background-color: @themeColor !important;
+        #navbarCollapse {
+            .dropdown-menu {
+                .dropdown-item {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+    .main-content {
+        background-color: #fff;
+        max-height: 100%;
+        padding: 25px;
     }
 }

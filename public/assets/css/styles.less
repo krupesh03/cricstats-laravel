@@ -1,6 +1,7 @@
 //variable declaration
 @themeColor: #9dd5f4;
 @background: #E3E6E3;
+@themeTextColor: #4d4df2; 
 
 body {
     font-family: helvetica,"Segoe UI",Arial,sans-serif;
@@ -28,5 +29,54 @@ body {
         background-color: #fff;
         max-height: 100%;
         padding: 25px;
+        .team-info {
+            text-align: center;
+            padding: 5px;
+            a{
+                text-decoration: none;
+                color: inherit;
+                .team-logo {
+                    img {
+                        width: 125px;
+                        height: 100px;
+                    }
+                }
+            }
+        }
+        .format-rankings {
+            text-align: center;
+            padding: 5px;
+            .team-format {
+                font-weight: 100;
+                width: 50%;
+                border-radius: 15px;
+                padding: 1px;
+                cursor: pointer;
+            }
+            .team-format:hover {
+                background: @themeColor;
+                color: @themeTextColor;
+            }
+        }
+        .team-name-ranking {
+            display: flex;
+            width: 135px;
+            justify-content: space-evenly;
+            img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            overflow-x: auto;
+        }
+    }
+    .color-switch-active {
+        background: @themeColor;
+        color: @themeTextColor;
+    }
+    .color-switch-inactive {
+        background: @background;
     }
 }

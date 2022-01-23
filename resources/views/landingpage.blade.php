@@ -2,15 +2,25 @@
 
 @section('content')
 
-@if( $teams['success'] )
-
-    @foreach( $teams['data']['data'] as $team )
-        @if( $team['national_team'] )
-            Team: {{ $team['name'] }}
-            Logo: <img src="{{ $team['image_path'] }}" width="32" height="32">
-        @endif
-    @endforeach
-
-@endif
+<div class="row">
+    @if( $teams['success'] )
+        @foreach( $teams['data']['data'] as $team )
+            @if( $team['national_team'] )
+                <div class="col-md-3 team-info">
+                    <a href="javascript:void(0)">
+                        <div class="team-logo">
+                            @if( $team['image_path'] )
+                                <img src="{{ $team['image_path'] }}">
+                            @else
+                                <img src="{{  url('assets/images/dummy/dummy.jpg') }}">
+                            @endif
+                        </div>
+                        <div class="team-name"> {{ $team['name'] }} </div>
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    @endif
+</div>
 
 @endsection

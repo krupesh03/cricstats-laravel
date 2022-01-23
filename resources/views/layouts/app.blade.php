@@ -34,19 +34,8 @@
             </button>
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Teams</a>
-                        <div class="dropdown-menu">
-                            @if( $teams['success'] )
-                                @foreach( $teams['data']['data'] as $team )
-                                    @if( $team['national_team'] )
-                                        <a href="javascript;" class="dropdown-item">
-                                            <img src="{{ $team['image_path'] }}" width="13" height="13"> {{ $team['name'] }}
-                                        </a>
-                                    @endif
-                                @endforeach
-                            @endif
-                        </div>
+                    <li class="nav-item">
+                        <a href="{{ url('/') }}" class="nav-link">Teams</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">Players</a>
@@ -60,11 +49,8 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Rankings</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Inbox</a>
-                            <a href="#" class="dropdown-item">Drafts</a>
-                            <a href="#" class="dropdown-item">Sent Items</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#"class="dropdown-item">Trash</a>
+                            <a href="{{ url('icc-rankings/men/teams') }}" class="dropdown-item">ICC Rankings - Men</a>
+                            <a href="{{ url('icc-rankings/women/teams') }}" class="dropdown-item">ICC Rankings - Women</a>
                         </div>
                     </li>
                 </ul>

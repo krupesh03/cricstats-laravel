@@ -16,8 +16,8 @@ class ApicallHelper
 
         if( !$apiEndpoint ) {
             return [
-                'success'   => false,
-                'data'      => "No endpoint received"
+                'data'      => "No endpoint received",
+                'success'   => false
             ];
         }
 
@@ -49,20 +49,19 @@ class ApicallHelper
         curl_close( $curl );
         if ( $err ) {
             return [
-                'success'   => false,
-                'data'      => "cURL Error #:" . $err
+                'data'      => "cURL Error #:" . $err,
+                'success'   => false
             ];
         }
         $data = json_decode( $response, true );
+       
         if( isset($data['data']) ) {
-            return [
-                'success'   => true,
-                'data'      => $data
-            ];
+            $data['success'] = true;
+            return $data;
         }
         return [
-            'success'   => false,
-            'data'      => "Invalid Api Endpoint"
+            'data'      => "Invalid Api Endpoint",
+            'success'   => false
         ];
     }
 }

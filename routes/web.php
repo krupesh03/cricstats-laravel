@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingpageController;
 use App\Http\Controllers\IccrankingsController;
+use App\Http\Controllers\LeaguesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,10 @@ Route::get('/', [LandingpageController::class, 'index']);
 
 Route::group(['prefix' => 'icc-rankings'], function() {
     Route::get('/{slug}/{type}', [IccrankingsController::class, 'getRankings']);
+});
+
+Route::group(['prefix' => 'leagues'], function() {
+    Route::get('/', [LeaguesController::class, 'index']);
 });
 
 

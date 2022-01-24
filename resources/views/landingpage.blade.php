@@ -4,7 +4,7 @@
 
 <div class="row">
     @if( $teams['success'] )
-        @foreach( $teams['data']['data'] as $team )
+        @foreach( $teams['data'] as $team )
             @if( $team['national_team'] )
                 <div class="col-md-3 team-info">
                     <a href="javascript:void(0)">
@@ -20,6 +20,8 @@
                 </div>
             @endif
         @endforeach
+    @else
+        <div class="error-msg"> {{ $teams['data'] }} </div>
     @endif
 </div>
 

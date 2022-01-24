@@ -6,7 +6,7 @@ class FunctionHelper
 {
     public function setImage( $imagePath = '' ) {
 
-        if( $imagePath ) {
+        if( file_exists($imagePath) ) {
             return $imagePath;
         }
         return url('assets/images/dummy/dummy.jpg');

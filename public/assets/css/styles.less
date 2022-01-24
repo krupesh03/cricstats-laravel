@@ -2,6 +2,7 @@
 @themeColor: #9dd5f4;
 @background: #E3E6E3;
 @themeTextColor: #4d4df2; 
+@redColor: #d11a1a;
 
 body {
     font-family: helvetica,"Segoe UI",Arial,sans-serif;
@@ -31,7 +32,7 @@ body {
         padding: 25px;
         .team-info {
             text-align: center;
-            padding: 5px;
+            padding: 10px;
             a{
                 text-decoration: none;
                 color: inherit;
@@ -57,14 +58,32 @@ body {
                 background: @themeColor;
                 color: @themeTextColor;
             }
+            .team-name-ranking {
+                display: flex;
+                width: 135px;
+                justify-content: space-evenly;
+                height: 35px;
+                img {
+                    width: 32px;
+                    height: 32px;
+                }
+            }
+            .table {
+                margin-top: 20px;
+            }
         }
-        .team-name-ranking {
-            display: flex;
-            width: 135px;
-            justify-content: space-evenly;
-            img {
-                width: 32px;
-                height: 32px;
+        .league-info {
+            text-align: center;
+            padding: 10px;
+            a{
+                text-decoration: none;
+                color: inherit;
+                .league-logo {
+                    img {
+                        width: 125px;
+                        height: 100px;
+                    }
+                }
             }
         }
         @media only screen and (max-width: 768px) {
@@ -78,5 +97,8 @@ body {
     }
     .color-switch-inactive {
         background: @background;
+    }
+    .error-msg {
+        color: @redColor;
     }
 }

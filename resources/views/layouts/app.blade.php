@@ -26,7 +26,7 @@
 <div class="m-4 site-layout">
     <nav class="navbar navbar-expand-sm navbar-light bg-light background-blue">
         <div class="container-fluid">
-            <a href="#" class="navbar-brand">
+            <a href="{{ url('/') }}" class="navbar-brand">
                 <img class="avatar-class" src="{{url('assets/logo/logo.png') }}" alt="" width="auto" height="32">
             </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -36,6 +36,12 @@
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
                         <a href="{{ url('/') }}" class="nav-link">Teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/leagues') }}" class="nav-link">Leagues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Seasons</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">Players</a>
@@ -75,4 +81,10 @@
 </div>
 
 </body>
+
+<footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/app.min.js') }}" type="text/javascript"></script>
+</footer>
+
 </html>

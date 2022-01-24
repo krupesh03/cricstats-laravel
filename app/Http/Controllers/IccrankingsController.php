@@ -24,8 +24,10 @@ class IccrankingsController extends Controller
         }
 
         $apiData = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );
-
-        array_splice($apiData['data']['data'], 3);
+        
+        if( is_array($apiData['data']) ) {
+            array_splice($apiData['data'], 3);
+        }
         
         return view('iccrankings', compact('apiData'));
     }

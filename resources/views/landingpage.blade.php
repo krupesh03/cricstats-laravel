@@ -7,7 +7,7 @@
         @foreach( $teams['data'] as $team )
             @if( $team['national_team'] )
                 <div class="col-md-3 team-info">
-                    <a href="javascript:void(0)">
+                    <a href="{{ url('/squads/') }}/{{ $team['id'] }}">
                         <div class="team-logo">
                             @if( $team['image_path'] )
                                 <img src="{{ $team['image_path'] }}">

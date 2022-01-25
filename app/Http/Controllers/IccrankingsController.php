@@ -29,6 +29,6 @@ class IccrankingsController extends Controller
             array_splice($apiData['data'], 3);
         }
         
-        return view('iccrankings', compact('apiData'));
+        return view('rankings/iccrankings', compact('apiData'));
     }
 }

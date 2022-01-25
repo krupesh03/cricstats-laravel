@@ -41,7 +41,7 @@
                         <a href="{{ url('/leagues') }}" class="nav-link">Leagues</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Seasons</a>
+                        <a href="#" class="nav-link">Squads</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">Players</a>

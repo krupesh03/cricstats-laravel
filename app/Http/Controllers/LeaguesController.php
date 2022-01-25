@@ -19,6 +19,6 @@ class LeaguesController extends Controller
 
         $leagues = $this->apicallHelper->getDataFromAPI( $apiEndpoint );
         
-        return view('leagues', compact('leagues'));
+        return view('leagues/leagues', compact('leagues'));
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingpageController;
 use App\Http\Controllers\IccrankingsController;
 use App\Http\Controllers\LeaguesController;
+use App\Http\Controllers\SquadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,15 @@ use App\Http\Controllers\LeaguesController;
 */
 Route::get('/', [LandingpageController::class, 'index']);
 
-Route::group(['prefix' => 'icc-rankings'], function() {
-    Route::get('/{slug}/{type}', [IccrankingsController::class, 'getRankings']);
+Route::group(['prefix' => 'icc-rankings'], function($route) {
+    $route->get('/{slug}/{type}', [IccrankingsController::class, 'getRankings']);
 });
 
-Route::group(['prefix' => 'leagues'], function() {
-    Route::get('/', [LeaguesController::class, 'index']);
+Route::group(['prefix' => 'leagues'], function($route) {
+    $route->get('/', [LeaguesController::class, 'index']);
 });
 
-
+Route::group(['prefix' => 'squads'], function($route) {
+    $route->get('/{id}', [SquadController::class, 'index']);
+    $route->get('/{id}/season/{seasonId}', [SquadController::class, 'getSquads']);
+});

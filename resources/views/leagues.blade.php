@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="heading"> LEAGUES </div>
+<hr />
 
 <div class="row main-div">
     @php 
@@ -12,11 +13,11 @@
                 <a href="javascript:void(0)" class="league-info-url" data-pid="{{ $league['id'] }}">
                     <div class="league-logo">
                         <img src="{{ $helper->setImage($league['image_path']) }}">
-                    </div>
-                    <div class="league-name"> {{ $league['name'] }} 
-                        @if( $league['code'] )
-                            ({{ $league['code'] }})
-                        @endif
+                        <div class="league-name"> {{ $league['name'] }} 
+                            @if( $league['code'] )
+                                ({{ $league['code'] }})
+                            @endif
+                        </div>
                     </div>
                 </a>
             </div>

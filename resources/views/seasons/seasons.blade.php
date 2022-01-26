@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="heading"> SEASONS </div>
+<hr />
 
 <div class="row main-div">
     @if( $seasons['success'] )

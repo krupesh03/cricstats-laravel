@@ -2,6 +2,9 @@
 
 @section('content')
 
+<div class="heading"> ICC TEAM RANKINGS <span> - {{ ucfirst($slug) }} </span> </div>
+<hr />
+
 <div class="row main-div">
     @if( $apiData['success'] )
         @foreach( $apiData['data'] as $a )
@@ -31,7 +34,10 @@
                                 <td>{{ $t['ranking']['position'] }}</td>
                                 <td>
                                     <div class="team-name-ranking">
-                                        <p> <img src="{{ $helper->setImage($t['image_path']) }}"> </p>
+                                        <p> 
+                                            <img src="{{ $helper->setImage($t['image_path']) }}">
+                                            {{ $t['name'] }} 
+                                        </p>
                                     </div>
                                 </td>
                                 <td>{{ $t['ranking']['matches'] }}</td>

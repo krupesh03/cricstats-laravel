@@ -33,6 +33,6 @@ class IccrankingsController extends Controller
         
         $helper = $this->functionHelper;
 
-        return view('rankings/iccrankings', compact('apiData', 'helper'));
+        return view('rankings/iccrankings', compact('apiData', 'slug', 'helper'));
     }
 }

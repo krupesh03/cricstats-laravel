@@ -41,6 +41,7 @@ body {
                     text-decoration: none;
                     color: @themeInheritColor;
                     .league-logo {
+                        text-align: center;
                         padding: 5px;
                         img {
                             width: 125px;
@@ -69,6 +70,8 @@ body {
                     color: @themeInheritColor;
                     .league-logo {
                         padding: 5px;
+                        width: 150px;
+                        text-align: center;
                         img {
                             width: 125px;
                             height: 100px;
@@ -102,7 +105,9 @@ body {
                     text-decoration: none;
                     color: @themeInheritColor;
                     .single-team-logo {
-                        padding: 10px;
+                        padding: 5px;
+                        width: 150px;
+                        text-align: center;
                         img {
                             width: 150px;
                             height: 100px;
@@ -117,8 +122,8 @@ body {
                         color: @themeInheritColor;
                         .squad-logo {
                             img {
-                                width: 125px;
-                                height: 100px;
+                                width: 80px;
+                                height: 70px;
                             }
                         }
                     }
@@ -153,13 +158,12 @@ body {
                     color: @themeTextColor;
                 }
                 .team-name-ranking {
-                    display: flex;
+                    text-align: left;
                     width: 135px;
-                    justify-content: space-evenly;
                     height: 35px;
                     img {
-                        width: 32px;
-                        height: 32px;
+                        width: 30px;
+                        height: 30px;
                     }
                 }
                 .table {
@@ -186,5 +190,20 @@ body {
         font-weight: bold;
         font-size: 20px;
         color: @themeTextColor;
+        span {
+            color: @themeInheritColor;
+            font-size: 16px;
+        }
+        a {
+            text-decoration: none;
+            float: right;
+            background-color: @themeColor;
+            width: 150px;
+            font-size: 14px;
+            color: @themeTextColor;
+            text-align: center;
+            border-radius: 10px;
+            padding: 5px;
+        }
     }
 }

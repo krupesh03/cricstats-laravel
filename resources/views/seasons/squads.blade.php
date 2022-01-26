@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="heading"> SQUADS </div>
+<hr />
 
 <div class="row main-div">
     <div class="team-squads">
@@ -13,14 +14,14 @@
             <a href="javascript:void(0)" class="single-team-info">
                 <div class="single-team-logo">
                     <img src="{{ $helper->setImage($squads['data']['image_path']) }}">
+                    <div class="single-team-name"> {{ $squads['data']['name'] }} </div>
                 </div>
-                <div class="single-team-name"> {{ $squads['data']['name'] }} </div>
             </a>
             <hr />
             <div class="row">
                 @foreach( $squads['data']['squad'] as $squad )
-                    <div class="col-md-3 squad-info">
-                        <a href="javascript:void(0)">
+                    <div class="col-md-2 squad-info">
+                        <a href="javascript:void(0)" class="squad-player-url" data-pid="{{ $squad['id'] }}">
                             <div class="squad-logo">
                                 <img src="{{ $helper->setImage($squad['image_path']) }}">
                             </div>

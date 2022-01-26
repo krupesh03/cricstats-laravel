@@ -35,10 +35,7 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a href="{{ url('/') }}" class="nav-link">Teams</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('/leagues') }}" class="nav-link">Leagues</a>
+                        <a href="{{ url('/teams') }}" class="nav-link">Teams</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">Squads</a>
@@ -55,8 +52,8 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Rankings</a>
                         <div class="dropdown-menu">
-                            <a href="{{ url('icc-rankings/men/teams') }}" class="dropdown-item">ICC Rankings - Men</a>
-                            <a href="{{ url('icc-rankings/women/teams') }}" class="dropdown-item">ICC Rankings - Women</a>
+                            <a href="{{ url('icc-rankings/men/teams') }}" class="dropdown-item">ICC Team Rankings - Men</a>
+                            <a href="{{ url('icc-rankings/women/teams') }}" class="dropdown-item">ICC Team Rankings - Women</a>
                         </div>
                     </li>
                 </ul>

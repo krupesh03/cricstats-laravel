@@ -110,7 +110,7 @@ body {
                         text-align: center;
                         img {
                             width: 150px;
-                            height: 100px;
+                            height: auto;
                         }
                     }
                 }
@@ -127,6 +127,52 @@ body {
                             }
                         }
                     }
+                }
+            }
+            .team-fixtures{
+                .fixtures-team-name {
+                    text-align: center;
+                    width: 70px;
+                    img {
+                        width: 70px;
+                        height: auto;
+                    }
+                   .fixtures-team-name {
+                       color: @themeInheritColor;
+                       font-size: 12px;
+                   }
+                }
+                .fixture-list {
+                    padding: 10px;
+                    .match-number {
+                        font-style: italic;
+                        font-size: 14px;
+                        span {
+                            font-size: 12px;
+                            color: @themeInheritColor;
+                        }
+                    }
+                    .opponent-team {
+                        img {
+                            width: 40px;
+                            height: auto;
+                        }
+                        span {
+                            font-size: 14px;
+                            color: @themeInheritColor;
+                        }
+                    }
+                    .match-result, .man-ofthe-match {
+                        font-size: 12px;
+                        span {
+                            font-style: italic;
+                            color: @themeInheritColor;
+                        }
+                    }
+                }
+                .home-away-fixtures {
+                    text-decoration: none;
+                    color: @themeTextColor;
                 }
             }
             .team-info {
@@ -160,7 +206,7 @@ body {
                 .team-name-ranking {
                     text-align: left;
                     width: 135px;
-                    height: 35px;
+                    height: 40px;
                     img {
                         width: 30px;
                         height: 30px;
@@ -204,6 +250,18 @@ body {
             text-align: center;
             border-radius: 10px;
             padding: 5px;
+            @media only screen and (max-width: 768px) {
+                /* For mobile phones: */
+                text-decoration: none;
+                float: right;
+                background-color: #9dd5f4;
+                width: 90px;
+                font-size: 8px;
+                color: #3988ff;
+                text-align: center;
+                border-radius: 8px;
+                padding: 4px;
+            }
         }
     }
 }

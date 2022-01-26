@@ -11,7 +11,7 @@
             @if( $season['success'] && !empty($season['data']['name'] ) )
                 <div class="squad-season-name"> Season: <span>{{ $season['data']['name'] }}</span> </div>
             @endif
-            <a href="javascript:void(0)" class="single-team-info">
+            <a href="javascript:void(0)" class="single-team-info" data-pid="{{ $squads['data']['id'] }}" data-id="{{ $season['data']['id']}}" data-current-url="{{ url('') }}">
                 <div class="single-team-logo">
                     <img src="{{ $helper->setImage($squads['data']['image_path']) }}">
                     <div class="single-team-name"> {{ $squads['data']['name'] }} </div>

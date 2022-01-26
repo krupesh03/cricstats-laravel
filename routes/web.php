@@ -25,7 +25,10 @@ Route::group(['prefix' => 'seasons'], function($route) {
 });
 
 Route::group(['prefix' => 'squads'], function($route) {
-    $route->get('/{id}/season/{seasonId}', [SquadController::class, 'index']);
+    $route->group(['prefix' => '/{id}/season/{seasonId}'], function($r) {
+        $r->get('/', [SquadController::class, 'index']);
+        $r->get('/{fixtureType}', [SquadController::class, 'getHomeFixtures']);
+    });
 });
 
 Route::group(['prefix' => 'teams'], function($route) {

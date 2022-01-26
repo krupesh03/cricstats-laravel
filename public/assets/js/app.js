@@ -41,4 +41,15 @@ $(document).ready( function() {
             document.location.href = currentUrl + '/squads/' + teamId + '/season/' + seasonId;
         }
     });
+
+    $(document).on('click', '.single-team-info', function() {
+
+        var $this = $(this);
+        var teamId = $this.data('pid');
+        var seasonId = $this.data('id');
+        var currentUrl = $this.data('current-url');
+        if( teamId && seasonId && currentUrl ) {
+            document.location.href = currentUrl + '/squads/' + teamId + '/season/' + seasonId + '/home';
+        }
+    });
 });

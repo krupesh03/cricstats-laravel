@@ -2,11 +2,12 @@
 
 return [
     'API_ENDPOINTS' => [
-        'TEAMS' => 'teams',
-        'TEAM_RANKINGS' => 'team-rankings',
         'LEAGUES' => 'leagues',
         'SEASONS' => 'seasons',
-        'SQUAD' => 'squad'
+        'TEAMS' => 'teams',
+        'SQUAD' => 'squad',
+        'SEASONS' => 'seasons',
+        'TEAM_RANKINGS' => 'team-rankings',
     ],
     'API_URL'       => 'https://cricket.sportmonks.com/api/v2.0/'
 ];

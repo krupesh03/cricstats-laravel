@@ -1,8 +1,9 @@
 //variable declaration
 @themeColor: #9dd5f4;
 @background: #E3E6E3;
-@themeTextColor: #4d4df2; 
+@themeTextColor: #3988ff; 
 @redColor: #d11a1a;
+@themeInheritColor: rgba(0,0,0,.55);
 
 body {
     font-family: helvetica,"Segoe UI",Arial,sans-serif;
@@ -28,93 +29,141 @@ body {
     }
     .main-content {
         background-color: #fff;
-        max-height: 100%;
+        min-height: 583px;
         padding: 25px;
-        .team-info {
-            text-align: center;
-            padding: 10px;
-            a{
-                text-decoration: none;
-                color: inherit;
-                .team-logo {
-                    img {
-                        width: 125px;
-                        height: 100px;
-                    }
-                }
-            }
-        }
-        .format-rankings {
-            text-align: center;
-            padding: 5px;
-            .team-format {
-                font-weight: 100;
-                width: 50%;
-                border-radius: 15px;
-                padding: 1px;
-                cursor: pointer;
-            }
-            .team-format:hover {
-                background: @themeColor;
-                color: @themeTextColor;
-            }
-            .team-name-ranking {
-                display: flex;
-                width: 135px;
-                justify-content: space-evenly;
-                height: 35px;
-                img {
-                    width: 32px;
-                    height: 32px;
-                }
-            }
-            .table {
-                margin-top: 20px;
-            }
-        }
-        .league-info {
-            text-align: center;
-            padding: 10px;
-            a{
-                text-decoration: none;
-                color: inherit;
-                .league-logo {
-                    img {
-                        width: 125px;
-                        height: 100px;
-                    }
-                }
-            }
-        }
-        .season-list {
-            padding: 5px;
-            a {
-                text-decoration: underline;
-                color: inherit;
-            }
-        }
-        .single-team-info {
-            text-align: left;
-            padding: 10px;
-            .single-team-logo {
+        .main-div {
+            padding-left: 10px;
+            padding-right: 10px;
+            .league-info {
+                text-align: center;
                 padding: 10px;
-                img {
-                    width: 150px;
-                    height: 100px;
+                .league-info-url{
+                    text-decoration: none;
+                    color: @themeInheritColor;
+                    .league-logo {
+                        padding: 5px;
+                        img {
+                            width: 125px;
+                            height: 100px;
+                        }
+                    }
                 }
             }
-        }
-        .squad-info {
-            text-align: center;
-            padding: 10px;
-            a {
-                text-decoration: none;
-                color: inherit;
-                .squad-logo {
-                    img {
-                        width: 125px;
-                        height: 100px;
+            .season-list {
+                padding: 5px;
+                a {
+                    text-decoration: underline;
+                    color: @themeInheritColor;
+                }
+            }
+            .season-teams {
+                .season-name {
+                    color: @themeTextColor;
+                    padding-bottom: 10px;
+                    span {
+                        color: @themeInheritColor;
                     }
+                }
+                .league-info-url{
+                    text-decoration: none;
+                    color: @themeInheritColor;
+                    .league-logo {
+                        padding: 5px;
+                        img {
+                            width: 125px;
+                            height: 100px;
+                        }
+                    }
+                }
+                .season-team-info {
+                    text-align: center;
+                    padding: 10px;
+                    .teams-list {
+                        text-decoration: none;
+                        color: @themeInheritColor;
+                        .team-logo {
+                            img {
+                                width: 125px;
+                                height: 100px;
+                            }
+                        }
+                    }
+                }
+            }
+            .team-squads{
+                .squad-season-name {
+                    color: @themeTextColor;
+                    padding-bottom: 10px;
+                    span {
+                        color: @themeInheritColor;
+                    }
+                }
+                .single-team-info {
+                    text-decoration: none;
+                    color: @themeInheritColor;
+                    .single-team-logo {
+                        padding: 10px;
+                        img {
+                            width: 150px;
+                            height: 100px;
+                        }
+                    }
+                }
+                .squad-info {
+                    text-align: center;
+                    padding: 10px;
+                    a {
+                        text-decoration: none;
+                        color: @themeInheritColor;
+                        .squad-logo {
+                            img {
+                                width: 125px;
+                                height: 100px;
+                            }
+                        }
+                    }
+                }
+            }
+            .team-info {
+                text-align: center;
+                padding: 10px;
+                a{
+                    text-decoration: none;
+                    color: @themeInheritColor;
+                    .team-logo {
+                        img {
+                            width: 125px;
+                            height: 100px;
+                        }
+                    }
+                }
+            }
+            .format-rankings {
+                text-align: center;
+                padding: 5px;
+                .team-format {
+                    font-weight: 100;
+                    width: 50%;
+                    border-radius: 15px;
+                    padding: 1px;
+                    cursor: pointer;
+                }
+                .team-format:hover {
+                    background: @themeColor;
+                    color: @themeTextColor;
+                }
+                .team-name-ranking {
+                    display: flex;
+                    width: 135px;
+                    justify-content: space-evenly;
+                    height: 35px;
+                    img {
+                        width: 32px;
+                        height: 32px;
+                    }
+                }
+                .table {
+                    margin-top: 20px;
                 }
             }
         }
@@ -134,7 +183,7 @@ body {
         color: @redColor;
     }
     .heading {
-        font-weight: 500;
+        font-weight: bold;
         font-size: 20px;
         color: @themeTextColor;
     }

@@ -2,17 +2,17 @@
 
 @section('content')
 
-<div class="heading"> Seasons </div> <div class="error-msg">(select season to view the squad of the selected team)</div>
+<div class="heading"> SEASONS </div>
 
-<div class="row">
-    @if( $apiData['success'] )
-        @foreach( $apiData['data'] as $t )
+<div class="row main-div">
+    @if( $seasons['success'] )
+        @foreach( $seasons['data'] as $season )
             <div class="col-md-3 season-list">
-                <a href="{{ url('/squads') }}/{{ $id }}/season/{{ $t['id'] }}"> {{ $t['name'] }} </a>
+                <a href="javascript:void(0)" class="season-name" data-pid="{{ $season['id'] }}" data-current-url="{{ url()->current() }}"> {{ $season['name'] }} </a>
             </div>
         @endforeach
     @else
-        <div class="error-msg"> {{ $apiData['data'] }} </div>
+        <div class="error-msg"> {{ $seasons['data'] }} </div>
     @endif
 </div>
 

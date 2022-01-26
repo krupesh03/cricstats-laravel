@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="row">
+<div class="row main-div">
     @if( $teams['success'] )
         @foreach( $teams['data'] as $team )
             @if( $team['national_team'] )

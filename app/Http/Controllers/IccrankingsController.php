@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\ApicallHelper;
+use App\Helpers\FunctionHelper;
 use Config;
 
 class IccrankingsController extends Controller
@@ -11,6 +12,7 @@ class IccrankingsController extends Controller
     public function __construct() {
 
         $this->apicallHelper = new ApicallHelper;
+        $this->functionHelper = new FunctionHelper;
     }
 
     public function getRankings( $slug, $type ) {
@@ -29,6 +31,8 @@ class IccrankingsController extends Controller
             array_splice($apiData['data'], 3);
         }
         
-        return view('rankings/iccrankings', compact('apiData'));
+        $helper = $this->functionHelper;
+
+        return view('rankings/iccrankings', compact('apiData', 'helper'));
     }
 }

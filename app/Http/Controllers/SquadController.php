@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\ApicallHelper;
+use App\Helpers\FunctionHelper;
 use Config;
 
 class SquadController extends Controller
@@ -11,31 +12,27 @@ class SquadController extends Controller
     public function __construct() {
 
         $this->apicallHelper = new ApicallHelper;
+        $this->functionHelper = new FunctionHelper;
     }
 
-    public function index( $id ) {
+    public function index( $id, $seasonId ) {
 
-        $apiEndpoint = Config::get('constants.API_ENDPOINTS.SEASONS');
+        $teamApiEndpoint = Config::get('constants.API_ENDPOINTS.TEAMS');
 
-        $queryStrs = [
-            'sort'   => 'name'
-        ];
+        $squadApiEndpoint = Config::get('constants.API_ENDPOINTS.SQUAD');
 
-        $apiData = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );
+        $seasonApiEndpoint = Config::get('constants.API_ENDPOINTS.SEASONS');
 
-        return view('seasons/seasons', compact('apiData', 'id'));
-    }
+        $apiEndpoint = $teamApiEndpoint . '/' . $id . '/' . $squadApiEndpoint . '/' .$seasonId; 
 
-    public function getSquads( $id, $seasonId ) {
-
-        $apiEndpointOne = Config::get('constants.API_ENDPOINTS.TEAMS');
-
-        $apiEndpointTwo = Config::get('constants.API_ENDPOINTS.SQUAD');
-
-        $apiEndpoint = $apiEndpointOne . '/' . $id . '/' . $apiEndpointTwo . '/' .$seasonId; 
+        $seasonApiEndpoint = $seasonApiEndpoint . '/' .$seasonId; 
 
         $squads = $this->apicallHelper->getDataFromAPI( $apiEndpoint );
 
-        return view('seasons/squads', compact('squads'));
+        $helper = $this->functionHelper;
+
+        $season = $this->apicallHelper->getDataFromAPI( $seasonApiEndpoint );
+
+        return view('seasons/squads', compact('squads', 'season', 'helper'));
     }
 }

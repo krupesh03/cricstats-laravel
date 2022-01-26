@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="row">
+<div class="row main-div">
     @if( $apiData['success'] )
         @foreach( $apiData['data'] as $a )
             <div class="col-md-3 format-rankings">
@@ -31,12 +31,7 @@
                                 <td>{{ $t['ranking']['position'] }}</td>
                                 <td>
                                     <div class="team-name-ranking">
-                                        @if( $t['image_path'] )
-                                            <p> <img src="{{ $t['image_path'] }}"> </p>
-                                        @else
-                                            <p> <img src="{{  url('assets/images/dummy/dummy.jpg') }}"> </p>
-                                        @endif
-                                        <p style="width: 100px;padding-left: 2px;"> {{ $t['name'] }} </p>
+                                        <p> <img src="{{ $helper->setImage($t['image_path']) }}"> </p>
                                     </div>
                                 </td>
                                 <td>{{ $t['ranking']['matches'] }}</td>

@@ -38,12 +38,18 @@
                                 <span> {{ isset($fixture['localteam']['name']) ? $fixture['localteam']['name'] : '' }} </span>
                             @endif
                         </div>
-                        <div class="match-result">
-                            Result: <span> {{ isset($fixture['note']) ? $fixture['note'] : '' }} </span>
-                        </div>
-                        <div class="man-ofthe-match">
-                            Man of the match: <span> {{ isset($fixture['manofmatch']['fullname']) ? $fixture['manofmatch']['fullname'] : 'NA' }} </span>
-                        </div>
+                        @if( strtotime($fixture['starting_at']) > time() )
+                            <div class="match-result">
+                                Note: <span> Upcoming match </span>
+                            </div>
+                        @else
+                            <div class="match-result">
+                                Result: <span> {{ isset($fixture['note']) ? $fixture['note'] : '' }} </span>
+                            </div>
+                            <div class="man-ofthe-match">
+                                Man of the match: <span> {{ isset($fixture['manofmatch']['fullname']) ? $fixture['manofmatch']['fullname'] : 'NA' }} </span>
+                            </div>
+                        @endif
                     </div>
                 @endforeach
             </div>

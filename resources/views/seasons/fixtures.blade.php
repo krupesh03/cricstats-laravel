@@ -27,7 +27,7 @@
                 @foreach( $fixtures['data'] as $fixture )
                     <div class="col-md-6 fixture-list">
                         <div class="match-number">
-                            {{ $fixture['round'] }}, <span> {{ date('d-m-Y H:i:s A', strtotime($fixture['starting_at'])) }}</span>, <span> {{ $fixture['venue']['name'] }} </span>, <span> {{ $fixture['venue']['city'] }} </span>
+                            {{ $fixture['round'] }}, <span> {{ date('d-m-Y H:i:s A', strtotime($fixture['starting_at'])) }}</span>, <span class="match-venue"> {{ $fixture['venue']['name'] }}, {{ $fixture['venue']['city'] }} </span>
                         </div>
                         <div class="opponent-team">
                             @if( isset($fixture['visitorteam']) )

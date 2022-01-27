@@ -52,4 +52,14 @@ $(document).ready( function() {
             document.location.href = currentUrl + '/squads/' + teamId + '/season/' + seasonId + '/home';
         }
     });
+
+    $(document).on('click', '.fixture-list-url', function() {
+
+        var $this = $(this);
+        var fixtureId = $this.data('pid');
+        var currentUrl = $this.data('current-url');
+        if( fixtureId && currentUrl ) {
+            document.location.href = currentUrl + '/fixture/' + fixtureId;
+        }
+    });
 });

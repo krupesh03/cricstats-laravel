@@ -172,11 +172,64 @@ body {
                             font-style: italic;
                             color: @themeInheritColor;
                         }
+                        a{
+                            font-weight: 200;
+                            text-decoration: none;
+                        }
                     }
                 }
                 .home-away-fixtures {
                     text-decoration: none;
                     color: @themeTextColor;
+                }
+            }
+            .fixture-scorecard{
+                .scorecard-label {
+                    font-weight: bold;
+                    font-size: 20px;
+                    color: @themeTextColor;
+                }
+                .scorecard-result {
+                    color: @themeInheritColor;
+                    span {
+                        font-size: 12px;
+                        font-style: italic;
+                        color: @themeInheritColor;
+                    }
+                }
+                .fixture-mom {
+                    padding: 5px;
+                    width: 150px;
+                    text-align: center;
+                    color: @themeInheritColor;
+                    img {
+                        width: 80px;
+                        height: auto;
+                    }
+                    .fixture-mom-name {
+                        padding-top: 5px;
+                        text-align: center;
+                        color: @themeInheritColor;
+                        font-size: 12px;
+                    }
+                }
+                .fixture-innings-one, .fixture-innings-two {
+                    background: @themeColor;
+                    color: @themeInheritColor;
+                    padding: 8px 10px;
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .table {
+                    tr:first-child {
+                        background-color: @background;
+                        font-size: 13px;
+                        color: @themeInheritColor;
+                    }
+                    tr {
+                        font-size: 12px;
+                        font-weight: 100;
+                    }
                 }
             }
             .team-info {
@@ -261,7 +314,7 @@ body {
                 background-color: #9dd5f4;
                 width: 90px;
                 font-size: 8px;
-                color: #3988ff;
+                color: @themeTextColor;
                 text-align: center;
                 border-radius: 8px;
                 padding: 4px;

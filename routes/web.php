@@ -6,6 +6,7 @@ use App\Http\Controllers\SeasonsController;
 use App\Http\Controllers\SquadController;
 use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\IccrankingsController;
+use App\Http\Controllers\FixtureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,6 @@ Route::group(['prefix' => 'icc-rankings'], function($route) {
     $route->get('/{slug}/{type}', [IccrankingsController::class, 'getRankings']);
 });
 
+Route::group(['prefix' => 'fixture'], function($route) {
+    $route->get('/{id}', [FixtureController::class, 'index']);
+});

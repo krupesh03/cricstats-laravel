@@ -4,8 +4,12 @@
 
 @if( $fixture['success'] )
     <div class="heading"> 
-        {{ $fixture['data']['localteam']['name'] }} vs {{ $fixture['data']['visitorteam']['name'] }}, {{ $fixture['data']['round'] }} 
-        <span>- {{ $fixture['data']['venue']['name'] }}, {{ $fixture['data']['venue']['city'] }}, {{ date('M d, Y H:i A', strtotime($fixture['data']['starting_at'])) }} </span>
+        {{ $fixture['data']['localteam']['name'] }} vs {{ $fixture['data']['visitorteam']['name'] }}, {{ $fixture['data']['round'] }}
+    </div>
+    <div class="subheading">
+        <span>Series : {{ $fixture['data']['stage']['name'] }}, {{ date('Y', strtotime($fixture['data']['starting_at'])) }}</span>
+        <span>Venue : {{ $fixture['data']['venue']['name'] }}, {{ $fixture['data']['venue']['city'] }}{{ isset($fixture['data']['venue']['country']['name']) ? ', ' . $fixture['data']['venue']['country']['name'] : '' }}</span>
+        <span>Date & Time : {{ date('M d, Y H:i A', strtotime($fixture['data']['starting_at'])) }}</span>
     </div>
     <hr />
 
@@ -14,7 +18,7 @@
             <div class="scorecard-label">
                 SCORECARD
                 <div class="scorecard-result">
-                    {{ $fixture['data']['note'] }} <span>({{ $fixture['data']['tosswon']['name'] }} won the toss)</span>
+                    ({{ $fixture['data']['note'] }})
                 </div>
             </div>
             <div class="fixture-awards">
@@ -40,7 +44,7 @@
                 <div class="team-name"> {{ $fixture['data']['runs'][0]['team']['name'] }} Innings </div>
                 <div class="team-score"> {{ $fixture['data']['runs'][0]['score'] }}-{{ $fixture['data']['runs'][0]['wickets'] }} ({{ $fixture['data']['runs'][0]['overs'] }} Ov) </div>
             </div>
-            <table class="table" width="100%">
+            <table class="table match-scorecard" width="100%">
                 <tr>
                     <th width="20%">Batter</th>
                     <th colspan="2"></th>
@@ -50,6 +54,7 @@
                     <th width="5%">6s</th>
                     <th width="5%">SR</th>
                 </tr>
+                @php $s1teamId = 0; @endphp
                 @foreach( $fixture['data']['batting'] as $score )
                     @if( strtolower($score['scoreboard']) == 's1' )
                         <tr>
@@ -90,10 +95,39 @@
                             <td width="5%">{{ $score['six_x'] }}</td>
                             <td width="5%">{{ $score['rate'] }}</td>
                         </tr>
+                        @php $s1teamId = $score['team_id']; @endphp
                     @endif
                 @endforeach
+                <tr>
+                    <td width="20%">Extras</td>
+                    <td colspan="7" align="right">hehhe</td>
+                </tr>
             </table>
-            <table class="table" width="100%">
+
+            @php
+                if( isset($fowArray[$s1teamId]) && !empty($fowArray[$s1teamId]) ) {
+                    ksort($fowArray[$s1teamId]); @endphp
+                    <table class="table match-scorecard" width="100%">
+                        <tr>
+                            <th>Fall of Wickets</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @php 
+                                    $wkt1 = 1;
+                                    foreach( $fowArray[$s1teamId] as $over1 => $score1 ) {
+                                        echo $score1['fow_score'] . '-' . $wkt1 . ' (' . $score1['player'] . ', ' . $over1 .'), ';
+                                        $wkt1++;
+                                    }
+                                @endphp
+                            </td>
+                        </tr>
+                    </table>
+            @php
+                }
+            @endphp
+
+            <table class="table match-scorecard" width="100%">
                 <tr>
                     <th width="65%">Bowler</th>
                     <th width="5%">O</th>
@@ -124,7 +158,7 @@
                 <div class="team-name"> {{ $fixture['data']['runs'][1]['team']['name'] }} Innings </div>
                 <div class="team-score"> {{ $fixture['data']['runs'][1]['score'] }}-{{ $fixture['data']['runs'][1]['wickets'] }} ({{ $fixture['data']['runs'][1]['overs'] }} Ov) </div>
             </div>
-            <table class="table" width="100%">
+            <table class="table match-scorecard" width="100%">
                 <tr>
                     <th width="20%">Batter</th>
                     <th colspan="2"></th>
@@ -134,6 +168,7 @@
                     <th width="5%">6s</th>
                     <th width="5%">SR</th>
                 </tr>
+                @php $s2teamId = 0; @endphp
                 @foreach( $fixture['data']['batting'] as $score )
                     @if( strtolower($score['scoreboard']) == 's2' )
                         <tr>
@@ -174,10 +209,35 @@
                             <td width="5%">{{ $score['six_x'] }}</td>
                             <td width="5%">{{ $score['rate'] }}</td>
                         </tr>
+                        @php $s2teamId = $score['team_id']; @endphp
                     @endif
                 @endforeach
             </table>
-            <table class="table" width="100%">
+
+            @php
+                if( isset($fowArray[$s2teamId]) && !empty($fowArray[$s2teamId]) ) {
+                    ksort($fowArray[$s2teamId]); @endphp
+                    <table class="table match-scorecard" width="100%">
+                        <tr>
+                            <th>Fall of Wickets</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @php 
+                                    $wkt2 = 1;
+                                    foreach( $fowArray[$s2teamId] as $over2 => $score2 ) {
+                                        echo $score2['fow_score'] . '-' . $wkt2 . ' (' . $score2['player'] . ', ' . $over2 .'), ';
+                                        $wkt2++;
+                                    }
+                                @endphp
+                            </td>
+                        </tr>
+                    </table>
+            @php
+                }
+            @endphp
+
+            <table class="table match-scorecard" width="100%">
                 <tr>
                     <th width="65%">Bowler</th>
                     <th width="5%">O</th>
@@ -202,6 +262,92 @@
                         </tr>
                     @endif
                 @endforeach
+            </table>
+
+            <div class="fixture-match-info"> 
+                <div class="match-info"> Match Info </div>
+            </div>
+            <table class="table match-info-table" width="100%">
+                <tr>
+                    <td width="20%">Match</td>
+                    <td width="80%">
+                        {{ $fixture['data']['localteam']['code'] }} vs {{ $fixture['data']['visitorteam']['code'] }}, {{ $fixture['data']['round'] }}, {{ $fixture['data']['stage']['name'] }}, {{ date('Y', strtotime($fixture['data']['starting_at'])) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">Date</td>
+                    <td width="80%">
+                        {{ date('l, F d, Y', strtotime($fixture['data']['starting_at'])) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">Toss</td>
+                    <td width="80%">
+                        {{ $fixture['data']['tosswon']['name'] }} won the toss and opt for {{ $fixture['data']['elected'] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">Time</td>
+                    <td width="80%">
+                        {{ date('H:i A (M d)', strtotime($fixture['data']['starting_at'])) }} 
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">Venue</td>
+                    <td width="80%">
+                        {{ $fixture['data']['venue']['name'] }}, {{ $fixture['data']['venue']['city'] }}{{ isset($fixture['data']['venue']['country']['name']) ? ', ' . $fixture['data']['venue']['country']['name'] : '' }} 
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">Umpires</td>
+                    <td width="80%">
+                        {{ $fixture['data']['firstumpire']['fullname'] }}, {{ $fixture['data']['secondumpire']['fullname'] }} 
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">Third Umpire</td>
+                    <td width="80%">
+                        {{ $fixture['data']['tvumpire']['fullname'] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">Match Referee</td>
+                    <td width="80%">
+                        {{ $fixture['data']['referee']['fullname'] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">Playing {{ $fixture['data']['localteam']['name'] }} Squad</td>
+                    <td width="80%">
+                        @foreach( $fixture['data']['lineup'] as $squad1 )
+                            @if( $squad1['lineup']['team_id'] == $fixture['data']['localteam_id'] )
+                                {{ $squad1['fullname'] }}
+                                @if( $squad1['lineup']['captain'] )
+                                    (c)
+                                @endif
+                                @if( $squad1['lineup']['wicketkeeper'] )
+                                    (wk)
+                                @endif,
+                            @endif
+                        @endforeach
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">Playing {{ $fixture['data']['visitorteam']['name'] }} Squad</td>
+                    <td width="80%">
+                        @foreach( $fixture['data']['lineup'] as $squad2 )
+                            @if( $squad2['lineup']['team_id'] == $fixture['data']['visitorteam_id'] )
+                                {{ $squad2['fullname'] }}
+                                @if( $squad2['lineup']['captain'] )
+                                    (c)
+                                @endif
+                                @if( $squad2['lineup']['wicketkeeper'] )
+                                    (wk)
+                                @endif,
+                            @endif
+                        @endforeach
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

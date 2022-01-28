@@ -191,11 +191,6 @@ body {
                     .scorecard-result {
                         color: @themeInheritColor;
                         font-size: 14px;
-                        span {
-                            font-size: 12px;
-                            font-style: italic;
-                            color: @themeInheritColor;
-                        }
                     }
                     @media only screen and (min-width: 768px) {
                         /* For desktop: */
@@ -224,19 +219,25 @@ body {
                         }
                     }
                 }
-                .fixture-innings-one, .fixture-innings-two {
+                .fixture-innings-one, .fixture-innings-two, .fixture-match-info {
                     background: @themeColor;
                     color: @themeInheritColor;
                     padding: 8px 10px;
                     display: flex;
                     justify-content: space-between;
                 }
-                .table {
+                .match-scorecard {
                     tr:first-child {
                         background-color: @background;
                         font-size: 13px;
                         color: @themeInheritColor;
                     }
+                    tr {
+                        font-size: 12px;
+                        font-weight: 100;
+                    }
+                }
+                .match-info-table {
                     tr {
                         font-size: 12px;
                         font-weight: 100;
@@ -330,6 +331,15 @@ body {
                 border-radius: 8px;
                 padding: 4px;
             }
+        }
+    }
+    .subheading {
+        font-size: 12px;
+        color: @themeInheritColor;
+        @media only screen and (min-width: 768px) {
+            /* For desktop: */
+            display: flex;
+            justify-content: space-between;
         }
     }
 }

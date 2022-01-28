@@ -38,9 +38,6 @@
                         <a href="{{ url('/teams') }}" class="nav-link">Teams</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Squads</a>
-                    </li>
-                    <li class="nav-item">
                         <a href="#" class="nav-link">Players</a>
                     </li>
                     <li class="nav-item">
@@ -48,6 +45,9 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">Venues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Fixtures</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Rankings</a>

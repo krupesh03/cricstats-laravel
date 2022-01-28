@@ -45,10 +45,6 @@ class FixtureController extends Controller
 
             }
         }
-        ksort($fowArray[43]);
-        echo "<pre>";
-        print_r($fixture);
-        echo "</pre>";
 
         $helper = $this->functionHelper;
 

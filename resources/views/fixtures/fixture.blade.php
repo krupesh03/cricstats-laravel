@@ -98,10 +98,21 @@
                         @php $s1teamId = $score['team_id']; @endphp
                     @endif
                 @endforeach
-                <tr>
-                    <td width="20%">Extras</td>
-                    <td colspan="7" align="right">hehhe</td>
-                </tr>
+                @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
+                    @if( $scoreTotal['team_id'] == $s1teamId )
+                        <tr>
+                            <td width="20%">{{ ucfirst($scoreTotal['type']) }}</td>
+                            <td colspan="7" align="right">
+                                @if( $scoreTotal['type'] == 'extra' ) 
+                                    <b>{{ (int)$scoreTotal['bye'] + (int)$scoreTotal['leg_bye'] + (int)$scoreTotal['wide'] + (int)$scoreTotal['noball_runs'] + (int)$scoreTotal['penalty'] }}</b> ({{ 'b ' . $scoreTotal['bye'] . ', lb ' . $scoreTotal['leg_bye'] . ', w ' . (int)$scoreTotal['wide'] .', nb ' . $scoreTotal['noball_runs'] .', p ' . $scoreTotal['penalty'] }})
+                                @endif
+                                @if( $scoreTotal['type'] == 'total' )
+                                    <b>{{ $scoreTotal['total'] }}</b> ({{ $scoreTotal['wickets'] . ' wkts, ' . $scoreTotal['overs'] . ' Ov' }})
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
             </table>
 
             @php
@@ -210,6 +221,21 @@
                             <td width="5%">{{ $score['rate'] }}</td>
                         </tr>
                         @php $s2teamId = $score['team_id']; @endphp
+                    @endif
+                @endforeach
+                @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
+                    @if( $scoreTotal['team_id'] == $s2teamId )
+                        <tr>
+                            <td width="20%">{{ ucfirst($scoreTotal['type']) }}</td>
+                            <td colspan="7" align="right">
+                                @if( $scoreTotal['type'] == 'extra' ) 
+                                    <b>{{ (int)$scoreTotal['bye'] + (int)$scoreTotal['leg_bye'] + (int)$scoreTotal['wide'] + (int)$scoreTotal['noball_runs'] + (int)$scoreTotal['penalty'] }}</b> ({{ 'b ' . $scoreTotal['bye'] . ', lb ' . $scoreTotal['leg_bye'] . ', w ' . (int)$scoreTotal['wide'] .', nb ' . $scoreTotal['noball_runs'] .', p ' . $scoreTotal['penalty'] }})
+                                @endif
+                                @if( $scoreTotal['type'] == 'total' )
+                                    <b>{{ $scoreTotal['total'] }}</b> ({{ $scoreTotal['wickets'] . ' wkts, ' . $scoreTotal['overs'] . ' Ov' }})
+                                @endif
+                            </td>
+                        </tr>
                     @endif
                 @endforeach
             </table>

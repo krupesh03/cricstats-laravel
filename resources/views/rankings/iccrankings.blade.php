@@ -18,34 +18,30 @@
                 }
                 @endphp
                 <div class="team-format {{ $typeStatus }}" id="{{ strtolower($a['type']) }}"> {{ $a['type'] }} </div> 
-                <table class="table" style='{{ $typeStyle }}'>
-                    <thead>
+                <table class="table table-icc-rankings" style='{{ $typeStyle }}'>
+                    <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Team</th>
+                        <th scope="col">Matches</th>
+                        <th scope="col">Points</th>
+                        <th scope="col">Rating</th>
+                    </tr>
+                    @foreach( $a['team'] as $t )
                         <tr>
-                            <th scope="col">Position</th>
-                            <th scope="col">Team</th>
-                            <th scope="col">Matches</th>
-                            <th scope="col">Points</th>
-                            <th scope="col">Rating</th>
+                            <td>{{ $t['ranking']['position'] }}</td>
+                            <td>
+                                <div class="team-name-ranking">
+                                    <p> 
+                                        <img src="{{ $helper->setImage($t['image_path']) }}">
+                                        {{ $t['name'] }} 
+                                    </p>
+                                </div>
+                            </td>
+                            <td>{{ $t['ranking']['matches'] }}</td>
+                            <td>{{ $t['ranking']['points'] }}</td>
+                            <td>{{ $t['ranking']['rating'] }}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach( $a['team'] as $t )
-                            <tr>
-                                <td>{{ $t['ranking']['position'] }}</td>
-                                <td>
-                                    <div class="team-name-ranking">
-                                        <p> 
-                                            <img src="{{ $helper->setImage($t['image_path']) }}">
-                                            {{ $t['name'] }} 
-                                        </p>
-                                    </div>
-                                </td>
-                                <td>{{ $t['ranking']['matches'] }}</td>
-                                <td>{{ $t['ranking']['points'] }}</td>
-                                <td>{{ $t['ranking']['rating'] }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    @endforeach
                 </table>
             </div>
         @endforeach

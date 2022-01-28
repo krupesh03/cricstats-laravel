@@ -65,7 +65,7 @@ body {
                         color: @themeInheritColor;
                     }
                 }
-                .league-info-url{
+                .league-info-url-team{
                     text-decoration: none;
                     color: @themeInheritColor;
                     .league-logo {
@@ -262,11 +262,12 @@ body {
                 text-align: center;
                 padding: 5px;
                 .team-format {
-                    font-weight: 100;
+                    font-weight: bold;
                     width: 50%;
                     border-radius: 15px;
-                    padding: 1px;
+                    padding: 5px;
                     cursor: pointer;
+                    font-size: 12px;
                 }
                 .team-format:hover {
                     background: @themeColor;
@@ -281,8 +282,17 @@ body {
                         height: 30px;
                     }
                 }
-                .table {
+                .table-icc-rankings {
                     margin-top: 20px;
+                    tr:first-child {
+                        background-color: @background;
+                        font-size: 13px;
+                        color: @themeInheritColor;
+                    }
+                    tr {
+                        font-size: 12px;
+                        font-weight: 100;
+                    }
                 }
             }
         }

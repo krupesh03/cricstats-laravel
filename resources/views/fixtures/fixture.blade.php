@@ -53,7 +53,15 @@
                 @foreach( $fixture['data']['batting'] as $score )
                     @if( strtolower($score['scoreboard']) == 's1' )
                         <tr>
-                            <td width="20%">{{ $score['batsman']['fullname'] }}</td>
+                            <td width="20%">
+                                {{ $score['batsman']['fullname'] }} 
+                                @if( isset($lineupArray[$score['batsman']['id']]['captain']) && $lineupArray[$score['batsman']['id']]['captain'] )
+                                    (c)
+                                @endif
+                                @if( isset($lineupArray[$score['batsman']['id']]['wicketkeeper']) && $lineupArray[$score['batsman']['id']]['wicketkeeper'] )
+                                    (wk)
+                                @endif
+                            </td>
                             <td>
                                 @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
                                     c {{ $score['catchstump']['fullname'] }}
@@ -129,7 +137,15 @@
                 @foreach( $fixture['data']['batting'] as $score )
                     @if( strtolower($score['scoreboard']) == 's2' )
                         <tr>
-                            <td width="20%">{{ $score['batsman']['fullname'] }}</td>
+                            <td width="20%">
+                                {{ $score['batsman']['fullname'] }} 
+                                @if( isset($lineupArray[$score['batsman']['id']]['captain']) && $lineupArray[$score['batsman']['id']]['captain'] )
+                                    (c)
+                                @endif
+                                @if( isset($lineupArray[$score['batsman']['id']]['wicketkeeper']) && $lineupArray[$score['batsman']['id']]['wicketkeeper'] )
+                                    (wk)
+                                @endif
+                            </td>
                             <td>
                                 @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
                                     c {{ $score['catchstump']['fullname'] }}

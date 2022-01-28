@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Helpers\ApicallHelper;
 use App\Helpers\FunctionHelper;
 use Config;
+use Session;
 
 class SeasonsController extends Controller
 {
@@ -25,8 +26,14 @@ class SeasonsController extends Controller
         ];
 
         $seasons = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );
-        
-        return view('seasons/seasons', compact('seasons'));
+
+        if( $seasons['success'] ){
+
+            Session::put('seasons', $seasons);
+            
+            return view('seasons/seasons', compact('seasons'));
+        }
+        return abort(404);
     }
 
     public function getTeams( $leagueid, $seasonid ) {

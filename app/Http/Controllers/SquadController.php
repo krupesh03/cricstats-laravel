@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Helpers\ApicallHelper;
 use App\Helpers\FunctionHelper;
 use Config;
+use Session;
 
 class SquadController extends Controller
 {
@@ -31,7 +32,23 @@ class SquadController extends Controller
 
         $helper = $this->functionHelper;
 
-        $season = $this->apicallHelper->getDataFromAPI( $seasonApiEndpoint );
+        $seasonsData = Session::get('seasons');
+        
+        $seasons = $season = [];
+        if( isset($seasonsData['data']) && is_array($seasonsData['data']) ) {
+            foreach( $seasonsData['data'] as $s ) {
+                $seasons[$s['id']] = $s['name'];
+            }
+        }
+        
+        $season['success'] = false;
+        if( count($seasons) && isset($seasons[$seasonId]) ) {
+            $season['success'] = true;
+            $season['data']['id'] = $seasonId;
+            $season['data']['name'] = $seasons[$seasonId];
+        } else {
+            $season = $this->apicallHelper->getDataFromAPI( $seasonApiEndpoint );
+        }
 
         return view('seasons/squads', compact('squads', 'season', 'helper'));
     }

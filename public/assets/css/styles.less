@@ -188,29 +188,40 @@ body {
                     font-weight: bold;
                     font-size: 20px;
                     color: @themeTextColor;
-                }
-                .scorecard-result {
-                    color: @themeInheritColor;
-                    span {
-                        font-size: 12px;
-                        font-style: italic;
+                    .scorecard-result {
                         color: @themeInheritColor;
+                        font-size: 14px;
+                        span {
+                            font-size: 12px;
+                            font-style: italic;
+                            color: @themeInheritColor;
+                        }
+                    }
+                    @media only screen and (min-width: 768px) {
+                        /* For desktop: */
+                        display: flex;
+                        .scorecard-result {
+                            padding: 5px;
+                        }
                     }
                 }
-                .fixture-mom {
-                    padding: 5px;
-                    width: 150px;
-                    text-align: center;
-                    color: @themeInheritColor;
-                    img {
-                        width: 80px;
-                        height: auto;
-                    }
-                    .fixture-mom-name {
-                        padding-top: 5px;
+                .fixture-awards{
+                    display: flex;
+                    .fixture-mom, .fixture-pos {
+                        padding: 5px;
+                        width: 150px;
                         text-align: center;
                         color: @themeInheritColor;
-                        font-size: 12px;
+                        img {
+                            width: 80px;
+                            height: auto;
+                        }
+                        .fixture-mom-name, .fixture-pos-name {
+                            padding-top: 5px;
+                            text-align: center;
+                            color: @themeInheritColor;
+                            font-size: 12px;
+                        }
                     }
                 }
                 .fixture-innings-one, .fixture-innings-two {

@@ -11,12 +11,29 @@
 
     <div class="row main-div">
         <div class="fixture-scorecard">
-            <div class="scorecard-label">SCORECARD</div>
-            <div class="scorecard-result">{{ $fixture['data']['note'] }} <span>({{ $fixture['data']['tosswon']['name'] }} won the toss)</span></div>
-            <div class="fixture-mom">
-                Man of the match:
-                <img src="{{ $helper->setImage($fixture['data']['manofmatch']['image_path']) }}">
-                <div class="fixture-mom-name"> {{ $fixture['data']['manofmatch']['fullname'] }} </div>
+            <div class="scorecard-label">
+                SCORECARD
+                <div class="scorecard-result">
+                    {{ $fixture['data']['note'] }} <span>({{ $fixture['data']['tosswon']['name'] }} won the toss)</span>
+                </div>
+            </div>
+            <div class="fixture-awards">
+                <div class="fixture-mom">
+                    Player of the match
+                    <img src="{{ $helper->setImage($fixture['data']['manofmatch']['image_path']) }}">
+                    <div class="fixture-mom-name"> 
+                        {{ $fixture['data']['manofmatch']['fullname'] }} ({{ $fixture['data']['manofmatch']['position']['name'] }}) 
+                    </div>
+                </div>
+                @if( isset($fixture['data']['manofseries']['fullname']) )
+                    <div class="fixture-pos">
+                        Player of the series
+                        <img src="{{ $helper->setImage($fixture['data']['manofseries']['image_path']) }}">
+                        <div class="fixture-pos-name"> 
+                            {{ $fixture['data']['manofseries']['fullname'] }} ({{ $fixture['data']['manofseries']['position']['name'] }})
+                        </div>
+                    </div>
+                @endif
             </div>
             <hr />
             <div class="fixture-innings-one"> 

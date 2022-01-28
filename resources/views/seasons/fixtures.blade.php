@@ -3,8 +3,8 @@
 @section('content')
 
 <div class="heading"> {{ strtoupper($fixtureType) }} FIXTURES 
-    @if( $season['success'] && !empty($season['data']['name'] ) )
-        <span> ({{ $season['data']['name'] }}) </span>
+    @if( $fixtures['success'] && isset($fixtures['data'][0]['season']['name']) )
+        <span> ({{ $fixtures['data'][0]['season']['name'] }}) </span>
     @endif
 </div>
 <hr />
@@ -12,10 +12,16 @@
 <div class="row main-div">
     <div class="team-fixtures">
         @if( $fixtures['success'] )
-            @if( $teams['success'] && !empty($teams['data']['name'] ) )
+            @if( isset($fixtures['data'][0]['localteam']['name']) && $fixtureType == 'home' )
                 <div class="fixtures-team-name">
-                    <img src="{{ $helper->setImage($teams['data']['image_path']) }}">
-                    <div class="fixtures-team-name"> {{ $teams['data']['name'] }} </div>
+                    <img src="{{ $helper->setImage($fixtures['data'][0]['localteam']['image_path']) }}">
+                    <div class="fixtures-team-name"> {{ $fixtures['data'][0]['localteam']['name'] }} </div>
+                </div>
+            @endif
+            @if( isset($fixtures['data'][0]['visitorteam']['name']) && $fixtureType == 'away' )
+                <div class="fixtures-team-name">
+                    <img src="{{ $helper->setImage($fixtures['data'][0]['visitorteam']['image_path']) }}">
+                    <div class="fixtures-team-name"> {{ $fixtures['data'][0]['visitorteam']['name'] }} </div>
                 </div>
             @endif
             <hr />
@@ -30,10 +36,10 @@
                             {{ $fixture['round'] }}, <span> {{ date('d-m-Y H:i:s A', strtotime($fixture['starting_at'])) }}</span>, <span class="match-venue"> {{ $fixture['venue']['name'] }}, {{ $fixture['venue']['city'] }} </span>
                         </div>
                         <div class="opponent-team">
-                            @if( isset($fixture['visitorteam']) )
+                            @if( isset($fixture['visitorteam']['name']) && $fixtureType == 'home' )
                                 Vs <img src="{{ $helper->setImage( $fixture['visitorteam']['image_path']) }}"> 
                                 <span> {{ isset($fixture['visitorteam']['name']) ? $fixture['visitorteam']['name'] : '' }} </span>
-                            @elseif( isset($fixture['localteam']) )
+                            @elseif( isset($fixture['localteam']['name']) && $fixtureType == 'away' )
                                 Vs <img src="{{ $helper->setImage( $fixture['localteam']['image_path']) }}"> 
                                 <span> {{ isset($fixture['localteam']['name']) ? $fixture['localteam']['name'] : '' }} </span>
                             @endif

@@ -46,28 +46,16 @@ class SquadController extends Controller
 
         if( $fixtureType == 'home' ) {
             $queryStrs['filter[localteam_id]'] = $id;
-            $queryStrs['include'] = 'visitorteam,venue,manofmatch';
+            $queryStrs['include'] = 'visitorteam,venue,manofmatch,season,localteam';
         } elseif( $fixtureType == 'away' ) {
             $queryStrs['filter[visitorteam_id]'] = $id;
-            $queryStrs['include'] = 'localteam,venue,manofmatch';
+            $queryStrs['include'] = 'localteam,venue,manofmatch,season,visitorteam';
         }
 
         $fixtures = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );
 
-        $seasonApiEndpoint = Config::get('constants.API_ENDPOINTS.SEASONS');
-
-        $seasonApiEndpoint = $seasonApiEndpoint . '/' .$seasonId; 
-
-        $season = $this->apicallHelper->getDataFromAPI( $seasonApiEndpoint );
-
-        $teamApiEndpoint = Config::get('constants.API_ENDPOINTS.TEAMS');
-
-        $teamApiEndpoint = $teamApiEndpoint . '/' .$id; 
-
-        $teams = $this->apicallHelper->getDataFromAPI( $teamApiEndpoint );
-
         $helper = $this->functionHelper;
 
-        return view('seasons/fixtures', compact('fixtures', 'season', 'teams', 'fixtureType', 'helper'));
+        return view('seasons/fixtures', compact('fixtures', 'fixtureType', 'helper'));
     }
 }

@@ -48,6 +48,11 @@ class FixtureController extends Controller
 
         $helper = $this->functionHelper;
 
-        return view('fixtures/fixture', compact('fixture', 'lineupArray', 'fowArray', 'helper'));
+        return view('fixtures/scorecard', compact('fixture', 'lineupArray', 'fowArray', 'helper'));
+    }
+
+    public function listing() {
+
+        return view('fixtures/listing');
     }
 }

@@ -47,7 +47,7 @@
                         <a href="#" class="nav-link">Venues</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Fixtures</a>
+                        <a href="{{ url('/fixture') }}" class="nav-link">Fixtures</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Rankings</a>

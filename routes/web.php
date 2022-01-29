@@ -42,4 +42,5 @@ Route::group(['prefix' => 'icc-rankings'], function($route) {
 
 Route::group(['prefix' => 'fixture'], function($route) {
     $route->get('/{id}', [FixtureController::class, 'index']);
+    $route->get('/', [FixtureController::class, 'listing']);
 });

@@ -62,7 +62,12 @@
                     </div>
                 @endforeach
             </div>
+        @else
+            <div class="error-msg"> {{ $fixtures['data'] }} </div>
         @endif
+
+        @include('pagination.pagination')
+
     </div>
 </div>
 

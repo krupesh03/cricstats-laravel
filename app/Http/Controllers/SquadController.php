@@ -53,13 +53,17 @@ class SquadController extends Controller
         return view('seasons/squads', compact('squads', 'season', 'helper'));
     }
 
-    public function getHomeFixtures( $id, $seasonId, $fixtureType ) {
+    public function getHomeFixtures( $id, $seasonId, $fixtureType, Request $request ) {
 
         $apiEndpoint = Config::get('constants.API_ENDPOINTS.FIXTURES');
 
         $queryStrs = [
             'filter[season_id]' => $seasonId,     
         ];
+
+        if( $request->query('page') ) {
+            $queryStrs['page'] = $request->query('page');
+        }
 
         if( $fixtureType == 'home' ) {
             $queryStrs['filter[localteam_id]'] = $id;
@@ -71,8 +75,13 @@ class SquadController extends Controller
 
         $fixtures = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );
 
+        $pagination = [];
+        if( $fixtures['success'] ) {
+            $pagination = $fixtures['meta'];
+        }
+
         $helper = $this->functionHelper;
 
-        return view('seasons/fixtures', compact('fixtures', 'fixtureType', 'helper'));
+        return view('seasons/fixtures', compact('fixtures', 'pagination', 'fixtureType', 'helper'));
     }
 }

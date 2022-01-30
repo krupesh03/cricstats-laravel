@@ -25,4 +25,19 @@ class LeaguesController extends Controller
         
         return view('leagues', compact('leagues', 'helper'));
     }
+
+    public function getStandings( $leagueid, $seasonid ) {
+
+        $apiEndpoint = Config::get('constants.API_ENDPOINTS.STANDINGS') . '/' . Config::get('constants.API_ENDPOINTS.SEASON') . '/' . $seasonid;
+
+        $queryStrs = [
+            'include'   => 'league,season,team'
+        ];
+
+        $standings = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );
+
+        $helper = $this->functionHelper;
+
+        return view('teams/standings', compact('standings', 'helper'));
+    }
 }

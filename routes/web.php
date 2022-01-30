@@ -23,6 +23,7 @@ Route::get('/', [LeaguesController::class, 'index']);
 Route::group(['prefix' => 'seasons'], function($route) {
     $route->get('/{leagueid}', [SeasonsController::class, 'index']);
     $route->get('/{leagueid}/teams/{seasonid}', [SeasonsController::class, 'getTeams']);
+    $route->get('/{leagueid}/teams/{seasonid}/standings', [LeaguesController::class, 'getStandings']);
 });
 
 Route::group(['prefix' => 'squads'], function($route) {

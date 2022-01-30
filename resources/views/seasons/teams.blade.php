@@ -24,6 +24,7 @@
                 </a>
             @endif
             <hr />
+            <a href="{{ url()->current() }}/standings" class="league-standings"> Standings <span>(Note: subject to applicability)</span> </a>
             <div class="row">
                 @foreach( $seasonTeams['data']['teams'] as $team )
                     <div class="col-md-3 season-team-info">

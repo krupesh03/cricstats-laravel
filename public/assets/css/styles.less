@@ -92,6 +92,13 @@ body {
                         }
                     }
                 }
+                .league-standings {
+                    text-decoration: none;
+                    color: @themeTextColor;
+                    span {
+                        color: @redColor;
+                    }
+                }
             }
             .team-squads{
                 .squad-season-name {
@@ -271,7 +278,7 @@ body {
                 }
                 .team-format:hover {
                     background: @themeColor;
-                    color: @themeTextColor;
+                    color: @themeInheritColor;
                 }
             }
             .format-rankings {
@@ -287,7 +294,7 @@ body {
                 .table-icc-rankings {
                     margin-top: 20px;
                     tr:first-child {
-                        background-color: @background;
+                        background-color: @themeColor;
                         font-size: 13px;
                         color: @themeInheritColor;
                     }
@@ -342,6 +349,61 @@ body {
                     }
                 }
             }
+            .league-standings-table {
+                .season-name {
+                    color: @themeTextColor;
+                    padding-bottom: 10px;
+                    span {
+                        color: @themeInheritColor;
+                    }
+                }
+                .league-logo {
+                    padding: 5px;
+                    text-align: center;
+                    padding: 5px;
+                    color: @themeInheritColor;
+                    width: 150px;
+                    img {
+                        width: 125px;
+                        height: 100px;
+                    }
+                }
+                .team-name-ranking {
+                    text-align: left;
+                    height: 35px;
+                    width: 170px;
+                    img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+                .table-league-rankings {
+                    margin-top: 20px;
+                    tr:first-child {
+                        background-color: @themeColor;
+                        font-size: 13px;
+                        color: @themeInheritColor;
+                    }
+                    tr {
+                        font-size: 12px;
+                        font-weight: 100;
+                        td {
+                            span {
+                                background-color: @background;
+                                padding: 5px 10px;
+                                border-radius: 10px;
+                                font-size: 10px;
+                                &.W-style {
+                                    background-color: #31ce31;
+                                }
+                                &.L-style {
+                                    background-color: #e45b5b;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             .pagination {
                 float: right;
                 a {
@@ -371,7 +433,7 @@ body {
     }
     .color-switch-active {
         background: @themeColor;
-        color: @themeTextColor;
+        color: @themeInheritColor;
     }
     .color-switch-inactive {
         background: @background;
@@ -393,7 +455,7 @@ body {
             background-color: @themeColor;
             width: 150px;
             font-size: 14px;
-            color: @themeTextColor;
+            color: @themeInheritColor;
             text-align: center;
             border-radius: 10px;
             padding: 5px;
@@ -404,7 +466,7 @@ body {
                 background-color: @themeColor;
                 width: 90px;
                 font-size: 8px;
-                color: @themeTextColor;
+                color: @themeInheritColor;
                 text-align: center;
                 border-radius: 8px;
                 padding: 4px;

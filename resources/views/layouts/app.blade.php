@@ -50,6 +50,12 @@
                         <a href="{{ url('/fixture') }}" class="nav-link">Recent Schedule/Results</a>
                     </li>
                     <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Live Scores</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item"><span class="error-msg">(Coming Soon)</span></a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Rankings</a>
                         <div class="dropdown-menu">
                             <a href="{{ url('icc-rankings/men/teams') }}" class="dropdown-item">ICC Team Rankings - Men</a>

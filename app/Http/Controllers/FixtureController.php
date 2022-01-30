@@ -55,4 +55,29 @@ class FixtureController extends Controller
 
         return view('fixtures/listing');
     }
+
+    public function seasonLeagueFixtures( $seasonId, $leagueId ) {
+
+        $fixturesApiEndpoint = Config::get('constants.API_ENDPOINTS.SEASONS');
+
+        $fixturesApiEndpoint = $fixturesApiEndpoint . '/' . $seasonId;
+
+        $fixturesQueryStr = [
+            'filter[league_id]' => $leagueId,
+            'include'           => 'league,stages,fixtures.visitorteam,fixtures.localteam'
+        ];
+
+        $fixture = $this->apicallHelper->getDataFromAPI( $fixturesApiEndpoint, $fixturesQueryStr );
+
+        $stageArray = [];
+        if( $fixture['success'] ) {
+            foreach( $fixture['data']['stages'] as $stage ) {
+                $stageArray[$stage['id']] = $stage['name'];
+            }
+        }
+
+        $helper = $this->functionHelper;
+
+        return view('fixtures/seasonleaguefixtures', compact('fixture', 'stageArray', 'helper'));
+    }
 }

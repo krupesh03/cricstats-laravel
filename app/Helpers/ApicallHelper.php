@@ -49,7 +49,7 @@ class ApicallHelper
         curl_close( $curl );
         if ( $err ) {
             return [
-                'data'      => "cURL Error #:" . $err,
+                'data'      => str_replace('cricket.sportmonks.com', 'Possibly network error.', $err),
                 'success'   => false
             ];
         }

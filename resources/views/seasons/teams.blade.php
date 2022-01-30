@@ -12,7 +12,7 @@
                 <div class="season-name"> Season: <span>{{ $seasonTeams['data']['name'] }}</span> </div>
             @endif
             @if( !empty( $seasonTeams['data']['league'] ) ) 
-                <a href="javascript:void(0)" class="league-info-url-fixture" data-pid="{{ $seasonTeams['data']['league']['id'] }}">
+                <a href="javascript:void(0)" class="league-info-url-fixture" data-pid="{{ $seasonTeams['data']['league']['id'] }}" data-id="{{ $seasonTeams['data']['id'] }}">
                     <div class="league-logo">
                         <img src="{{ $helper->setImage($seasonTeams['data']['league']['image_path']) }}">
                         <div class="league-name"> {{ $seasonTeams['data']['league']['name'] }} 

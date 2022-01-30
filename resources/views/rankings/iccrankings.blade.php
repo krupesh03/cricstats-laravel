@@ -7,34 +7,42 @@
 
 <div class="row main-div">
     @if( $apiData['success'] )
-        @foreach( $apiData['data'] as $a )
-            <div class="col-md-3 format-rankings">
+        <div class="row format-types">
+            @foreach( $apiData['data'] as $a )
+                <div class="col-md-3">
                 @php 
-                $typeStyle = '';
                 $typeStatus = 'color-switch-active';
                 if( $a['type'] != 'TEST' ) {
-                    $typeStyle = 'display:none';
                     $typeStatus = 'color-switch-inactive';
                 }
                 @endphp
-                <div class="team-format {{ $typeStatus }}" id="{{ strtolower($a['type']) }}"> {{ $a['type'] }} </div> 
-                <table class="table table-icc-rankings" style='{{ $typeStyle }}'>
+                <div class="team-format {{ $typeStatus }}" id="{{ strtolower($a['type']) }}"> {{ $a['type'] }} </div>
+                </div>
+            @endforeach
+        </div>
+        @foreach( $apiData['data'] as $a )
+            <div class="format-rankings">
+                @php 
+                $typeStyle = '';
+                if( $a['type'] != 'TEST' ) {
+                    $typeStyle = 'display:none';
+                }
+                @endphp
+                <table class="table table-icc-rankings" id="{{ strtolower($a['type']) }}" style='{{ $typeStyle }}' width="100%">
                     <tr>
-                        <th scope="col">Position</th>
-                        <th scope="col">Team</th>
-                        <th scope="col">Matches</th>
-                        <th scope="col">Points</th>
-                        <th scope="col">Rating</th>
+                        <th width="15%">Position</th>
+                        <th width="40%">Team</th>
+                        <th width="15%">Matches</th>
+                        <th width="15%">Points</th>
+                        <th width="15%">Rating</th>
                     </tr>
                     @foreach( $a['team'] as $t )
                         <tr>
                             <td>{{ $t['ranking']['position'] }}</td>
                             <td>
                                 <div class="team-name-ranking">
-                                    <p> 
-                                        <img src="{{ $helper->setImage($t['image_path']) }}">
-                                        {{ $t['name'] }} 
-                                    </p>
+                                    <img src="{{ $helper->setImage($t['image_path']) }}">
+                                    {{ $t['name'] }} 
                                 </div>
                             </td>
                             <td>{{ $t['ranking']['matches'] }}</td>

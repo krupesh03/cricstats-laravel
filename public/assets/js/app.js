@@ -7,9 +7,10 @@ $(document).ready( function() {
             $('.team-format').not($this).removeClass('color-switch-active');
             $('.team-format').not($this).addClass('color-switch-inactive');
         }
+        var id = $this.attr('id');
         $this.addClass('color-switch-active').removeClass('color-switch-inactive');
         $('.format-rankings').find('.table').hide();
-        $this.parent('.format-rankings').find('.table').show();
+        $('.format-rankings').find('#'+id).show();
     });
 
     $(document).on('click', '.league-info-url', function() {
@@ -60,6 +61,16 @@ $(document).ready( function() {
         var currentUrl = $this.data('current-url');
         if( fixtureId && currentUrl ) {
             document.location.href = currentUrl + '/fixture/' + fixtureId;
+        }
+    });
+
+    $(document).on('click', '.league-info-url-fixture', function() {
+
+        var $this = $(this);
+        var leagueId = $this.data('pid');
+        var seasonId = $this.data('id');
+        if( leagueId && seasonId ) {
+            document.location.href = '/fixture/' + seasonId + '/season/' + leagueId;
         }
     });
 });

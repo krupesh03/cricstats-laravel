@@ -51,9 +51,67 @@ class FixtureController extends Controller
         return view('fixtures/scorecard', compact('fixture', 'lineupArray', 'fowArray', 'helper'));
     }
 
-    public function listing() {
+    public function listing( Request $request ) {
 
-        return view('fixtures/listing');
+        $leaguesApiEndpoint = Config::get('constants.API_ENDPOINTS.LEAGUES');
+
+        $leaguesQueryStr = [
+            'include'           => 'season'
+        ];
+
+        $leagues = $this->apicallHelper->getDataFromAPI( $leaguesApiEndpoint, $leaguesQueryStr );
+
+        $seasonsArray = [];
+        if( $leagues['success'] ) {
+            foreach( $leagues['data'] as $league ) {
+                $seasonsArray[$league['id']] = $league['season']['id'];
+            }
+        }
+
+        if( count($seasonsArray) ) {
+            $fixturesApiEndpoint = Config::get('constants.API_ENDPOINTS.FIXTURES');
+
+            $fixturesQueryStr = [
+                'include'           => 'localteam,visitorteam,venue,season,stage,league,manofmatch',
+                'filter[season_id]' => (string)implode(',', $seasonsArray),
+                'sort'              => 'season_id'
+            ];
+
+            if( $request->query('page') ) {
+                $fixturesQueryStr['page'] = $request->query('page');
+            }
+
+            $fixtures = $this->apicallHelper->getDataFromAPI( $fixturesApiEndpoint, $fixturesQueryStr );
+
+            $pagination = $allFixtures = [];
+            if( $fixtures['success'] ) {
+                $pagination = $fixtures['meta'];
+                $i=0;
+                foreach( $fixtures['data'] as $fixture ) {
+                    $allFixtures[$fixture['stage']['id']]['stage_name'] = $fixture['stage']['name'];
+                    $allFixtures[$fixture['stage']['id']]['league_name'] = $fixture['league']['name'];
+                    $allFixtures[$fixture['stage']['id']]['season_name'] = $fixture['season']['name'];
+                    $allFixtures[$fixture['stage']['id']]['fixtures'][$i]['localteam'] = $fixture['localteam'];
+                    $allFixtures[$fixture['stage']['id']]['fixtures'][$i]['visitorteam'] = $fixture['visitorteam'];
+                    $allFixtures[$fixture['stage']['id']]['fixtures'][$i]['venue'] = $fixture['venue'];
+                    $allFixtures[$fixture['stage']['id']]['fixtures'][$i]['manofmatch'] = $fixture['manofmatch'];
+                    $matchFacts = [
+                        'id'            => $fixture['id'],
+                        'round'         => $fixture['round'],
+                        'starting_at'   => $fixture['starting_at'],
+                        'note'          => $fixture['note'],
+                        'draw_noresult' => $fixture['draw_noresult']
+                    ];
+                    $allFixtures[$fixture['stage']['id']]['fixtures'][$i]['facts'] = $matchFacts;
+                    $i++;
+                }
+            }
+
+            $helper = $this->functionHelper;
+
+            return view('fixtures/listing', compact('allFixtures', 'pagination', 'helper'));
+        }
+        return abort(404);
     }
 
     public function seasonLeagueFixtures( $seasonId, $leagueId ) {

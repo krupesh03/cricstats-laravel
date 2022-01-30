@@ -24,9 +24,9 @@
             <div class="fixture-awards">
                 <div class="fixture-mom">
                     Player of the match
-                    <img src="{{ $helper->setImage($fixture['data']['manofmatch']['image_path']) }}">
+                    <img src="{{ isset($fixture['data']['manofmatch']['image_path']) ? $helper->setImage($fixture['data']['manofmatch']['image_path']) : '' }}">
                     <div class="fixture-mom-name"> 
-                        {{ $fixture['data']['manofmatch']['fullname'] }} ({{ $fixture['data']['manofmatch']['position']['name'] }}) 
+                        {{ isset($fixture['data']['manofmatch']['fullname']) ? $fixture['data']['manofmatch']['fullname'] : '' }} {{ isset($fixture['data']['manofmatch']['position']['name']) ? '('.$fixture['data']['manofmatch']['position']['name'].')' : '' }} 
                     </div>
                 </div>
                 @if( isset($fixture['data']['manofseries']['fullname']) )

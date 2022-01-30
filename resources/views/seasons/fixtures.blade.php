@@ -54,7 +54,7 @@
                             </div>
                             <div class="man-ofthe-match">
                                 Man of the match: <span> {{ isset($fixture['manofmatch']['fullname']) ? $fixture['manofmatch']['fullname'] : 'NA' }} </span> 
-                                @if( isset($fixture['manofmatch']['fullname']) )
+                                @if( !$fixture['draw_noresult'] )
                                     (<a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $fixture['id'] }}" data-current-url="{{ url('') }}">scoreboard</a>)
                                 @endif
                             </div>

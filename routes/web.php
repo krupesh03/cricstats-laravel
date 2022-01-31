@@ -7,6 +7,7 @@ use App\Http\Controllers\SquadController;
 use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\IccrankingsController;
 use App\Http\Controllers\FixtureController;
+use App\Http\Controllers\PlayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,9 @@ Route::group(['prefix' => 'fixture'], function($route) {
     $route->get('/{id}', [FixtureController::class, 'index']);
     $route->get('/', [FixtureController::class, 'listing']);
     $route->get('/{leagueId}/season/{seasonId}', [FixtureController::class, 'seasonLeagueFixtures']);
+});
+
+Route::group(['prefix' => 'players'], function($route) {
+    $route->get('/', [PlayerController::class, 'index']);
+    $route->get('/{id}', [PlayerController::class, 'getPlayer']);
 });

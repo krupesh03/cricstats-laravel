@@ -425,6 +425,64 @@ body {
                     border-radius: 5px;
                 }
             }
+            .player-filter-list {
+                .search-form {
+                    .col-form-label {
+                        font-size: 13px;
+                        color: @themeInheritColor;
+                    }
+                    select {
+                        width: auto;
+                        height: 30px;
+                        font-size: 13px;
+                        padding: 5px 10px;
+                        font-style: italic;
+                    }
+                    .search-button {
+                        text-align: right;
+                        padding: 8px 16px;
+                        input[type=submit] {
+                            padding: 4px 8px;
+                            font-size: 13px;
+                            color: @themeInheritColor;
+                            background-color: @themeColor;
+                            border-radius: 5px;
+                            font-style: italic;
+                            font-weight: bold;
+                            border-color: @themeTextColor;
+                        }
+                    }
+                }
+                .all-players {
+                    .player-list {
+                        padding-bottom: 15px;
+                        a {
+                            text-decoration: none;
+                            .player-data {
+                                display: flex;
+                                color: @themeInheritColor;
+                                font-size: 12px;
+                                .player-image {
+                                    img {
+                                        width: 40px;
+                                        height: 40px;
+                                    }
+                                }
+                                .player-name-team {
+                                    padding-left: 5px;
+                                    .position {
+                                        color: @themeTextColor;
+                                    }
+                                    .teams::before {
+                                        content: "\a";
+                                        white-space: pre;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         @media only screen and (max-width: 768px) {
             /* For mobile phones: */

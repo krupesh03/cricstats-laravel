@@ -39,7 +39,7 @@
                         <a href="{{ url('/teams') }}" class="nav-link">Teams</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Players</a>
+                        <a href="{{ url('/players') }}" class="nav-link">Players</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">Officials</a>
@@ -67,9 +67,9 @@
                 <ul class="nav navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <div class="search-container">
-                            <form action="return false">
-                            <input type="text" placeholder="Search.." name="search">
-                            <button type="submit"><i class="fa fa-search"></i></button>
+                            <form action="/players" method="GET">
+                                <input type="text" placeholder="Search.." name="search_key">
+                                <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
                     </li>

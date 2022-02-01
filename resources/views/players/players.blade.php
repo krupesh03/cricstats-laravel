@@ -53,6 +53,9 @@
                     </a>
                 </div>
             @endforeach
+            @if( empty($playerList) )
+                <div class="error-msg"> No Data Found </div>
+            @endif
         </div>
     </div>
 </div>

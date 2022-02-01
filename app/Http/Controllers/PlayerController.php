@@ -93,6 +93,18 @@ class PlayerController extends Controller
 
     public function getPlayer( $id ) {
 
-        return view('players/detail');
+        $apiEndpoint = Config::get('constants.API_ENDPOINTS.PLAYERS');
+        
+        $apiEndpoint = $apiEndpoint . '/' . $id;
+
+        $queryStr = [
+            'include'   => 'country,career.season'
+        ];
+
+        $player = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStr );
+
+        $helper = $this->functionHelper;
+
+        return view('players/detail', compact('player', 'helper'));
     }
 }

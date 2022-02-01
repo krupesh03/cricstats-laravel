@@ -9,7 +9,7 @@
     <div class="player-filter-list">
         <form method="GET" class="search-form">
             <div class="form-group row">
-                <label class="col-md-1 col-form-label">Team</label>
+                <label class="col-md-1 col-form-label">Team : </label>
                 <div class="col-md-2">
                     <select name="team" class="form-control">
                         <option value="">--Select--</option>
@@ -18,7 +18,7 @@
                         @endforeach
                     </select> 
                 </div>
-                <label class="col-md-1 col-form-label">Role</label>
+                <label class="col-md-1 col-form-label">Role : </label>
                 <div class="col-md-2">
                     <select name="position" class="form-control">
                         <option value="">--Select--</option>
@@ -54,7 +54,9 @@
                 </div>
             @endforeach
             @if( empty($playerList) )
-                <div class="error-msg"> No Data Found </div>
+                @if( (isset($_GET['find_players']) && $_GET['find_players'] == 'search' && (isset($_GET['team']) || isset($_GET['position']) ) ) || (isset($_GET['search_key'])))
+                    <div class="error-msg"> No Data Found </div>
+                @endif
             @endif
         </div>
     </div>

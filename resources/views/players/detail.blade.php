@@ -15,7 +15,7 @@
                 </div>
                 <div class="personal-other-details">
                     <div class="country"> 
-                        <img src="{{ $helper->setImage($player['data']['country']['image_path']) }}">
+                        Nationality: <img src="{{ $helper->setImage($player['data']['country']['image_path']) }}">
                         <span> {{ $player['data']['country']['name'] }} </span>
                     </div>
                     <div class="dateofbirth"> 
@@ -29,6 +29,9 @@
                     </div>
                     <div class="bowling-style"> 
                         Bowling Style: <span> {{ ucfirst( str_replace( '-', ' ', $player['data']['bowlingstyle'] )) }} </span>
+                    </div>
+                    <div class="teams-played"> 
+                        Teams: <span> {{ implode(', ', $teams) }} </span>
                     </div>
                 </div>
             </div>

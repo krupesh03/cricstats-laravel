@@ -47,7 +47,7 @@
                             <div class="player-name-team"> 
                                 {{ $player['fullname'] }} 
                                 <span class="position">({{ isset($player['position']['name']) ? $player['position']['name'] : '' }})</span> 
-                                <span class="teams">[{{ implode(', ', $player['teams']) }}]</span>
+                                <span class="teams">{{ implode(', ', $player['teams']) }}</span>
                             </div>
                         </div>
                     </a>

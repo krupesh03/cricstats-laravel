@@ -98,13 +98,20 @@ class PlayerController extends Controller
         $apiEndpoint = $apiEndpoint . '/' . $id;
 
         $queryStr = [
-            'include'   => 'country,career.season'
+            'include'   => 'country,career.season,teams'
         ];
 
         $player = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStr );
 
+        $teams = [];
+        if( $player['success'] ) {
+            foreach( $player['data']['teams'] as $team ) {
+                $teams[$team['id']] = $team['name'];
+            }
+        }
+
         $helper = $this->functionHelper;
 
-        return view('players/detail', compact('player', 'helper'));
+        return view('players/detail', compact('player', 'teams', 'helper'));
     }
 }

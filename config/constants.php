@@ -13,7 +13,8 @@ return [
         'PLAYERS'       => 'players',
         'COUNTRIES'     => 'countries',
         'POSITIONS'     => 'positions',
-        'VENUES'        => 'venues'
+        'VENUES'        => 'venues',
+        'OFFICIALS'     => 'officials'
     ],
     'APPLICABLE_COUNTRIES'  => [
         'Australia', 'New Zealand', 'England', 'India', 'South Africa', 'Pakistan', 'Bangladesh', 'West Indies', 'Sri Lanka', 'Afghanistan', 'Netherlands', 'Ireland', 'Zimbabwe', 'Scotland', 'Oman', 'United Arab Emirates', 'Papua New Guinea'

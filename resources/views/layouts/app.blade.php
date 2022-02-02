@@ -42,7 +42,7 @@
                         <a href="{{ url('/players') }}" class="nav-link">Players</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Officials</a>
+                        <a href="{{ url('/officials') }}" class="nav-link">Officials</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/venues') }}" class="nav-link">Venues</a>

@@ -563,6 +563,23 @@ body {
                     }
                 }
             }
+            .official-list-table {
+                tr:first-child {
+                    background-color: @themeColor;
+                    font-size: 13px;
+                    color: @themeInheritColor;
+                }
+                tr {
+                    font-size: 12px;
+                    font-weight: 100;
+                    .country-data {
+                        img {
+                            width: 20px;
+                            height: 15px;
+                        }
+                    }
+                }
+            }
         }
         @media only screen and (max-width: 768px) {
             /* For mobile phones: */

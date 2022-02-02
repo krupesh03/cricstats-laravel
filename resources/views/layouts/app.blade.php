@@ -45,7 +45,7 @@
                         <a href="#" class="nav-link">Officials</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Venues</a>
+                        <a href="{{ url('/venues') }}" class="nav-link">Venues</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/fixture') }}" class="nav-link">Schedule/Results</a>

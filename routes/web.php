@@ -8,6 +8,7 @@ use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\IccrankingsController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\VenueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,8 @@ Route::group(['prefix' => 'fixture'], function($route) {
 Route::group(['prefix' => 'players'], function($route) {
     $route->get('/', [PlayerController::class, 'index']);
     $route->get('/{id}', [PlayerController::class, 'getPlayer']);
+});
+
+Route::group(['prefix' => 'venues'], function($route) {
+    $route->get('/', [VenueController::class, 'index']);
 });

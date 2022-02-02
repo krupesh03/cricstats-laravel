@@ -68,7 +68,7 @@
                     <li class="nav-item dropdown">
                         <div class="search-container">
                             <form action="/players" method="GET">
-                                <input type="text" placeholder="Search.." name="search_key">
+                                <input type="text" placeholder="Search by player lastname" name="search_key" autocomplete="off">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>

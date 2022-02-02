@@ -45,7 +45,7 @@
                                 <img src="{{ $helper->setImage($player['image_path']) }}">
                             </div>
                             <div class="player-name-team"> 
-                                {{ $player['fullname'] }} 
+                                {{ $player['fullname'] }} <br />
                                 <span class="position">({{ isset($player['position']['name']) ? $player['position']['name'] : '' }})</span> 
                                 <span class="teams">{{ implode(', ', $player['teams']) }}</span>
                             </div>

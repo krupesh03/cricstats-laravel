@@ -78,8 +78,9 @@ class PlayerController extends Controller
                         $pTeams = [];
                         foreach( $player['teams'] as $team ) {
                             unset($team['in_squad']);
-                            $pTeams[$team['id']] = $team['name'];
+                            $pTeams[$team['id']] = $team['code'];
                         }
+                        sort($pTeams);
                         $playerList[$i]['teams'] = $pTeams;
                         $i++;
                     }

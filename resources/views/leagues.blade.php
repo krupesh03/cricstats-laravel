@@ -6,9 +6,8 @@
 <hr />
 
 <div class="row main-div">
-    @php 
-    if( $leagues['success'] ) { 
-        foreach( $leagues['data'] as $league ) { @endphp
+    @if( $leagues['success'] ) 
+        @foreach( $leagues['data'] as $league )
             <div class="col-md-4 league-info">
                 <a href="javascript:void(0)" class="league-info-url" data-pid="{{ $league['id'] }}">
                     <div class="league-logo">
@@ -21,13 +20,10 @@
                     </div>
                 </a>
             </div>
-        @php 
-        }
-    } else { @endphp
+        @endforeach
+    @else
         <div class="error-msg"> {{ $leagues['data'] }} </div>
-    @php 
-    }
-    @endphp
+    @endif
 </div>
 
 @endsection

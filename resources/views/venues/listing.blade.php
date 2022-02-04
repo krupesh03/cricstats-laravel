@@ -15,7 +15,7 @@
                     {{ $venue['country']['name'] }}
                 </div>
                 <span> {{ $venue['name'] }}, {{ $venue['city'] }} </span> <br />
-                Capacity : <span> {{ $venue['capacity'] }} </span> <br /> 
+                Capacity : <span> {{ $venue['capacity'] ? $venue['capacity'] : 'NA' }} </span> <br /> 
                 FloodLight : <span> {{ $venue['floodlight'] ? 'Yes' : 'No' }} </span>
             </div>
         </div>

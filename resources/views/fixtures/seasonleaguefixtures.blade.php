@@ -22,7 +22,7 @@
                 @foreach( $fixture['data']['fixtures'] as $fixture )
                     <div class="col-md-6 fixture-list">
                         <div class="match-number">
-                            {{ $fixture['round'] }}, {{ $stageArray[$fixture['stage_id']] }}, <span> {{ date('d-m-Y h:i A', strtotime($fixture['starting_at'])) }}</span>
+                            {{ $fixture['round'] }}, {{ $stageArray[$fixture['stage_id']] }}, <span> {{ date('d M Y h:i A', strtotime($fixture['starting_at'])) }}</span>
                         </div>
                         <div class="opponent-team">
                             <img src="{{ $helper->setImage( $fixture['localteam']['image_path'] ) }}"> 

@@ -13,7 +13,7 @@
                 @foreach( $fixture['fixtures'] as $matches )
                     <div class="col-md-6 fixture-listing">
                         <div class="match-number">
-                            {{ isset($matches['facts']['round']) ? $matches['facts']['round'] : '' }}, <span> {{ date('d-m-Y h:i A', strtotime($matches['facts']['starting_at'])) }}</span>, <span class="match-venue"> {{ isset($matches['venue']['name']) ? $matches['venue']['name'] : '' }}, {{ isset($matches['venue']['city']) ? $matches['venue']['city'] : '' }}  </span>
+                            {{ isset($matches['facts']['round']) ? $matches['facts']['round'] : '' }}, <span> {{ date('d M Y h:i A', strtotime($matches['facts']['starting_at'])) }}</span>, <span class="match-venue"> {{ isset($matches['venue']['name']) ? $matches['venue']['name'] : '' }}, {{ isset($matches['venue']['city']) ? $matches['venue']['city'] : '' }}  </span>
                         </div>
                         <div class="opponent-team">
                             <img src="{{ $helper->setImage( $matches['localteam']['image_path'] ) }}"> 

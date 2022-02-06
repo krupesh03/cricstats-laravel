@@ -73,4 +73,11 @@ $(document).ready( function() {
             document.location.href = '/fixture/' + seasonId + '/season/' + leagueId;
         }
     });
+
+    //reload scorecard for live scores
+    if( $('.team-allLiveScores').length != 0 ) {
+        setTimeout(function () {
+            location.reload(true);
+        }, 10000);
+    }
 });

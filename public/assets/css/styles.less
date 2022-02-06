@@ -580,6 +580,59 @@ body {
                     }
                 }
             }
+            .team-allLiveScores {
+                .league-stage-name {
+                    background-color: @themeColor;
+                    font-size: 13px;
+                    color: @themeInheritColor;
+                    height: auto;
+                    padding: 8px 16px;
+                }
+                .fixture-listing {
+                    padding: 10px;
+                    .match-number {
+                        font-style: italic;
+                        font-size: 14px;
+                        span {
+                            font-size: 12px;
+                            color: @themeTextColor;
+                        }
+                        .match-venue {
+                            font-size: 12px;
+                            color: @themeInheritColor;
+                        }
+                    }
+                    .match-teams {
+                        .localteam-score, .visitorteam-score {
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: 13px;
+                            color: @themeInheritColor;
+                            padding: 3px;
+                            .team {
+                                img {
+                                    width: 20px;
+                                    height: auto;
+                                }
+                            }
+                        }
+                    }
+                    .match-result {
+                        font-size: 12px;
+                        span {
+                            font-style: italic;
+                            color: @redColor;
+                        }
+                    }
+                    .livescore-details {
+                        font-size: 12px;
+                        a {
+                            font-weight: 200;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
         }
         @media only screen and (max-width: 768px) {
             /* For mobile phones: */

@@ -10,6 +10,7 @@ use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\VenueController;
 use App\Http\Controllers\OfficialsController;
+use App\Http\Controllers\LivescoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,4 +62,8 @@ Route::group(['prefix' => 'venues'], function($route) {
 
 Route::group(['prefix' => 'officials'], function($route) {
     $route->get('/', [OfficialsController::class, 'index']);
+});
+
+Route::group(['prefix' => 'livescores'], function($route) {
+    $route->get('/', [LivescoreController::class, 'getLivescores']);
 });

@@ -9,7 +9,7 @@
     <div class="subheading">
         <span>Series : {{ $fixture['data']['stage']['name'] }}, {{ date('Y', strtotime($fixture['data']['starting_at'])) }}</span>
         <span>Venue : {{ $fixture['data']['venue']['name'] }}, {{ $fixture['data']['venue']['city'] }}{{ isset($fixture['data']['venue']['country']['name']) ? ', ' . $fixture['data']['venue']['country']['name'] : '' }}</span>
-        <span>Date & Time : {{ date('M d, Y H:i A', strtotime($fixture['data']['starting_at'])) }}</span>
+        <span>Date & Time : {{ date('M d, Y h:i A', strtotime($fixture['data']['starting_at'])) }}</span>
     </div>
     <hr />
 
@@ -315,7 +315,7 @@
                 <tr>
                     <td width="20%">Time</td>
                     <td width="80%">
-                        {{ date('H:i A (M d)', strtotime($fixture['data']['starting_at'])) }} 
+                        {{ date('h:i A (M d)', strtotime($fixture['data']['starting_at'])) }} 
                     </td>
                 </tr>
                 <tr>

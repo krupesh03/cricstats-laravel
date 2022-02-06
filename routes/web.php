@@ -65,5 +65,6 @@ Route::group(['prefix' => 'officials'], function($route) {
 });
 
 Route::group(['prefix' => 'livescores'], function($route) {
-    $route->get('/', [LivescoreController::class, 'getLivescores']);
+    $route->get('/', [LivescoreController::class, 'index']);
+    $route->get('/{fixtureId}/score', [LivescoreController::class, 'getLivescores']);
 });

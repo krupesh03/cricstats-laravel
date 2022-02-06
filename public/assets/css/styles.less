@@ -633,6 +633,39 @@ body {
                     }
                 }
             }
+            .live-scorecard {
+                .innings-completed-score {
+                    font-size: 13px;
+                    color: @themeInheritColor;
+                }
+                .innings-progress-score {
+                    font-size: 15px;
+                    span {
+                        font-size: 12px;
+                        color: @themeInheritColor;
+                        font-style: italic;
+                    }
+                }
+                .match-note {
+                    font-size: 13px;
+                    color: @redColor;
+                    padding-bottom: 5px;
+                }
+                .batting-table, .bowling-table, .key-stats {
+                    tr:first-child {
+                        background-color: @themeColor;
+                        font-size: 13px;
+                        color: @themeInheritColor;
+                    }
+                    tr {
+                        font-size: 12px;
+                        font-weight: 100;
+                        a {
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
         }
         @media only screen and (max-width: 768px) {
             /* For mobile phones: */

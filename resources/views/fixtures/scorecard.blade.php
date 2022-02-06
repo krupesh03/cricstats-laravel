@@ -41,8 +41,8 @@
             </div>
             <hr />
             <div class="fixture-innings-one"> 
-                <div class="team-name"> {{ $fixture['data']['runs'][0]['team']['name'] }} Innings </div>
-                <div class="team-score"> {{ $fixture['data']['runs'][0]['score'] }}-{{ $fixture['data']['runs'][0]['wickets'] }} ({{ $fixture['data']['runs'][0]['overs'] }} Ov) </div>
+                <div class="team-name"> {{ isset($fixture['data']['runs'][0]['team']['name']) ? $fixture['data']['runs'][0]['team']['name'] : '' }} Innings </div>
+                <div class="team-score"> {{ isset($fixture['data']['runs'][0]['score']) ? $fixture['data']['runs'][0]['score'] : '' }}-{{ isset($fixture['data']['runs'][0]['wickets']) ? $fixture['data']['runs'][0]['wickets'] : '' }} ({{ isset($fixture['data']['runs'][0]['overs']) ? $fixture['data']['runs'][0]['overs'] : '' }} Ov) </div>
             </div>
             <table class="table match-scorecard" width="100%">
                 <tr>
@@ -166,8 +166,8 @@
             </table>
 
             <div class="fixture-innings-two"> 
-                <div class="team-name"> {{ $fixture['data']['runs'][1]['team']['name'] }} Innings </div>
-                <div class="team-score"> {{ $fixture['data']['runs'][1]['score'] }}-{{ $fixture['data']['runs'][1]['wickets'] }} ({{ $fixture['data']['runs'][1]['overs'] }} Ov) </div>
+                <div class="team-name"> {{ isset($fixture['data']['runs'][1]['team']['name']) ? $fixture['data']['runs'][1]['team']['name'] : '' }} Innings </div>
+                <div class="team-score"> {{ isset($fixture['data']['runs'][1]['score']) ? $fixture['data']['runs'][1]['score'] : '' }}-{{ isset($fixture['data']['runs'][1]['wickets']) ? $fixture['data']['runs'][1]['wickets'] : '' }} ({{ isset($fixture['data']['runs'][1]['overs']) ? $fixture['data']['runs'][1]['overs'] : '' }} Ov) </div>
             </div>
             <table class="table match-scorecard" width="100%">
                 <tr>
@@ -309,7 +309,9 @@
                 <tr>
                     <td width="20%">Toss</td>
                     <td width="80%">
-                        {{ $fixture['data']['tosswon']['name'] }} won the toss and opt for {{ $fixture['data']['elected'] }}
+                        @if( isset($fixture['data']['tosswon']['name']) && isset($fixture['data']['elected']) )
+                            {{ $fixture['data']['tosswon']['name'] }} won the toss and opt for {{ $fixture['data']['elected'] }}
+                        @endif
                     </td>
                 </tr>
                 <tr>
@@ -327,19 +329,19 @@
                 <tr>
                     <td width="20%">Umpires</td>
                     <td width="80%">
-                        {{ $fixture['data']['firstumpire']['fullname'] }}, {{ $fixture['data']['secondumpire']['fullname'] }} 
+                        {{ isset($fixture['data']['firstumpire']['fullname']) ? $fixture['data']['firstumpire']['fullname'] .', ' : '' }}{{ isset($fixture['data']['secondumpire']['fullname']) ? $fixture['data']['secondumpire']['fullname'] : '' }} 
                     </td>
                 </tr>
                 <tr>
                     <td width="20%">Third Umpire</td>
                     <td width="80%">
-                        {{ $fixture['data']['tvumpire']['fullname'] }}
+                        {{ isset($fixture['data']['tvumpire']['fullname']) ? $fixture['data']['tvumpire']['fullname'] : '' }}
                     </td>
                 </tr>
                 <tr>
                     <td width="20%">Match Referee</td>
                     <td width="80%">
-                        {{ $fixture['data']['referee']['fullname'] }}
+                        {{ isset($fixture['data']['referee']['fullname']) ? $fixture['data']['referee']['fullname'] : '' }}
                     </td>
                 </tr>
                 <tr>

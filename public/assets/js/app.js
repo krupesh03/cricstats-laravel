@@ -74,8 +74,24 @@ $(document).ready( function() {
         }
     });
 
+    $(document).on('click', '.live-score-url', function() {
+
+        var $this = $(this);
+        var fixtureId = $this.data('pid');
+        var currentUrl = $this.data('current-url');
+        if( fixtureId && currentUrl ) {
+            document.location.href = currentUrl + '/' + fixtureId + '/score';
+        }
+    });
+
     //reload scorecard for live scores
     if( $('.team-allLiveScores').length != 0 ) {
+        setTimeout(function () {
+            location.reload(true);
+        }, 10000);
+    }
+
+    if( $('.live-scorecard').length != 0 ) {
         setTimeout(function () {
             location.reload(true);
         }, 10000);

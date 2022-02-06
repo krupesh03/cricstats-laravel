@@ -35,7 +35,7 @@
                             <span> {{ isset($matches['facts']['note']) ? $matches['facts']['note'] : '' }} </span>
                         </div>
                         <div class="livescore-details">
-                            <a href="javascript:void(0)" data-current-url="{{ url('') }}">Live Score</a> | <a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $matches['facts']['id'] }}"  data-current-url="{{ url('') }}">Scorecard</a>
+                            <a href="javascript:void(0)" class="live-score-url" data-pid="{{ $matches['facts']['id'] }}" data-current-url="{{ url()->current() }}">Live Score</a> | <a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $matches['facts']['id'] }}"  data-current-url="{{ url('') }}">Scorecard</a>
                         </div>
                     </div>
                 @endforeach

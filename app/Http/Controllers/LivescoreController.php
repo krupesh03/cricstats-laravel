@@ -15,7 +15,7 @@ class LivescoreController extends Controller
         $this->functionHelper = new FunctionHelper;
     }
 
-    public function getLivescores() {
+    public function index() {
 
         $apiEndpoint = Config::get('constants.API_ENDPOINTS.LIVESCORES');
 
@@ -50,5 +50,10 @@ class LivescoreController extends Controller
         $helper = $this->functionHelper;
 
         return view('fixtures/livescores', compact('allLiveScores', 'helper'));
+    }
+
+    public function getLivescores( $fixtureId ) {
+
+        return view('fixtures/livesummary');
     }
 }

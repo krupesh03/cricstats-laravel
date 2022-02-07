@@ -42,11 +42,15 @@ class LivescoreController extends Controller
                 }
                 $allLiveScores[$score['stage']['id']]['fixtures'][$i]['matchRuns'] = $matchRuns;
                 $matchNote = '';
-                if( isset($score['tosswon']['name']) && isset($score['elected']) ) {
-                    $matchNote = $score['tosswon']['name'] . ' opt for ' . $score['elected'];
-                } elseif ( isset($score['note']) && !empty($score['note']) ) {
-                    $matchNote = $score['note'];
-                } elseif( isset($score['status']) && !empty($score['status']) ) {
+                if( isset($score['status']) && $score['status'] == '1st Innings' ) {
+                    if( isset($score['tosswon']['name']) && isset($score['elected']) ) { 
+                        $matchNote = $score['tosswon']['name'] . ' opt for ' . $score['elected'];
+                    }
+                } elseif ( isset($score['status']) && $score['status'] == '2nd Innings' ) {
+                    if( isset($score['note']) && !empty($score['note']) ) { 
+                        $matchNote = $score['note'];
+                    }
+                } elseif ( isset($score['status']) && !empty($score['status']) ) {
                     $matchNote = $score['status'];
                 }
                 $matchFacts = [

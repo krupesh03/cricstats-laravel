@@ -17,11 +17,19 @@
         <div class="fixture-scorecard">
             <div class="scorecard-label">
                 SCORECARD
-                @if( isset($fixture['data']['note']) && !empty($fixture['data']['note']) )
-                    <div class="scorecard-result">
+                <div class="scorecard-result">
+                    @if( isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' )
+                        @if( isset($fixture['data']['tosswon']['name']) && isset($fixture['data']['elected']) ) 
+                           ({{ $fixture['data']['tosswon']['name'] . ' opt for ' . $fixture['data']['elected'] }})
+                        @endif
+                    @elseif ( isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' )
+                        @if( isset($fixture['data']['note']) && !empty($fixture['data']['note']) ) 
+                            ({{ $fixture['data']['note'] }})
+                        @endif
+                    @else
                         ({{ $fixture['data']['note'] }})
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
             <div class="fixture-awards">
                 @if( isset($fixture['data']['manofmatch']['fullname']) )
@@ -89,7 +97,7 @@
                             <td>
                                 @if( $score['result']['out'] && $score['bowler'] )
                                     b {{ $score['bowler']['fullname'] }}
-                                @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] != 'Finished' )
+                                @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' )
                                     batting
                                 @elseif(  !$score['result']['out'] )
                                     not out
@@ -216,7 +224,7 @@
                             <td>
                                 @if( $score['result']['out'] && $score['bowler'] )
                                     b {{ $score['bowler']['fullname'] }}
-                                @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] != 'Finished')
+                                @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' )
                                     batting
                                 @elseif(  !$score['result']['out'] )
                                     not out

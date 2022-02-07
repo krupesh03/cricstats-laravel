@@ -26,7 +26,7 @@
                         @if( isset($fixture['data']['note']) && !empty($fixture['data']['note']) ) 
                             ({{ $fixture['data']['note'] }})
                         @endif
-                    @else
+                    @elseif( isset($fixture['data']['note']) && !empty($fixture['data']['note']) ) 
                         ({{ $fixture['data']['note'] }})
                     @endif
                 </div>

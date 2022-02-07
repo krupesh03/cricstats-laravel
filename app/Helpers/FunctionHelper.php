@@ -19,4 +19,15 @@ class FunctionHelper
         return url('assets/images/dummy/dummy.jpg');
 
     }
+
+    public function calculateBallsFromOvers( $overs = 0 ) {
+
+        if( $overs ) {
+            $whole = floor( $overs );      
+            $fraction = $overs - $whole; 
+            $numberOfBalls = ($whole * 6 ) + ($fraction * 10);
+            return (int)$numberOfBalls;
+        }
+        return 0;
+    }
 }

@@ -71,6 +71,85 @@ class LivescoreController extends Controller
 
     public function getLivescores( $fixtureId ) {
 
-        return view('fixtures/livesummary');
+        $apiEndpoint = Config::get('constants.API_ENDPOINTS.FIXTURES');
+
+        $apiEndpoint = $apiEndpoint . '/' . $fixtureId;
+
+        $queryStr = [
+            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby'
+        ];
+
+        $livescore = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStr );
+          
+        /* $json = file_get_contents(public_path('dummy.json'));
+        $livescore = json_decode($json,true);
+        $livescore['success'] = true; */
+  
+        $liveCommentory = $livedetails = $batsman = $bowler = [];
+        if( $livescore['success'] ) {
+            $livedetails['localteam'] = $livescore['data']['localteam'];
+            $livedetails['visitorteam'] = $livescore['data']['visitorteam'];
+            $livedetails['stage'] = $livescore['data']['stage'];
+            $livedetails['venue'] = $livescore['data']['venue'];
+            $livedetails['season'] = $livescore['data']['season'];
+            $runs = [];
+            $k = $current_innings = 0;
+            $crr = $rr = $req = $rem_o = $total_1 = $total_2 = $overs_2 = 0;
+            foreach( $livescore['data']['runs'] as $run ) {
+                if( $run['inning'] == 1 ) {
+                    $current_innings++;
+                    $total_1 = (int)$run['score'] ;
+                } elseif( $run['inning'] == 2 ) {
+                    $current_innings++;
+                    $total_2 = (int)$run['score'];
+                    $overs_2 = $this->functionHelper->calculateBallsFromOvers( $run['overs'] );
+                    $total_overs = $this->functionHelper->calculateBallsFromOvers( $livescore['data']['total_overs_played'] );
+                    $rem_o = $total_overs - $overs_2;
+                }
+                if( (float)$run['overs'] > 0 ) {
+                    $crr =  (int)$run['score'] / (float)$run['overs'];
+                }
+                $runs['data'][$k]['inning'] = $run['inning'];
+                $runs['data'][$k]['team']['name'] = $run['team']['name'];
+                $runs['data'][$k]['team']['code'] = $run['team']['code'];
+                $runs['data'][$k]['team']['image_path'] = $run['team']['image_path'];
+                $runs['data'][$k]['score'] = $run['score'];
+                $runs['data'][$k]['wickets'] = $run['wickets'];
+                $runs['data'][$k]['overs'] = $run['overs'];
+                $runs['data'][$k]['crr'] = round($crr, 2);
+                $k++;
+            }
+            $runs['current_innings'] = $current_innings;
+            $req = $total_1 - $total_2;
+            $runs['required_total'] = $req;
+            if( $rem_o > 0 ) {
+                $rr = ( (int)$req / $rem_o ) * 6;
+            }
+            $runs['rr'] = round($rr, 2);
+        
+            $livedetails['runs'] = $runs;
+            $livedetails['details']['round'] = $livescore['data']['round'];
+            $livedetails['details']['starting_at'] = $livescore['data']['starting_at'];
+            $livedetails['details']['status'] = $livescore['data']['status'];
+            $livedetails['details']['note'] = $livescore['data']['note'];
+
+            foreach( $livescore['data']['balls'] as $ball ) {
+                $liveCommentory[$ball['id']] = $ball;
+
+                $batsman['batsmanone'] = $ball['batsmanone'];
+                $batsman['batsmanone']['on_strike'] = $ball['batsman']['id'] == $ball['batsmanone']['id'];
+                $batsman['batsmantwo'] = $ball['batsmantwo'];
+                $batsman['batsmantwo']['on_strike'] = $ball['batsman']['id'] == $ball['batsmantwo']['id'];
+
+                $bowler['bowlerone'] = $ball['bowler'];
+                $bowler['bowlerone']['on_strike'] = 1;
+            }
+        }
+        krsort($liveCommentory);
+        $liveCommentory = array_slice($liveCommentory, 0, 150);
+        
+        $helper = $this->functionHelper;
+
+        return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'helper'));
     }
 }

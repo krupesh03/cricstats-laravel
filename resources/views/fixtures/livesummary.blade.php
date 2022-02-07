@@ -3,20 +3,38 @@
 @section('content')
 
 <div class="heading"> 
-    India vs West Indies, 1st ODI - Live Cricket Score
+    {{ $livedetails['localteam']['name'] }} vs {{ $livedetails['visitorteam']['name'] }}, {{ $livedetails['details']['round'] }} - Live Cricket Score, Commentary
 </div>
 <div class="subheading">
-    <span>Series : West Indies tour of India, 2022 </span>
-    <span>Venue :  Narendra Modi Stadium, Ahmedabad</span>
-    <span>Date & Time : Feb 06, 01:30 PM LOCAL</span>
+    <span>Series : {{ $livedetails['stage']['name'] }}, {{ $livedetails['season']['name'] }} </span>
+    <span>Venue :  {{ $livedetails['venue']['name'] }}, {{ $livedetails['venue']['city'] }}</span>
+    <span>Date & Time : {{ $livedetails['details']['starting_at'] ? date('M d, h:i A', strtotime($livedetails['details']['starting_at'])) : '' }} </span>
 </div>
 <hr />
 
 <div class="row main-div">
     <div class="live-scorecard">
-        <div class="innings-completed-score">WI 176 (43.5)</div>
-        <div class="innings-progress-score">IND 98/2 (14.2)  <span>CRR: 6.84 REQ: 2.21</span></div>
-        <div class="match-note">India need 79 runs</div>
+        @foreach( $livedetails['runs']['data'] as $run )
+            <div class="{{ $run['inning'] == $livedetails['runs']['current_innings'] ? 'innings-progress-score' : 'innings-completed-score' }}">
+                <img src="{{ $helper->setImage($run['team']['image_path']) }}">
+                {{ $run['team']['code'] }} {{ $run['score'] }}-{{ $run['wickets'] }} ({{ $run['overs'] }})
+                <span>
+                    @if( $run['inning'] == $livedetails['runs']['current_innings'] )
+                        CRR: {{ $run['crr'] }}
+                    @endif
+                    @if( $run['inning'] == 2 )
+                         REQ: {{ $livedetails['runs']['rr'] }}
+                    @endif
+                </span>
+            </div>
+            <div class="match-note">
+                @if( $livedetails['details']['status'] == "Finished" && $run['inning'] == 2 )
+                    {{ $livedetails['details']['note'] }}
+                @else
+                    {{ $run['inning'] == 2 ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
+                @endif
+            </div>
+        @endforeach
         <div class="row progress-summary">
             <div class="col-md-8">
                 <table class="table batting-table" width="100%">
@@ -28,22 +46,19 @@
                         <th width="10%">6s</th>
                         <th width="10%">SR</th>
                     </tr>
-                    <tr>
-                        <td> <a href="javascript:void(0)"> Ishan Kishan </a> <span>*</span></td>
-                        <td>27</td>
-                        <td>33</td>
-                        <td>2</td>
-                        <td>1</td>
-                        <td>81.82</td>
-                    </tr>
-                    <tr>
-                        <td> <a href="javascript:void(0)"> Rishab Pant </a> <span>*</span></td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>120</td>
-                    </tr>
+                    @foreach( $batsman as $key => $value )
+                        <tr>
+                            <td> 
+                                <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
+                                @if( $value['on_strike'] ) <span>*</span> @endif 
+                            </td>
+                            <td>27</td>
+                            <td>33</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>81.82</td>
+                        </tr>
+                    @endforeach
                 </table>
                 <table class="table bowling-table" width="100%">
                     <tr>
@@ -54,22 +69,19 @@
                         <th width="10%">W</th>
                         <th width="10%">ECO</th>
                     </tr>
-                    <tr>
-                        <td> <a href="javascript:void(0)"> Akeal Hosein </a> <span>*</span></td>
-                        <td>3</td>
-                        <td>0</td>
-                        <td>18</td>
-                        <td>0</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td> <a href="javascript:void(0)"> Alzarri Joseph </a> <span>*</span></td>
-                        <td>5</td>
-                        <td>0</td>
-                        <td>35</td>
-                        <td>2</td>
-                        <td>7</td>
-                    </tr>
+                    @foreach( $bowler as $key => $value )
+                        <tr>
+                            <td> 
+                                <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
+                                @if( $value['on_strike'] ) <span>*</span> @endif 
+                            </td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>18</td>
+                            <td>0</td>
+                            <td>6</td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
             <div class="col-md-4">
@@ -87,6 +99,47 @@
                     </tr>
                 </table>
             </div>
+        </div>
+        <hr />
+
+        <div class="live-commentary">
+            <table class="table" width="100%">
+                @foreach( $liveCommentory as $commentory )
+                    <tr>
+                        <td width="10%">
+                            @if( $commentory['score']['is_wicket'] )
+                                <div class="wickets"> W </div>
+                            @else
+                                @if( $commentory['score']['runs'] <= 3 || ($commentory['score']['runs'] != 4 && $commentory['score']['runs'] != 6))
+                                    <div class="runnings"> {{ $commentory['score']['runs'] }} </div>
+                                @elseif( $commentory['score']['runs'] == 4 )
+                                    <div class="boundary"> {{ $commentory['score']['runs'] }} </div>
+                                @elseif( $commentory['score']['runs'] == 6 )
+                                    <div class="huge-one"> {{ $commentory['score']['runs'] }} </div>
+                                @endif
+                            @endif
+                        </td>
+                        <td width="5%"> {{ $commentory['ball'] }} </td>
+                        <td width="85%"> 
+                            {{ $commentory['bowler']['fullname'] }} to {{ $commentory['batsman']['fullname'] }}, 
+                            @if( $commentory['score']['is_wicket'] || $commentory['score']['runs'] == 4 || $commentory['score']['runs'] == 6 )
+                                <span> {{ $commentory['score']['name'] }} </span>
+                            @else 
+                                {{ $commentory['score']['name'] }}
+                            @endif
+                            @if( strpos($commentory['score']['name'], 'Catch') !== false && !empty($commentory['catchstump']) )
+                                , caught by {{ $commentory['catchstump']['fullname'] }}.
+                            @elseif( strpos($commentory['score']['name'], 'Run') !== false )
+                                @if( $commentory['runoutby'] && $commentory['catchstump'] )
+                                    , throw by {{ $commentory['runoutby']['fullname'] }} and {{ $commentory['catchstump']['fullname'] }} destroys the stumps.
+                                @elseif( $commentory['runoutby'] )
+                                    , direct hit by {{ $commentory['runoutby']['fullname'] }}
+                                @endif
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
         </div>
     </div>
 </div>

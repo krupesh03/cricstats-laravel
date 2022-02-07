@@ -88,12 +88,12 @@ $(document).ready( function() {
     if( $('.team-allLiveScores').length != 0 ) {
         setTimeout(function () {
             location.reload(true);
-        }, 10000);
+        }, 50000);
     }
 
     if( $('.live-scorecard').length != 0 ) {
         setTimeout(function () {
             location.reload(true);
-        }, 10000);
+        }, 50000);
     }
 });

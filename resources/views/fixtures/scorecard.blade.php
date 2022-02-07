@@ -17,18 +17,22 @@
         <div class="fixture-scorecard">
             <div class="scorecard-label">
                 SCORECARD
-                <div class="scorecard-result">
-                    ({{ $fixture['data']['note'] }})
-                </div>
+                @if( isset($fixture['data']['note']) && !empty($fixture['data']['note']) )
+                    <div class="scorecard-result">
+                        ({{ $fixture['data']['note'] }})
+                    </div>
+                @endif
             </div>
             <div class="fixture-awards">
-                <div class="fixture-mom">
-                    Player of the match
-                    <img src="{{ isset($fixture['data']['manofmatch']['image_path']) ? $helper->setImage($fixture['data']['manofmatch']['image_path']) : '' }}">
-                    <div class="fixture-mom-name"> 
-                        {{ isset($fixture['data']['manofmatch']['fullname']) ? $fixture['data']['manofmatch']['fullname'] : '' }} {{ isset($fixture['data']['manofmatch']['position']['name']) ? '('.$fixture['data']['manofmatch']['position']['name'].')' : '' }} 
+                @if( isset($fixture['data']['manofmatch']['fullname']) )
+                    <div class="fixture-mom">
+                        Player of the match
+                        <img src="{{ isset($fixture['data']['manofmatch']['image_path']) ? $helper->setImage($fixture['data']['manofmatch']['image_path']) : '' }}">
+                        <div class="fixture-mom-name"> 
+                            {{ isset($fixture['data']['manofmatch']['fullname']) ? $fixture['data']['manofmatch']['fullname'] : '' }} {{ isset($fixture['data']['manofmatch']['position']['name']) ? '('.$fixture['data']['manofmatch']['position']['name'].')' : '' }} 
+                        </div>
                     </div>
-                </div>
+                @endif
                 @if( isset($fixture['data']['manofseries']['fullname']) )
                     <div class="fixture-pos">
                         Player of the series
@@ -85,6 +89,8 @@
                             <td>
                                 @if( $score['result']['out'] && $score['bowler'] )
                                     b {{ $score['bowler']['fullname'] }}
+                                @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] != 'Finished' )
+                                    batting
                                 @elseif(  !$score['result']['out'] )
                                     not out
                                 @endif
@@ -210,6 +216,8 @@
                             <td>
                                 @if( $score['result']['out'] && $score['bowler'] )
                                     b {{ $score['bowler']['fullname'] }}
+                                @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] != 'Finished')
+                                    batting
                                 @elseif(  !$score['result']['out'] )
                                     not out
                                 @endif

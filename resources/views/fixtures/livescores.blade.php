@@ -21,14 +21,16 @@
                                     <img src="{{ $helper->setImage( $matches['localteam']['image_path'] ) }}"> 
                                     <span> {{ isset($matches['localteam']['name']) ? $matches['localteam']['name'] : '' }} </span>
                                 </div>
-                                <div class="score">123-7 (43.5 Ov)</div>
+                                <div class="score">
+                                    {{ isset($matches['matchRuns'][$matches['localteam']['id']]) ? $matches['matchRuns'][$matches['localteam']['id']] : '' }}
+                                </div>
                             </div> 
                             <div class="visitorteam-score">
                                 <div class="team">
                                     <img src="{{ $helper->setImage( $matches['visitorteam']['image_path'] ) }}"> 
                                     <span> {{ isset($matches['visitorteam']['name']) ? $matches['visitorteam']['name'] : '' }} </span>
                                 </div>
-                                <div class="score">123-7 (43.5 Ov)</div>
+                                <div class="score">{{ isset($matches['matchRuns'][$matches['visitorteam']['id']]) ? $matches['matchRuns'][$matches['visitorteam']['id']] : '' }}</div>
                             </div> 
                         </div>
                         <div class="match-result">

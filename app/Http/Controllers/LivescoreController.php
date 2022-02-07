@@ -20,7 +20,7 @@ class LivescoreController extends Controller
         $apiEndpoint = Config::get('constants.API_ENDPOINTS.LIVESCORES');
 
         $queryStr = [
-            'include' => 'localteam,visitorteam,venue,season,stage,league,runs.team',
+            'include' => 'localteam,visitorteam,venue,season,stage,league,tosswon,runs',
             'sort'    => 'league_id'
         ];
 
@@ -36,11 +36,24 @@ class LivescoreController extends Controller
                 $allLiveScores[$score['stage']['id']]['fixtures'][$i]['localteam'] = $score['localteam'];
                 $allLiveScores[$score['stage']['id']]['fixtures'][$i]['visitorteam'] = $score['visitorteam'];
                 $allLiveScores[$score['stage']['id']]['fixtures'][$i]['venue'] = $score['venue'];
+                $matchRuns = [];
+                foreach( $score['runs'] as $run ) {
+                    $matchRuns[$run['team_id']] = $run['score'] . '-' . $run['wickets'] . ' (' . $run['overs'] . ' Ov)';
+                }
+                $allLiveScores[$score['stage']['id']]['fixtures'][$i]['matchRuns'] = $matchRuns;
+                $matchNote = '';
+                if( isset($score['tosswon']['name']) && isset($score['elected']) ) {
+                    $matchNote = $score['tosswon']['name'] . ' opt for ' . $score['elected'];
+                } elseif ( isset($score['note']) && !empty($score['note']) ) {
+                    $matchNote = $score['note'];
+                } elseif( isset($score['status']) && !empty($score['status']) ) {
+                    $matchNote = $score['status'];
+                }
                 $matchFacts = [
                     'id'            => $score['id'],
                     'round'         => $score['round'],
                     'starting_at'   => $score['starting_at'],
-                    'note'          => $score['note']
+                    'note'          => $matchNote
                 ];
                 $allLiveScores[$score['stage']['id']]['fixtures'][$i]['facts'] = $matchFacts;
                 $i++;

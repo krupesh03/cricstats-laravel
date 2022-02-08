@@ -175,8 +175,31 @@
                                 @elseif( $commentory['runoutby'] )
                                     , direct hit by {{ $commentory['runoutby']['fullname'] }}
                                 @endif
+                            @elseif( strpos($commentory['score']['name'], 'Stump') !== false && $commentory['catchstump'])
+                                    , stumped by {{ $commentory['catchstump']['fullname'] }}
                             @endif
-                        </td>
+                            <span>
+                                @if( $commentory['score']['is_wicket'] )
+                                    ({{ $commentory['batsman']['fullname'] }}
+                                @endif
+                                @if( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Catch') !== false && $commentory['catchstump'])
+                                    c {{ $commentory['catchstump']['fullname'] }}
+                                @elseif( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Run') !== false )
+                                    @if( $commentory['runoutby'] )
+                                        run out ({{ $commentory['runoutby']['fullname'] }})
+                                    @elseif( $commentory['catchstump'] )
+                                        run out ({{ $commentory['catchstump']['fullname'] }})
+                                    @endif
+                                @elseif( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'LBW') !== false )
+                                    lbw
+                                @elseif( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Stump') !== false && $commentory['catchstump'])
+                                    st {{ $commentory['catchstump']['fullname'] }}
+                                @endif
+
+                                @if( $commentory['score']['is_wicket'] && $commentory['bowler'] && !$commentory['runoutby'] )
+                                    b {{ $commentory['bowler']['fullname'] }})
+                                @endif
+                            </td>
                     </tr>
                     @if( $commentory['scoreboard'] == 'S2' && $commentory['ball'] == '0.1' )
                         <tr>

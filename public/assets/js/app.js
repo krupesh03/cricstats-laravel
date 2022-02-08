@@ -83,4 +83,17 @@ $(document).ready( function() {
             document.location.href = currentUrl + '/' + fixtureId + '/score';
         }
     });
+
+    //reload scorecard for live scores
+    if( $('.team-allLiveScores').length != 0 ) {
+        setTimeout(function () {
+            location.reload(true);
+        }, 50000);
+    }
+
+    if( $('.live-scorecard').length != 0 ) {
+        setTimeout(function () {
+            location.reload(true);
+        }, 50000);
+    }
 });

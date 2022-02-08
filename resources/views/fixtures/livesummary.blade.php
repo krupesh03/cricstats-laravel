@@ -22,7 +22,7 @@
                     @if( $run['inning'] == $livedetails['runs']['current_innings'] )
                         CRR: {{ $run['crr'] }}
                     @endif
-                    @if( $run['inning'] == 2 )
+                    @if( $run['inning'] == 2 && $livedetails['runs']['rr'] )
                          REQ: {{ $livedetails['runs']['rr'] }}
                     @endif
                 </span>
@@ -180,9 +180,11 @@
                             @endif
                             <span>
                                 @if( $commentory['score']['is_wicket'] )
-                                    ({{ $commentory['batsman']['fullname'] }}
+                                    ({{ $commentory['batsmanout']['fullname'] }}
                                 @endif
-                                @if( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Catch') !== false && $commentory['catchstump'])
+                                @if( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Catch') !== false && $commentory['catchstump'] && $commentory['bowler']['id'] == $commentory['catchstump']['id'] )
+                                    c &
+                                @elseif( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Catch') !== false && $commentory['catchstump'] )
                                     c {{ $commentory['catchstump']['fullname'] }}
                                 @elseif( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Run') !== false )
                                     @if( $commentory['runoutby'] )

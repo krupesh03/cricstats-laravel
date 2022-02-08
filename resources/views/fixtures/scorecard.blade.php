@@ -80,7 +80,9 @@
                                 @endif
                             </td>
                             <td>
-                                @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
+                                @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'] && $score['bowler']['id'] == $score['catchstump']['id'] )
+                                    <span class="caught-bowled"> c & </span> 
+                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
                                     c {{ $score['catchstump']['fullname'] }}
                                 @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Run') !== false )
                                     @if( $score['runoutby'] )

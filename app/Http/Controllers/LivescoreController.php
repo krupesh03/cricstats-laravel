@@ -125,6 +125,7 @@ class LivescoreController extends Controller
             if( $rem_o > 0 ) {
                 $rr = ( (int)$req / $rem_o ) * 6;
             }
+            if( $rr < 0 ) $rr = 0;
             $runs['rr'] = round($rr, 2);
         
             $livedetails['runs'] = $runs;
@@ -168,14 +169,16 @@ class LivescoreController extends Controller
                         $total_wkts = $run['wickets'];
                         $scoreboard = $ball['scoreboard'];
                         if( $ball['score']['is_wicket'] ) {
-                            $fow_score = $batsmanData[$ball['batsman']['id']]['fow_score']; 
-                            $fow_balls = $this->functionHelper->calculateBallsFromOvers( $batsmanData[$ball['batsman']['id']]['fow_balls'] );
-                            $fow_overs = $batsmanData[$ball['batsman']['id']]['fow_balls'];
-                            $fow_batsman = $ball['batsman']['fullname'];
-                            $bats_score = $batsmanData[$ball['batsman']['id']]['score'];
-                            $bats_deli = $batsmanData[$ball['batsman']['id']]['ball'];
+                            $fow_score = $batsmanData[$ball['batsmanout']['id']]['fow_score']; 
+                            $fow_balls = $this->functionHelper->calculateBallsFromOvers( $batsmanData[$ball['batsmanout']['id']]['fow_balls'] );
+                            $fow_overs = $batsmanData[$ball['batsmanout']['id']]['fow_balls'];
+                            $fow_batsman = $ball['batsmanout']['fullname'];
+                            $bats_score = $batsmanData[$ball['batsmanout']['id']]['score'];
+                            $bats_deli = $batsmanData[$ball['batsmanout']['id']]['ball'];
 
-                            if( strpos($ball['score']['name'], 'Catch') !== false && $ball['catchstump']) {
+                            if( strpos($ball['score']['name'], 'Catch') !== false && $ball['catchstump'] && $ball['bowler']['id'] == $ball['catchstump']['id'] ) {
+                                $fow_type = "c & ";
+                            } elseif( strpos($ball['score']['name'], 'Catch') !== false && $ball['catchstump'] ) {
                                 $fow_type = "c " . $ball['catchstump']['fullname'];
                             }elseif( strpos($ball['score']['name'], 'Run') !== false ) {
                                 if( $ball['runoutby'] ) {

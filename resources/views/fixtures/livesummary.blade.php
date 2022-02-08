@@ -116,8 +116,35 @@
         <hr />
 
         <div class="live-commentary">
+            @if( isset($livedetails['manofmatch']['fullname']) )
+                <div class="fixture-mom">
+                    Player of the match
+                    <img src="{{ isset($livedetails['manofmatch']['image_path']) ? $helper->setImage($livedetails['manofmatch']['image_path']) : '' }}">
+                    <div class="fixture-mom-name"> 
+                        {{ isset($livedetails['manofmatch']['fullname']) ? $livedetails['manofmatch']['fullname'] : '' }} {{ isset($livedetails['manofmatch']['position']['name']) ? '('.$livedetails['manofmatch']['position']['name'].')' : '' }} 
+                    </div>
+                </div>
+            @endif
             <table class="table" width="100%">
+                @if( strtolower($livedetails['details']['status']) == 'innings break' )
+                    <tr>
+                        <td colspan="3"> 
+                            <span> {{ strtoupper($livedetails['details']['status']) }} </span> - {{ strtoupper($livedetails['details']['note']) }} 
+                        </td>
+                    </tr>
+                @elseif( strtolower($livedetails['details']['status']) == 'finished' )
+                    <tr>
+                        <td colspan="3"> 
+                            <span> {{ strtoupper($livedetails['details']['note']) }} </span> 
+                        </td>
+                    </tr>
+                @endif
                 @foreach( $liveCommentory as $id => $commentory )
+                    @if( strpos($commentory['ball'], '.6') !== false && $commentory['score']['ball'] && !$commentory['score']['noball'] )
+                        <tr>
+                            <td colspan="3"> <span> End of Over {{ ceil($commentory['ball']) }} </span> </td>
+                        </tr>
+                    @endif
                     <tr>
                         <td width="10%">
                             @if( $commentory['score']['is_wicket'] )
@@ -151,6 +178,13 @@
                             @endif
                         </td>
                     </tr>
+                    @if( $commentory['scoreboard'] == 'S2' && $commentory['ball'] == '0.1' )
+                        <tr>
+                            <td colspan="3"> 
+                                <span> INNINGS BREAK </span>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </table>
         </div>

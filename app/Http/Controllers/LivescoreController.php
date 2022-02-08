@@ -76,7 +76,7 @@ class LivescoreController extends Controller
         $apiEndpoint = $apiEndpoint . '/' . $fixtureId;
 
         $queryStr = [
-            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby,batting,bowling,tosswon'
+            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby,batting,bowling,tosswon,manofmatch'
         ];
 
         $livescore = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStr );
@@ -92,6 +92,7 @@ class LivescoreController extends Controller
             $livedetails['stage'] = $livescore['data']['stage'];
             $livedetails['venue'] = $livescore['data']['venue'];
             $livedetails['season'] = $livescore['data']['season'];
+            $livedetails['manofmatch'] = $livescore['data']['manofmatch'];
             $runs = [];
             $k = $current_innings = 0;
             $crr = $rr = $req = $rem_o = $total_1 = $total_2 = $overs_2 = 0;
@@ -157,19 +158,19 @@ class LivescoreController extends Controller
                 $bowler['bowlerone']['figures'] = $bowlerData[$ball['bowler']['id']];
                 $bowler['bowlerone']['on_strike'] = 1;
 
-                if( $ball['score']['is_wicket'] ) {
-                    $fow_score = $batsmanData[$ball['batsman']['id']]['fow_score']; 
-                    $fow_balls = $this->functionHelper->calculateBallsFromOvers( $batsmanData[$ball['batsman']['id']]['fow_balls'] );
-                    $fow_overs = $batsmanData[$ball['batsman']['id']]['fow_balls'];
-                    $fow_batsman = $ball['batsman']['fullname'];
-                    $bats_score = $batsmanData[$ball['batsman']['id']]['score'];
-                    $bats_deli = $batsmanData[$ball['batsman']['id']]['ball'];
-                }
                 foreach( $runs['data'] as $run ) {
                     if( $ball['team']['id'] == $run['team']['id'] ) {
                         $total_score = $run['score'];
                         $total_overs = $this->functionHelper->calculateBallsFromOvers( $run['overs'] );
                         $total_wkts = $run['wickets'];
+                        if( $ball['score']['is_wicket'] ) {
+                            $fow_score = $batsmanData[$ball['batsman']['id']]['fow_score']; 
+                            $fow_balls = $this->functionHelper->calculateBallsFromOvers( $batsmanData[$ball['batsman']['id']]['fow_balls'] );
+                            $fow_overs = $batsmanData[$ball['batsman']['id']]['fow_balls'];
+                            $fow_batsman = $ball['batsman']['fullname'];
+                            $bats_score = $batsmanData[$ball['batsman']['id']]['score'];
+                            $bats_deli = $batsmanData[$ball['batsman']['id']]['ball'];
+                        }
                         break;
                     }
                 }

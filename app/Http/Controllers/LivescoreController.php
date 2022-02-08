@@ -76,7 +76,7 @@ class LivescoreController extends Controller
         $apiEndpoint = $apiEndpoint . '/' . $fixtureId;
 
         $queryStr = [
-            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby'
+            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby,batting,bowling'
         ];
 
         $livescore = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStr );
@@ -110,9 +110,7 @@ class LivescoreController extends Controller
                     $crr =  (int)$run['score'] / (float)$run['overs'];
                 }
                 $runs['data'][$k]['inning'] = $run['inning'];
-                $runs['data'][$k]['team']['name'] = $run['team']['name'];
-                $runs['data'][$k]['team']['code'] = $run['team']['code'];
-                $runs['data'][$k]['team']['image_path'] = $run['team']['image_path'];
+                $runs['data'][$k]['team'] = $run['team'];
                 $runs['data'][$k]['score'] = $run['score'];
                 $runs['data'][$k]['wickets'] = $run['wickets'];
                 $runs['data'][$k]['overs'] = $run['overs'];
@@ -133,20 +131,31 @@ class LivescoreController extends Controller
             $livedetails['details']['status'] = $livescore['data']['status'];
             $livedetails['details']['note'] = $livescore['data']['note'];
 
+            $batsmanData = $bowlerData = [];
+            foreach($livescore['data']['batting'] as $batting ) {
+                $batsmanData[$batting['player_id']] = $batting;
+            }
+            foreach($livescore['data']['bowling'] as $bowling ) {
+                $bowlerData[$bowling['player_id']] = $bowling;
+            }
+
             foreach( $livescore['data']['balls'] as $ball ) {
                 $liveCommentory[$ball['id']] = $ball;
 
                 $batsman['batsmanone'] = $ball['batsmanone'];
+                $batsman['batsmanone']['scores'] = $batsmanData[$ball['batsmanone']['id']];
                 $batsman['batsmanone']['on_strike'] = $ball['batsman']['id'] == $ball['batsmanone']['id'];
+
                 $batsman['batsmantwo'] = $ball['batsmantwo'];
+                $batsman['batsmantwo']['scores'] = $batsmanData[$ball['batsmantwo']['id']];
                 $batsman['batsmantwo']['on_strike'] = $ball['batsman']['id'] == $ball['batsmantwo']['id'];
 
                 $bowler['bowlerone'] = $ball['bowler'];
+                $bowler['bowlerone']['figures'] = $bowlerData[$ball['bowler']['id']];
                 $bowler['bowlerone']['on_strike'] = 1;
             }
         }
         krsort($liveCommentory);
-        $liveCommentory = array_slice($liveCommentory, 0, 150);
         
         $helper = $this->functionHelper;
 

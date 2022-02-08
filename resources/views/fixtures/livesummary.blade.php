@@ -52,11 +52,11 @@
                                 <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
                                 @if( $value['on_strike'] ) <span>*</span> @endif 
                             </td>
-                            <td>27</td>
-                            <td>33</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td>81.82</td>
+                            <td> {{ $value['scores']['score'] }} </td>
+                            <td> {{ $value['scores']['ball'] }} </td>
+                            <td> {{ $value['scores']['four_x'] }} </td>
+                            <td> {{ $value['scores']['six_x'] }} </td>
+                            <td> {{ $value['scores']['rate'] }} </td>
                         </tr>
                     @endforeach
                 </table>
@@ -75,11 +75,11 @@
                                 <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
                                 @if( $value['on_strike'] ) <span>*</span> @endif 
                             </td>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>18</td>
-                            <td>0</td>
-                            <td>6</td>
+                            <td> {{ $value['figures']['overs'] }} </td>
+                            <td> {{ $value['figures']['medians'] }} </td>
+                            <td> {{ $value['figures']['runs'] }} </td>
+                            <td> {{ $value['figures']['wickets'] }} </td>
+                            <td> {{ $value['figures']['rate'] }} </td>
                         </tr>
                     @endforeach
                 </table>
@@ -104,7 +104,7 @@
 
         <div class="live-commentary">
             <table class="table" width="100%">
-                @foreach( $liveCommentory as $commentory )
+                @foreach( $liveCommentory as $id => $commentory )
                     <tr>
                         <td width="10%">
                             @if( $commentory['score']['is_wicket'] )

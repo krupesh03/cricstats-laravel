@@ -106,8 +106,9 @@ class LivescoreController extends Controller
                     $total_overs = $this->functionHelper->calculateBallsFromOvers( $livescore['data']['total_overs_played'] );
                     $rem_o = $total_overs - $overs_2;
                 }
-                if( (float)$run['overs'] > 0 ) {
-                    $crr =  (int)$run['score'] / (float)$run['overs'];
+                $c_overs = $this->functionHelper->calculateBallsFromOvers( $run['overs'] );
+                if( $c_overs > 0 ) {
+                    $crr =  ( (int)$run['score'] / $c_overs ) * 6;
                 }
                 $runs['data'][$k]['inning'] = $run['inning'];
                 $runs['data'][$k]['team'] = $run['team'];

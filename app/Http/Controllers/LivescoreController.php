@@ -159,7 +159,7 @@ class LivescoreController extends Controller
 
                 if( $scoreboard != $ball['scoreboard'] ) { //separate innings
                     $total_score = $total_overs = $fow_score = $fow_overs = $total_wkts = $bats_score = $bats_deli = $fow_balls = 0;
-                    $fow_batsman = '';
+                    $fow_batsman = $fow_bowler = $fow_type = '';
                 }
                 foreach( $runs['data'] as $run ) {
                     if( $ball['team']['id'] == $run['team']['id'] ) {
@@ -174,12 +174,30 @@ class LivescoreController extends Controller
                             $fow_batsman = $ball['batsman']['fullname'];
                             $bats_score = $batsmanData[$ball['batsman']['id']]['score'];
                             $bats_deli = $batsmanData[$ball['batsman']['id']]['ball'];
+
+                            if( strpos($ball['score']['name'], 'Catch') !== false && $ball['catchstump']) {
+                                $fow_type = "c " . $ball['catchstump']['fullname'];
+                            }elseif( strpos($ball['score']['name'], 'Run') !== false ) {
+                                if( $ball['runoutby'] ) {
+                                    $fow_type = "run out " . "(" . $ball['runoutby']['fullname'] . ")";
+                                } elseif( $ball['catchstump'] ) {
+                                    $fow_type = "run out " . "(" . $ball['catchstump']['fullname'] . ")";
+                                }
+                            }elseif( strpos($ball['score']['name'], 'LBW') !== false ) {
+                                $fow_type = "lbw";
+                            }elseif( strpos($ball['score']['name'], 'Stump') !== false && $ball['catchstump']) {
+                                $fow_type = "st " . $ball['catchstump']['fullname'];
+                            }
+
+                            if( $ball['bowler'] && !$ball['runoutby'] ) {
+                                $fow_bowler = "b " . $ball['bowler']['fullname'];
+                            }
                         }
                         break;
                     }
                 }
                 $keyStats['partnership'] = ($total_score - $fow_score) . '(' . ($total_overs - $fow_balls) . ')';
-                $keyStats['last_wkt'] = $fow_batsman ? ($fow_batsman . ' ' . $bats_score . '(' .$bats_deli. ') - ' . $fow_score . '/' . $total_wkts . ' in '. $fow_overs . ' ov.') : '';
+                $keyStats['last_wkt'] = $fow_batsman ? ($fow_batsman . ' '. $fow_type .' '.$fow_bowler. ' '. $bats_score . '(' .$bats_deli. ') - ' . $fow_score . '/' . $total_wkts . ' in '. $fow_overs . ' ov.') : '';
                 $keyStats['toss'] = $livescore['data']['tosswon'] ? $livescore['data']['tosswon']['name'] . ' (' .ucfirst($livescore['data']['elected']). ')' : '';
             }
         }

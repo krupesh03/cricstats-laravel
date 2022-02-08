@@ -89,14 +89,27 @@
                     <tr>
                         <th>Key Stats</th>
                     </tr>
-                    <tr>
-                        <td>
-                            Partnership: 0(1) <br/>
-                            Last Wkt: Ishan Kishan c Fabian Allen b Akeal Hosein 28(36) - 115/3 in 16.4 ov. <br/>
-                            Last 5 overs: 39 runs, 3 wkts <br/>
-                            Toss: India (Bowling)
-                        </td>
-                    </tr>
+                    @if( $keyStats['partnership'] )
+                        <tr>
+                            <td>
+                                Partnership: {{ $keyStats['partnership'] }}
+                            </td>
+                        </tr>
+                    @endif
+                    @if( $keyStats['last_wkt'] )
+                        <tr>
+                            <td>
+                                Last Wkt: {{ $keyStats['last_wkt'] }}
+                            </td>
+                        </tr>
+                    @endif
+                    @if( $keyStats['toss'] )
+                        <tr>
+                            <td>
+                                Toss: {{ $keyStats['toss'] }}
+                            </td>
+                        </tr>
+                    @endif
                 </table>
             </div>
         </div>

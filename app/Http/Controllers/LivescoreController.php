@@ -76,7 +76,7 @@ class LivescoreController extends Controller
         $apiEndpoint = $apiEndpoint . '/' . $fixtureId;
 
         $queryStr = [
-            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby,batting,bowling'
+            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby,batting,bowling,tosswon'
         ];
 
         $livescore = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStr );
@@ -85,7 +85,7 @@ class LivescoreController extends Controller
         $livescore = json_decode($json,true);
         $livescore['success'] = true; */
   
-        $liveCommentory = $livedetails = $batsman = $bowler = [];
+        $liveCommentory = $livedetails = $batsman = $bowler = $keyStats = [];
         if( $livescore['success'] ) {
             $livedetails['localteam'] = $livescore['data']['localteam'];
             $livedetails['visitorteam'] = $livescore['data']['visitorteam'];
@@ -139,6 +139,8 @@ class LivescoreController extends Controller
                 $bowlerData[$bowling['player_id']] = $bowling;
             }
 
+            $total_score = $total_overs = $fow_score = $fow_overs = $total_wkts = $bats_score = $bats_deli = $fow_balls = 0;
+            $fow_batsman = '';
             foreach( $livescore['data']['balls'] as $ball ) {
                 $liveCommentory[$ball['id']] = $ball;
 
@@ -153,12 +155,32 @@ class LivescoreController extends Controller
                 $bowler['bowlerone'] = $ball['bowler'];
                 $bowler['bowlerone']['figures'] = $bowlerData[$ball['bowler']['id']];
                 $bowler['bowlerone']['on_strike'] = 1;
+
+                if( $ball['score']['is_wicket'] ) {
+                    $fow_score = $batsmanData[$ball['batsman']['id']]['fow_score']; 
+                    $fow_balls = $this->functionHelper->calculateBallsFromOvers( $batsmanData[$ball['batsman']['id']]['fow_balls'] );
+                    $fow_overs = $batsmanData[$ball['batsman']['id']]['fow_balls'];
+                    $fow_batsman = $ball['batsman']['fullname'];
+                    $bats_score = $batsmanData[$ball['batsman']['id']]['score'];
+                    $bats_deli = $batsmanData[$ball['batsman']['id']]['ball'];
+                }
+                foreach( $runs['data'] as $run ) {
+                    if( $ball['team']['id'] == $run['team']['id'] ) {
+                        $total_score = $run['score'];
+                        $total_overs = $this->functionHelper->calculateBallsFromOvers( $run['overs'] );
+                        $total_wkts = $run['wickets'];
+                        break;
+                    }
+                }
+                $keyStats['partnership'] = ($total_score - $fow_score) . '(' . ($total_overs - $fow_balls) . ')';
+                $keyStats['last_wkt'] = $fow_batsman ? ($fow_batsman . ' ' . $bats_score . '(' .$bats_deli. ') - ' . $fow_score . '/' . $total_wkts . ' in '. $fow_overs . ' ov.') : '';
+                $keyStats['toss'] = $livescore['data']['tosswon'] ? $livescore['data']['tosswon']['name'] . ' (' .ucfirst($livescore['data']['elected']). ')' : '';
             }
         }
         krsort($liveCommentory);
         
         $helper = $this->functionHelper;
 
-        return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'helper'));
+        return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'keyStats', 'helper'));
     }
 }

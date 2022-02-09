@@ -215,7 +215,7 @@ class LivescoreController extends Controller
         
             $helper = $this->functionHelper;
 
-            return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'keyStats', 'helper'));
+            return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'keyStats', 'batsmanData', 'helper'));
         }
         
         return abort(404);

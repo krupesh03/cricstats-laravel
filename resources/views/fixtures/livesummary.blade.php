@@ -47,17 +47,19 @@
                         <th width="10%">SR</th>
                     </tr>
                     @foreach( $batsman as $key => $value )
-                        <tr>
-                            <td> 
-                                <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
-                                @if( $value['on_strike'] ) <span>*</span> @endif 
-                            </td>
-                            <td> {{ $value['scores']['score'] }} </td>
-                            <td> {{ $value['scores']['ball'] }} </td>
-                            <td> {{ $value['scores']['four_x'] }} </td>
-                            <td> {{ $value['scores']['six_x'] }} </td>
-                            <td> {{ $value['scores']['rate'] }} </td>
-                        </tr>
+                        @if( isset($value['fullname']) && !empty($value['fullname']) )
+                            <tr>
+                                <td> 
+                                    <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
+                                    @if( $value['on_strike'] ) <span>*</span> @endif 
+                                </td>
+                                <td> {{ $value['scores']['score'] }} </td>
+                                <td> {{ $value['scores']['ball'] }} </td>
+                                <td> {{ $value['scores']['four_x'] }} </td>
+                                <td> {{ $value['scores']['six_x'] }} </td>
+                                <td> {{ $value['scores']['rate'] }} </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </table>
                 <table class="table bowling-table" width="100%">
@@ -70,17 +72,19 @@
                         <th width="10%">ECO</th>
                     </tr>
                     @foreach( $bowler as $key => $value )
-                        <tr>
-                            <td> 
-                                <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
-                                @if( $value['on_strike'] ) <span>*</span> @endif 
-                            </td>
-                            <td> {{ $value['figures']['overs'] }} </td>
-                            <td> {{ $value['figures']['medians'] }} </td>
-                            <td> {{ $value['figures']['runs'] }} </td>
-                            <td> {{ $value['figures']['wickets'] }} </td>
-                            <td> {{ $value['figures']['rate'] }} </td>
-                        </tr>
+                        @if( isset($value['fullname']) && !empty($value['fullname']) )
+                            <tr>
+                                <td> 
+                                    <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
+                                    @if( $value['on_strike'] ) <span>*</span> @endif 
+                                </td>
+                                <td> {{ $value['figures']['overs'] }} </td>
+                                <td> {{ $value['figures']['medians'] }} </td>
+                                <td> {{ $value['figures']['runs'] }} </td>
+                                <td> {{ $value['figures']['wickets'] }} </td>
+                                <td> {{ $value['figures']['rate'] }} </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </table>
             </div>

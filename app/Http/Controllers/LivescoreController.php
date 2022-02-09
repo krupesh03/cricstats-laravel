@@ -149,16 +149,22 @@ class LivescoreController extends Controller
                 $liveCommentory[$ball['id']] = $ball;
 
                 $batsman['batsmanone'] = $ball['batsmanone'];
-                $batsman['batsmanone']['scores'] = $batsmanData[$ball['batsmanone']['id']];
-                $batsman['batsmanone']['on_strike'] = $ball['batsman']['id'] == $ball['batsmanone']['id'];
+                if( isset($batsman['batsmanone']) && !empty($batsman['batsmanone']) ) {
+                    $batsman['batsmanone']['scores'] = $batsmanData[$ball['batsmanone']['id']];
+                    $batsman['batsmanone']['on_strike'] = $ball['batsman']['id'] == $ball['batsmanone']['id'];
+                }
 
                 $batsman['batsmantwo'] = $ball['batsmantwo'];
-                $batsman['batsmantwo']['scores'] = $batsmanData[$ball['batsmantwo']['id']];
-                $batsman['batsmantwo']['on_strike'] = $ball['batsman']['id'] == $ball['batsmantwo']['id'];
+                if( isset($batsman['batsmantwo']) && !empty($batsman['batsmantwo']) ) {
+                    $batsman['batsmantwo']['scores'] = $batsmanData[$ball['batsmantwo']['id']];
+                    $batsman['batsmantwo']['on_strike'] = $ball['batsman']['id'] == $ball['batsmantwo']['id'];
+                }
 
                 $bowler['bowlerone'] = $ball['bowler'];
-                $bowler['bowlerone']['figures'] = $bowlerData[$ball['bowler']['id']];
-                $bowler['bowlerone']['on_strike'] = 1;
+                if( isset($bowler['bowlerone']) && !empty($bowler['bowlerone']) ) {
+                    $bowler['bowlerone']['figures'] = $bowlerData[$ball['bowler']['id']];
+                    $bowler['bowlerone']['on_strike'] = 1;
+                }
 
                 if( $scoreboard != $ball['scoreboard'] ) { //separate innings
                     $total_score = $total_overs = $fow_score = $fow_overs = $total_wkts = $bats_score = $bats_deli = $fow_balls = 0;

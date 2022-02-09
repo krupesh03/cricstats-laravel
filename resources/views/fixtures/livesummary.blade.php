@@ -13,7 +13,7 @@
 <hr />
 
 <div class="row main-div">
-    <div class="live-scorecard">
+    <div class="live-scorecard {{ strtolower($livedetails['details']['status']) == 'finished' ? '' : 'match-in-progress' }}">
         @foreach( $livedetails['runs']['data'] as $run )
             <div class="{{ $run['inning'] == $livedetails['runs']['current_innings'] ? 'innings-progress-score' : 'innings-completed-score' }}">
                 <img src="{{ $helper->setImage($run['team']['image_path']) }}">

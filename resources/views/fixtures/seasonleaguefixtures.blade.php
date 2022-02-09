@@ -35,11 +35,12 @@
                             </div>
                         @else
                             <div class="match-result">
-                                Result: <span> {{ isset($fixture['note']) ? $fixture['note'] : '' }} </span>
+                                Result: <span> {{ !empty($fixture['note']) ? $fixture['note'] : 'NA' }} </span>
                             </div>
-                            @if( !$fixture['draw_noresult'] )
+                            @if( !$fixture['draw_noresult'] && !empty($fixture['note']) )
                                 <div class="man-ofthe-match">
-                                    <a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $fixture['id'] }}" data-current-url="{{ url('') }}">See full match details here >>></a>
+                                    <a href="javascript:void(0)" class="live-score-url" data-pid="{{ $fixture['id'] }}" data-current-url="{{ url('') }}">Commentary</a> |
+                                    <a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $fixture['id'] }}" data-current-url="{{ url('') }}">Scorecard</a>
                                 </div>
                             @endif
                         @endif

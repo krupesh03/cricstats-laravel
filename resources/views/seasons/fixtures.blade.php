@@ -50,12 +50,15 @@
                             </div>
                         @else
                             <div class="match-result">
-                                Result: <span> {{ isset($fixture['note']) ? $fixture['note'] : '' }} </span>
+                                Result: <span> {{ !empty($fixture['note']) ? $fixture['note'] : 'NA' }} </span>
                             </div>
                             <div class="man-ofthe-match">
                                 Man of the match: <span> {{ isset($fixture['manofmatch']['fullname']) ? $fixture['manofmatch']['fullname'] : 'NA' }} </span> 
-                                @if( !$fixture['draw_noresult'] )
-                                    (<a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $fixture['id'] }}" data-current-url="{{ url('') }}">scoreboard</a>)
+                                @if( !$fixture['draw_noresult'] && !empty($fixture['note']) )
+                                    <div class="commentary-score">
+                                        <a href="javascript:void(0)" class="live-score-url" data-pid="{{ $fixture['id'] }}" data-current-url="{{ url('') }}">Commentary</a> | 
+                                        <a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $fixture['id'] }}" data-current-url="{{ url('') }}">Scorecard</a>
+                                    </div>
                                 @endif
                             </div>
                         @endif

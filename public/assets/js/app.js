@@ -80,7 +80,7 @@ $(document).ready( function() {
         var fixtureId = $this.data('pid');
         var currentUrl = $this.data('current-url');
         if( fixtureId && currentUrl ) {
-            document.location.href = currentUrl + '/' + fixtureId + '/score';
+            document.location.href = currentUrl + '/livescores/' + fixtureId + '/score';
         }
     });
 
@@ -91,7 +91,7 @@ $(document).ready( function() {
         }, 50000);
     }
 
-    if( $('.live-scorecard').length != 0 ) {
+    if( $('.match-in-progress').length != 0 ) {
         setTimeout(function () {
             location.reload(true);
         }, 50000);

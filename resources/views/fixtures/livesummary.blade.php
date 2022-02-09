@@ -89,21 +89,21 @@
                     <tr>
                         <th>Key Stats</th>
                     </tr>
-                    @if( $keyStats['partnership'] )
+                    @if( isset($keyStats['partnership']) && !empty($keyStats['partnership']) )
                         <tr>
                             <td>
                                 Partnership: {{ $keyStats['partnership'] }}
                             </td>
                         </tr>
                     @endif
-                    @if( $keyStats['last_wkt'] )
+                    @if( isset($keyStats['last_wkt']) && !empty($keyStats['last_wkt']) )
                         <tr>
                             <td>
                                 Last Wkt: {{ $keyStats['last_wkt'] }}
                             </td>
                         </tr>
                     @endif
-                    @if( $keyStats['toss'] )
+                    @if( isset($keyStats['toss']) && !empty($keyStats['toss']) )
                         <tr>
                             <td>
                                 Toss: {{ $keyStats['toss'] }}
@@ -188,9 +188,9 @@
                                     c {{ $commentory['catchstump']['fullname'] }}
                                 @elseif( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Run') !== false )
                                     @if( $commentory['runoutby'] )
-                                        run out ({{ $commentory['runoutby']['fullname'] }})
+                                        run out {{ $commentory['runoutby']['fullname'] }})
                                     @elseif( $commentory['catchstump'] )
-                                        run out ({{ $commentory['catchstump']['fullname'] }})
+                                        run out {{ $commentory['catchstump']['fullname'] }})
                                     @endif
                                 @elseif( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'LBW') !== false )
                                     lbw
@@ -198,7 +198,7 @@
                                     st {{ $commentory['catchstump']['fullname'] }}
                                 @endif
 
-                                @if( $commentory['score']['is_wicket'] && $commentory['bowler'] && !$commentory['runoutby'] )
+                                @if( $commentory['score']['is_wicket'] && $commentory['bowler'] && !$commentory['runoutby'] && strpos($commentory['score']['name'], 'Run') === false )
                                     b {{ $commentory['bowler']['fullname'] }})
                                 @endif
                             </td>

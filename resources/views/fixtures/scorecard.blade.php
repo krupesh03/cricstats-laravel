@@ -97,12 +97,14 @@
                                 @endif
                             </td>
                             <td>
-                                @if( $score['result']['out'] && $score['bowler'] )
-                                    b {{ $score['bowler']['fullname'] }}
-                                @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' )
-                                    batting
-                                @elseif(  !$score['result']['out'] )
-                                    not out
+                                @if( strpos($score['result']['name'], 'Run') === false )
+                                    @if( $score['result']['out'] && $score['bowler'] )
+                                        b {{ $score['bowler']['fullname'] }}
+                                    @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' )
+                                        batting
+                                    @elseif(  !$score['result']['out'] )
+                                        not out
+                                    @endif
                                 @endif
                             </td>
                             <td width="5%">{{ $score['score'] }}</td>
@@ -224,12 +226,14 @@
                                 @endif
                             </td>
                             <td>
-                                @if( $score['result']['out'] && $score['bowler'] )
-                                    b {{ $score['bowler']['fullname'] }}
-                                @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' )
-                                    batting
-                                @elseif(  !$score['result']['out'] )
-                                    not out
+                                @if( strpos($score['result']['name'], 'Run') === false )
+                                    @if( $score['result']['out'] && $score['bowler'] )
+                                        b {{ $score['bowler']['fullname'] }}
+                                    @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' )
+                                        batting
+                                    @elseif(  !$score['result']['out'] )
+                                        not out
+                                    @endif
                                 @endif
                             </td>
                             <td width="5%">{{ $score['score'] }}</td>

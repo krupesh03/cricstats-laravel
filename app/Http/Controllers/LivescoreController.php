@@ -62,11 +62,13 @@ class LivescoreController extends Controller
                 $allLiveScores[$score['stage']['id']]['fixtures'][$i]['facts'] = $matchFacts;
                 $i++;
             }
+
+            $helper = $this->functionHelper;
+
+            return view('fixtures/livescores', compact('allLiveScores', 'helper'));
         }
-
-        $helper = $this->functionHelper;
-
-        return view('fixtures/livescores', compact('allLiveScores', 'helper'));
+        
+        return abort(404);
     }
 
     public function getLivescores( $fixtureId ) {
@@ -192,7 +194,7 @@ class LivescoreController extends Controller
                                 $fow_type = "st " . $ball['catchstump']['fullname'];
                             }
 
-                            if( $ball['bowler'] && !$ball['runoutby'] ) {
+                            if( $ball['bowler'] && !$ball['runoutby'] && strpos($ball['score']['name'], 'Run') === false ) {
                                 $fow_bowler = "b " . $ball['bowler']['fullname'];
                             }
                         }
@@ -203,11 +205,13 @@ class LivescoreController extends Controller
                 $keyStats['last_wkt'] = $fow_batsman ? ($fow_batsman . ' '. $fow_type .' '.$fow_bowler. ' '. $bats_score . '(' .$bats_deli. ') - ' . $fow_score . '/' . $total_wkts . ' in '. $fow_overs . ' ov.') : '';
                 $keyStats['toss'] = $livescore['data']['tosswon'] ? $livescore['data']['tosswon']['name'] . ' (' .ucfirst($livescore['data']['elected']). ')' : '';
             }
-        }
-        krsort($liveCommentory);
+            krsort($liveCommentory);
         
-        $helper = $this->functionHelper;
+            $helper = $this->functionHelper;
 
-        return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'keyStats', 'helper'));
+            return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'keyStats', 'helper'));
+        }
+        
+        return abort(404);
     }
 }

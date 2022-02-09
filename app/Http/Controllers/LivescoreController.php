@@ -151,13 +151,13 @@ class LivescoreController extends Controller
                 $batsman['batsmanone'] = $ball['batsmanone'];
                 if( isset($batsman['batsmanone']) && !empty($batsman['batsmanone']) ) {
                     $batsman['batsmanone']['scores'] = $batsmanData[$ball['batsmanone']['id']];
-                    $batsman['batsmanone']['on_strike'] = $ball['batsman']['id'] == $ball['batsmanone']['id'];
+                    $batsman['batsmanone']['on_strike'] = $ball['batsman']['id'] !== $ball['batsmanone']['id'];
                 }
 
                 $batsman['batsmantwo'] = $ball['batsmantwo'];
                 if( isset($batsman['batsmantwo']) && !empty($batsman['batsmantwo']) ) {
                     $batsman['batsmantwo']['scores'] = $batsmanData[$ball['batsmantwo']['id']];
-                    $batsman['batsmantwo']['on_strike'] = $ball['batsman']['id'] == $ball['batsmantwo']['id'];
+                    $batsman['batsmantwo']['on_strike'] = $ball['batsman']['id'] !== $ball['batsmantwo']['id'];
                 }
 
                 $bowler['bowlerone'] = $ball['bowler'];

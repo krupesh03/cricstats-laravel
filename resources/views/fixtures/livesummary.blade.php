@@ -129,7 +129,7 @@
                 @if( strtolower($livedetails['details']['status']) == 'innings break' )
                     <tr>
                         <td colspan="3"> 
-                            <span> {{ strtoupper($livedetails['details']['status']) }} </span> - {{ strtoupper($livedetails['details']['note']) }} 
+                            <span> {{ strtoupper($livedetails['details']['status']) }} </span> - {{ $livedetails['details']['note'] }} 
                         </td>
                     </tr>
                 @elseif( strtolower($livedetails['details']['status']) == 'finished' )
@@ -150,12 +150,24 @@
                             @if( $commentory['score']['is_wicket'] )
                                 <div class="wickets"> W </div>
                             @else
-                                @if( $commentory['score']['runs'] <= 3 || ($commentory['score']['runs'] != 4 && $commentory['score']['runs'] != 6))
-                                    <div class="runnings"> {{ $commentory['score']['runs'] }} </div>
-                                @elseif( $commentory['score']['runs'] == 4 )
+                                @if( $commentory['score']['four'] )
                                     <div class="boundary"> {{ $commentory['score']['runs'] }} </div>
-                                @elseif( $commentory['score']['runs'] == 6 )
+                                @elseif( $commentory['score']['six'] )
                                     <div class="huge-one"> {{ $commentory['score']['runs'] }} </div>
+                                @else
+                                    <div class="runnings">
+                                        @if( $commentory['score']['leg_bye'] )
+                                            {{ $commentory['score']['leg_bye'] . 'lb' }}
+                                        @elseif( $commentory['score']['bye'] )
+                                            {{ $commentory['score']['bye'] . 'b' }}
+                                        @elseif( $commentory['score']['noball'] )
+                                            {{ $commentory['score']['noball_runs'] . 'nb' }}
+                                        @elseif( !$commentory['score']['ball'] )
+                                            {{ $commentory['score']['runs'] . 'wd' }}
+                                        @else 
+                                            {{ $commentory['score']['runs'] }}
+                                        @endif
+                                    </div>
                                 @endif
                             @endif
                         </td>

@@ -15,23 +15,23 @@
 <div class="row main-div">
     <div class="live-scorecard {{ strtolower($livedetails['details']['status']) == 'finished' ? '' : 'match-in-progress' }}">
         @foreach( $livedetails['runs']['data'] as $run )
-            <div class="{{ $run['inning'] == $livedetails['runs']['current_innings'] ? 'innings-progress-score' : 'innings-completed-score' }}">
+            <div class="{{ $run['inning'] == count($livedetails['runs']['data']) ? 'innings-progress-score' : 'innings-completed-score' }}">
                 <img src="{{ $helper->setImage($run['team']['image_path']) }}">
                 {{ $run['team']['code'] }} {{ $run['score'] }}-{{ $run['wickets'] }} ({{ $run['overs'] }})
                 <span>
-                    @if( $run['inning'] == $livedetails['runs']['current_innings'] )
+                    @if( $run['inning'] == count($livedetails['runs']['data']) )
                         CRR: {{ $run['crr'] }}
                     @endif
-                    @if( $run['inning'] == 2 && $livedetails['runs']['rr'] )
+                    @if( $run['inning'] == count($livedetails['runs']['data']) && $livedetails['runs']['rr'] )
                          REQ: {{ $livedetails['runs']['rr'] }}
                     @endif
                 </span>
             </div>
             <div class="match-note">
-                @if( $livedetails['details']['status'] == "Finished" && $run['inning'] == 2 )
+                @if( $livedetails['details']['status'] == "Finished" && $run['inning'] == count($livedetails['runs']['data']) )
                     {{ $livedetails['details']['note'] }}
                 @else
-                    {{ $run['inning'] == 2 ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
+                    {{ $run['inning'] == count($livedetails['runs']['data']) ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
                 @endif
             </div>
         @endforeach
@@ -196,7 +196,7 @@
                             @endif
                             <span>
                                 @if( $commentory['score']['is_wicket'] ) <br />
-                                    {{ $commentory['batsmanout']['fullname'] }}
+                                    {{ isset($commentory['batsmanout']['fullname']) ? $commentory['batsmanout']['fullname'] : '' }}
                                 @endif
                                 @if( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Catch') !== false && $commentory['catchstump'] && $commentory['bowler']['id'] == $commentory['catchstump']['id'] )
                                     c &

@@ -53,11 +53,11 @@
                                     <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
                                     @if( $value['on_strike'] ) <span>*</span> @endif 
                                 </td>
-                                <td> {{ $value['scores']['score'] }} </td>
-                                <td> {{ $value['scores']['ball'] }} </td>
-                                <td> {{ $value['scores']['four_x'] }} </td>
-                                <td> {{ $value['scores']['six_x'] }} </td>
-                                <td> {{ $value['scores']['rate'] }} </td>
+                                <td> {{ isset($value['scores']['score']) ? $value['scores']['score'] : '' }} </td>
+                                <td> {{ isset($value['scores']['ball']) ? $value['scores']['ball'] : '' }} </td>
+                                <td> {{ isset($value['scores']['four_x']) ? $value['scores']['four_x'] : '' }} </td>
+                                <td> {{ isset($value['scores']['six_x']) ? $value['scores']['six_x'] : '' }} </td>
+                                <td> {{ isset($value['scores']['rate']) ? $value['scores']['rate'] : '' }} </td>
                             </tr>
                         @endif
                     @endforeach
@@ -78,11 +78,11 @@
                                     <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
                                     @if( $value['on_strike'] ) <span>*</span> @endif 
                                 </td>
-                                <td> {{ $value['figures']['overs'] }} </td>
-                                <td> {{ $value['figures']['medians'] }} </td>
-                                <td> {{ $value['figures']['runs'] }} </td>
-                                <td> {{ $value['figures']['wickets'] }} </td>
-                                <td> {{ $value['figures']['rate'] }} </td>
+                                <td> {{ isset($value['figures']['overs']) ? $value['figures']['overs'] : '' }} </td>
+                                <td> {{ isset($value['figures']['medians']) ? $value['figures']['medians'] : '' }} </td>
+                                <td> {{ isset($value['figures']['runs']) ? $value['figures']['runs'] : '' }} </td>
+                                <td> {{ isset($value['figures']['wickets']) ? $value['figures']['wickets'] : '' }} </td>
+                                <td> {{ isset($value['figures']['rate']) ? $value['figures']['rate'] : '' }} </td>
                             </tr>
                         @endif
                     @endforeach
@@ -96,21 +96,21 @@
                     @if( isset($keyStats['partnership']) && !empty($keyStats['partnership']) )
                         <tr>
                             <td>
-                                Partnership: {{ $keyStats['partnership'] }}
+                                <span class="key-stat-style">Partnership:</span> {{ $keyStats['partnership'] }}
                             </td>
                         </tr>
                     @endif
                     @if( isset($keyStats['last_wkt']) && !empty($keyStats['last_wkt']) )
                         <tr>
                             <td>
-                                Last Wkt: {{ $keyStats['last_wkt'] }}
+                                <span class="key-stat-style">Last Wkt:</span> {{ $keyStats['last_wkt'] }}
                             </td>
                         </tr>
                     @endif
                     @if( isset($keyStats['toss']) && !empty($keyStats['toss']) )
                         <tr>
                             <td>
-                                Toss: {{ $keyStats['toss'] }}
+                                <span class="key-stat-style">Toss:</span> {{ $keyStats['toss'] }}
                             </td>
                         </tr>
                     @endif

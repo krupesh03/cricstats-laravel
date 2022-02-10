@@ -33,7 +33,7 @@
                 @foreach( $fixtures['data'] as $fixture )
                     <div class="col-md-6 fixture-list">
                         <div class="match-number">
-                            {{ $fixture['round'] }}, <span> {{ date('d M Y h:i A', strtotime($fixture['starting_at'])) }}</span>, <span class="match-venue"> {{ $fixture['venue']['name'] }}, {{ $fixture['venue']['city'] }} </span>
+                            {{ isset($fixture['round']) ? $fixture['round'] : '' }}, <span> {{ !empty($fixture['starting_at']) ? date('d M Y h:i A', strtotime($fixture['starting_at'])) : '' }}</span>, <span class="match-venue"> {{ isset($fixture['venue']['name']) ? $fixture['venue']['name'] : '' }}, {{ isset($fixture['venue']['city']) ? $fixture['venue']['city'] : '' }} </span>
                         </div>
                         <div class="opponent-team">
                             @if( isset($fixture['visitorteam']['name']) && $fixtureType == 'home' )
@@ -53,7 +53,7 @@
                                 Result: <span> {{ !empty($fixture['note']) ? $fixture['note'] : 'NA' }} </span>
                             </div>
                             <div class="man-ofthe-match">
-                                Man of the match: <span> {{ isset($fixture['manofmatch']['fullname']) ? $fixture['manofmatch']['fullname'] : 'NA' }} </span> 
+                                Player of the match: <span> {{ isset($fixture['manofmatch']['fullname']) ? $fixture['manofmatch']['fullname'] : 'NA' }} </span> 
                                 @if( !$fixture['draw_noresult'] && !empty($fixture['note']) )
                                     <div class="commentary-score">
                                         <a href="javascript:void(0)" class="live-score-url" data-pid="{{ $fixture['id'] }}" data-current-url="{{ url('') }}">Commentary</a> | 

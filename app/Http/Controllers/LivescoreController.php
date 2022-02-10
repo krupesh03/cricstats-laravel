@@ -150,19 +150,19 @@ class LivescoreController extends Controller
 
                 $batsman['batsmanone'] = $ball['batsmanone'];
                 if( isset($batsman['batsmanone']) && !empty($batsman['batsmanone']) ) {
-                    $batsman['batsmanone']['scores'] = $batsmanData[$ball['batsmanone']['id']];
+                    $batsman['batsmanone']['scores'] = isset($batsmanData[$ball['batsmanone']['id']]) ? $batsmanData[$ball['batsmanone']['id']] : [];
                     $batsman['batsmanone']['on_strike'] = $ball['batsman']['id'] !== $ball['batsmanone']['id'];
                 }
 
                 $batsman['batsmantwo'] = $ball['batsmantwo'];
                 if( isset($batsman['batsmantwo']) && !empty($batsman['batsmantwo']) ) {
-                    $batsman['batsmantwo']['scores'] = $batsmanData[$ball['batsmantwo']['id']];
+                    $batsman['batsmantwo']['scores'] = isset($batsmanData[$ball['batsmantwo']['id']]) ? $batsmanData[$ball['batsmantwo']['id']] : [];
                     $batsman['batsmantwo']['on_strike'] = $ball['batsman']['id'] !== $ball['batsmantwo']['id'];
                 }
 
                 $bowler['bowlerone'] = $ball['bowler'];
                 if( isset($bowler['bowlerone']) && !empty($bowler['bowlerone']) ) {
-                    $bowler['bowlerone']['figures'] = $bowlerData[$ball['bowler']['id']];
+                    $bowler['bowlerone']['figures'] = isset($bowlerData[$ball['bowler']['id']]) ? $bowlerData[$ball['bowler']['id']] : [];
                     $bowler['bowlerone']['on_strike'] = 1;
                 }
 
@@ -177,12 +177,12 @@ class LivescoreController extends Controller
                         $total_wkts = $run['wickets'];
                         $scoreboard = $ball['scoreboard'];
                         if( $ball['score']['is_wicket'] ) {
-                            $fow_score = $batsmanData[$ball['batsmanout']['id']]['fow_score']; 
-                            $fow_balls = $this->functionHelper->calculateBallsFromOvers( $batsmanData[$ball['batsmanout']['id']]['fow_balls'] );
-                            $fow_overs = $batsmanData[$ball['batsmanout']['id']]['fow_balls'];
-                            $fow_batsman = $ball['batsmanout']['fullname'];
-                            $bats_score = $batsmanData[$ball['batsmanout']['id']]['score'];
-                            $bats_deli = $batsmanData[$ball['batsmanout']['id']]['ball'];
+                            $fow_score = isset($batsmanData[$ball['batsmanout']['id']]['fow_score']) ? $batsmanData[$ball['batsmanout']['id']]['fow_score'] : 0; 
+                            $fow_balls = isset($batsmanData[$ball['batsmanout']['id']]['fow_balls']) ? $this->functionHelper->calculateBallsFromOvers( $batsmanData[$ball['batsmanout']['id']]['fow_balls'] ) : 0;
+                            $fow_overs = isset($batsmanData[$ball['batsmanout']['id']]['fow_balls']) ? $batsmanData[$ball['batsmanout']['id']]['fow_balls'] : 0;
+                            $fow_batsman = isset($ball['batsmanout']['fullname']) ? $ball['batsmanout']['fullname'] : '';
+                            $bats_score = isset($batsmanData[$ball['batsmanout']['id']]['score']) ? $batsmanData[$ball['batsmanout']['id']]['score'] : 0;
+                            $bats_deli = isset($batsmanData[$ball['batsmanout']['id']]['ball']) ? $batsmanData[$ball['batsmanout']['id']]['ball'] : 0;
 
                             if( strpos($ball['score']['name'], 'Catch') !== false && $ball['catchstump'] && $ball['bowler']['id'] == $ball['catchstump']['id'] ) {
                                 $fow_type = "c & ";
@@ -202,6 +202,8 @@ class LivescoreController extends Controller
 
                             if( $ball['bowler'] && !$ball['runoutby'] && strpos($ball['score']['name'], 'Run') === false ) {
                                 $fow_bowler = "b " . $ball['bowler']['fullname'];
+                            } else {
+                                $fow_bowler = "";
                             }
                         }
                         break;

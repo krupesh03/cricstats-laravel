@@ -29,7 +29,7 @@
                                 Result: <span> {{ !empty($matches['facts']['note']) ? $matches['facts']['note'] : 'NA' }} </span>
                             </div>
                             <div class="man-ofthe-match">
-                                Man of the match: <span> {{ isset($matches['manofmatch']['fullname']) ? $matches['manofmatch']['fullname'] : 'NA' }} </span> 
+                                Player of the match: <span> {{ isset($matches['manofmatch']['fullname']) ? $matches['manofmatch']['fullname'] : 'NA' }} </span> 
                                 @if( !$matches['facts']['draw_noresult'] && !empty($matches['facts']['note']) )
                                     <div class="commentary-score">
                                         <a href="javascript:void(0)" class="live-score-url" data-pid="{{ $matches['facts']['id'] }}" data-current-url="{{ url('') }}">Commentary</a> |

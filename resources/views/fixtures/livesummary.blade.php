@@ -19,11 +19,11 @@
                 <img src="{{ $helper->setImage($run['team']['image_path']) }}">
                 {{ $run['team']['code'] }} {{ $run['score'] }}-{{ $run['wickets'] }} ({{ $run['overs'] }})
                 <span>
-                    @if( $run['inning'] == count($livedetails['runs']['data']) )
+                    @if( $run['inning'] == count($livedetails['runs']['data']) && $livedetails['details']['status'] != "Finished" )
                         CRR: {{ $run['crr'] }}
                     @endif
                     @if( $run['inning'] == count($livedetails['runs']['data']) && $livedetails['runs']['rr'] )
-                         REQ: {{ $livedetails['runs']['rr'] }}
+                        REQ: {{ $livedetails['runs']['rr'] }}
                     @endif
                 </span>
             </div>

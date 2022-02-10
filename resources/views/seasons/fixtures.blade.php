@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="heading"> {{ strtoupper($fixtureType) }} FIXTURES 
+<div class="heading"> {{ ucfirst($fixtureType) }} Fixtures 
     @if( $fixtures['success'] && isset($fixtures['data'][0]['season']['name']) )
         <span> ({{ $fixtures['data'][0]['season']['name'] }}) </span>
     @endif

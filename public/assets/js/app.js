@@ -104,6 +104,6 @@ $(document).ready( function() {
             pageTitle = $('.innings-progress-score').text();
         }
         newPageTitle = $('.heading').text();
-        document.title = pageTitle + newPageTitle;
+        document.title = $('title').text() +' | '+ pageTitle + newPageTitle;
     }
 });

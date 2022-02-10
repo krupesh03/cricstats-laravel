@@ -4,7 +4,7 @@
 
 <div class="heading"> 
     @if( $fixture['success'] && isset($fixture['data']['league']['name']) && isset($fixture['data']['name']) )
-        {{ strtoupper($fixture['data']['league']['name']) }} FIXTURES
+        {{ ucfirst($fixture['data']['league']['name']) }} Fixtures
         <span> ({{ $fixture['data']['name'] }}) </span>
     @endif
 </div>

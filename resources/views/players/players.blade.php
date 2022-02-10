@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="heading"> PLAYERS LIST </div>
+<div class="heading"> Players List </div>
 <hr />
 
 <div class="row main-div">

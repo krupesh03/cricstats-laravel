@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="heading"> 
-    {{ $livedetails['localteam']['name'] }} vs {{ $livedetails['visitorteam']['name'] }}, {{ $livedetails['details']['round'] }} - Live Cricket Score, Commentary
+    {{ $livedetails['localteam']['name'] }} vs {{ $livedetails['visitorteam']['name'] }}, {{ $livedetails['details']['round'] }} - {{ strtolower($livedetails['details']['status']) == 'finished' ? '' : 'Live' }} Cricket Score, Commentary
 </div>
 <div class="subheading">
     <span>Series : {{ $livedetails['stage']['name'] }}, {{ $livedetails['season']['name'] }} </span>

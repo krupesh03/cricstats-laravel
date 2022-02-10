@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="heading"> LIVE CRICKET SCORE </div>
+<div class="heading"> Live Cricket Score </div>
 <hr />
 
 <div class="row main-div">

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="heading"> TEAMS <span> - Season {{ $latestSeason['name'] }} </span> <a href="{{ url('/seasons') }}/{{ $latestSeason['league_id'] }}" class="change-season">Change season</a></div>
+<div class="heading"> Teams <span> - Season {{ $latestSeason['name'] }} </span> <a href="{{ url('/seasons') }}/{{ $latestSeason['league_id'] }}" class="change-season">Change season</a></div>
 <hr />
 
 <div class="row main-div">

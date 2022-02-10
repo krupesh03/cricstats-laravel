@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="heading"> RECENT SCHEDULE/RESULTS </div>
+<div class="heading"> Recent Schedule/Results </div>
 <hr />
 
 <div class="row main-div">

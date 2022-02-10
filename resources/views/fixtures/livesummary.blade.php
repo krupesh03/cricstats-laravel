@@ -19,7 +19,7 @@
                 <img src="{{ $helper->setImage($run['team']['image_path']) }}">
                 {{ $run['team']['code'] }} {{ $run['score'] }}-{{ $run['wickets'] }} ({{ $run['overs'] }})
                 <span>
-                    @if( $run['inning'] == count($livedetails['runs']['data']) && $livedetails['details']['status'] != "Finished" )
+                    @if( $run['inning'] == count($livedetails['runs']['data']) && strtolower($livedetails['details']['status']) != "finished" )
                         CRR: {{ $run['crr'] }}
                     @endif
                     @if( $run['inning'] == count($livedetails['runs']['data']) && $livedetails['runs']['rr'] )
@@ -28,14 +28,14 @@
                 </span>
             </div>
             <div class="match-note">
-                @if( $livedetails['details']['status'] == "Finished" && $run['inning'] == count($livedetails['runs']['data']) )
+                @if( strtolower($livedetails['details']['status']) == "finished" && $run['inning'] == count($livedetails['runs']['data']) )
                     {{ $livedetails['details']['note'] }}
                 @else
                     {{ $run['inning'] == count($livedetails['runs']['data']) ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
                 @endif
             </div>
         @endforeach
-        @if( $livedetails['details']['status'] != "Finished" )
+        @if( strtolower($livedetails['details']['status']) != "finished" )
             <div class="row progress-summary">
                 <div class="col-md-8">
                     <table class="table batting-table" width="100%">

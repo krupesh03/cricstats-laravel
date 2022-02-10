@@ -195,7 +195,7 @@
                                     stumped by {{ $commentory['catchstump']['fullname'] }}.
                             @endif
                             <span>
-                                @if( $commentory['score']['is_wicket'] )
+                                @if( $commentory['score']['is_wicket'] ) <br />
                                     {{ $commentory['batsmanout']['fullname'] }}
                                 @endif
                                 @if( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Catch') !== false && $commentory['catchstump'] && $commentory['bowler']['id'] == $commentory['catchstump']['id'] )
@@ -219,7 +219,7 @@
                                 @endif
 
                                 @if( $commentory['score']['is_wicket'] && $commentory['batsmanout_id'] )
-                                    {{ $batsmanData[$commentory['batsmanout_id']]['score'] .'('. $batsmanData[$commentory['batsmanout_id']]['ball'] .')' }}
+                                    {{ $batsmanData[$commentory['batsmanout_id']]['score'] .'('. $batsmanData[$commentory['batsmanout_id']]['ball'] .')' }}.
                                 @endif
                             </td>
                     </tr>

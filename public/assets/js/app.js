@@ -96,4 +96,14 @@ $(document).ready( function() {
             location.reload(true);
         }, 50000);
     }
+    
+    //change title of pages
+    if( $('.heading').length != 0 && $('.heading').text() != '' ) {
+        pageTitle = '';
+        if( $('.innings-progress-score').length != 0 && $('.innings-progress-score').text() != '' ) {
+            pageTitle = $('.innings-progress-score').text();
+        }
+        newPageTitle = $('.heading').text();
+        document.title = pageTitle + newPageTitle;
+    }
 });

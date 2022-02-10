@@ -35,88 +35,90 @@
                 @endif
             </div>
         @endforeach
-        <div class="row progress-summary">
-            <div class="col-md-8">
-                <table class="table batting-table" width="100%">
-                    <tr>
-                        <th width="40%">Batter</th>
-                        <th width="10%">R</th>
-                        <th width="10%">B</th>
-                        <th width="10%">4s</th>
-                        <th width="10%">6s</th>
-                        <th width="10%">SR</th>
-                    </tr>
-                    @foreach( $batsman as $key => $value )
-                        @if( isset($value['fullname']) && !empty($value['fullname']) )
+        @if( $livedetails['details']['status'] != "Finished" )
+            <div class="row progress-summary">
+                <div class="col-md-8">
+                    <table class="table batting-table" width="100%">
+                        <tr>
+                            <th width="40%">Batter</th>
+                            <th width="10%">R</th>
+                            <th width="10%">B</th>
+                            <th width="10%">4s</th>
+                            <th width="10%">6s</th>
+                            <th width="10%">SR</th>
+                        </tr>
+                        @foreach( $batsman as $key => $value )
+                            @if( isset($value['fullname']) && !empty($value['fullname']) )
+                                <tr>
+                                    <td> 
+                                        <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
+                                        @if( $value['on_strike'] ) <span>*</span> @endif 
+                                    </td>
+                                    <td> {{ isset($value['scores']['score']) ? $value['scores']['score'] : '' }} </td>
+                                    <td> {{ isset($value['scores']['ball']) ? $value['scores']['ball'] : '' }} </td>
+                                    <td> {{ isset($value['scores']['four_x']) ? $value['scores']['four_x'] : '' }} </td>
+                                    <td> {{ isset($value['scores']['six_x']) ? $value['scores']['six_x'] : '' }} </td>
+                                    <td> {{ isset($value['scores']['rate']) ? $value['scores']['rate'] : '' }} </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </table>
+                    <table class="table bowling-table" width="100%">
+                        <tr>
+                            <th width="40%">Bowler</th>
+                            <th width="10%">O</th>
+                            <th width="10%">M</th>
+                            <th width="10%">R</th>
+                            <th width="10%">W</th>
+                            <th width="10%">ECO</th>
+                        </tr>
+                        @foreach( $bowler as $key => $value )
+                            @if( isset($value['fullname']) && !empty($value['fullname']) )
+                                <tr>
+                                    <td> 
+                                        <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
+                                        @if( $value['on_strike'] ) <span>*</span> @endif 
+                                    </td>
+                                    <td> {{ isset($value['figures']['overs']) ? $value['figures']['overs'] : '' }} </td>
+                                    <td> {{ isset($value['figures']['medians']) ? $value['figures']['medians'] : '' }} </td>
+                                    <td> {{ isset($value['figures']['runs']) ? $value['figures']['runs'] : '' }} </td>
+                                    <td> {{ isset($value['figures']['wickets']) ? $value['figures']['wickets'] : '' }} </td>
+                                    <td> {{ isset($value['figures']['rate']) ? $value['figures']['rate'] : '' }} </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <table class="table key-stats" width="100%">
+                        <tr>
+                            <th>Key Stats</th>
+                        </tr>
+                        @if( isset($keyStats['partnership']) && !empty($keyStats['partnership']) )
                             <tr>
-                                <td> 
-                                    <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
-                                    @if( $value['on_strike'] ) <span>*</span> @endif 
+                                <td>
+                                    <span class="key-stat-style">Partnership:</span> {{ $keyStats['partnership'] }}
                                 </td>
-                                <td> {{ isset($value['scores']['score']) ? $value['scores']['score'] : '' }} </td>
-                                <td> {{ isset($value['scores']['ball']) ? $value['scores']['ball'] : '' }} </td>
-                                <td> {{ isset($value['scores']['four_x']) ? $value['scores']['four_x'] : '' }} </td>
-                                <td> {{ isset($value['scores']['six_x']) ? $value['scores']['six_x'] : '' }} </td>
-                                <td> {{ isset($value['scores']['rate']) ? $value['scores']['rate'] : '' }} </td>
                             </tr>
                         @endif
-                    @endforeach
-                </table>
-                <table class="table bowling-table" width="100%">
-                    <tr>
-                        <th width="40%">Bowler</th>
-                        <th width="10%">O</th>
-                        <th width="10%">M</th>
-                        <th width="10%">R</th>
-                        <th width="10%">W</th>
-                        <th width="10%">ECO</th>
-                    </tr>
-                    @foreach( $bowler as $key => $value )
-                        @if( isset($value['fullname']) && !empty($value['fullname']) )
+                        @if( isset($keyStats['last_wkt']) && !empty($keyStats['last_wkt']) )
                             <tr>
-                                <td> 
-                                    <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
-                                    @if( $value['on_strike'] ) <span>*</span> @endif 
+                                <td>
+                                    <span class="key-stat-style">Last Wkt:</span> {{ $keyStats['last_wkt'] }}
                                 </td>
-                                <td> {{ isset($value['figures']['overs']) ? $value['figures']['overs'] : '' }} </td>
-                                <td> {{ isset($value['figures']['medians']) ? $value['figures']['medians'] : '' }} </td>
-                                <td> {{ isset($value['figures']['runs']) ? $value['figures']['runs'] : '' }} </td>
-                                <td> {{ isset($value['figures']['wickets']) ? $value['figures']['wickets'] : '' }} </td>
-                                <td> {{ isset($value['figures']['rate']) ? $value['figures']['rate'] : '' }} </td>
                             </tr>
                         @endif
-                    @endforeach
-                </table>
+                        @if( isset($keyStats['toss']) && !empty($keyStats['toss']) )
+                            <tr>
+                                <td>
+                                    <span class="key-stat-style">Toss:</span> {{ $keyStats['toss'] }}
+                                </td>
+                            </tr>
+                        @endif
+                    </table>
+                </div>
             </div>
-            <div class="col-md-4">
-                <table class="table key-stats" width="100%">
-                    <tr>
-                        <th>Key Stats</th>
-                    </tr>
-                    @if( isset($keyStats['partnership']) && !empty($keyStats['partnership']) )
-                        <tr>
-                            <td>
-                                <span class="key-stat-style">Partnership:</span> {{ $keyStats['partnership'] }}
-                            </td>
-                        </tr>
-                    @endif
-                    @if( isset($keyStats['last_wkt']) && !empty($keyStats['last_wkt']) )
-                        <tr>
-                            <td>
-                                <span class="key-stat-style">Last Wkt:</span> {{ $keyStats['last_wkt'] }}
-                            </td>
-                        </tr>
-                    @endif
-                    @if( isset($keyStats['toss']) && !empty($keyStats['toss']) )
-                        <tr>
-                            <td>
-                                <span class="key-stat-style">Toss:</span> {{ $keyStats['toss'] }}
-                            </td>
-                        </tr>
-                    @endif
-                </table>
-            </div>
-        </div>
+        @endif
         <hr />
 
         <div class="live-commentary">

@@ -784,29 +784,6 @@ body {
             color: @themeInheritColor;
             font-size: 16px;
         }
-        a {
-            text-decoration: none;
-            float: right;
-            background-color: @themeColor;
-            width: 150px;
-            font-size: 14px;
-            color: @themeInheritColor;
-            text-align: center;
-            border-radius: 10px;
-            padding: 5px;
-            @media only screen and (max-width: 768px) {
-                /* For mobile phones: */
-                text-decoration: none;
-                float: right;
-                background-color: @themeColor;
-                width: 90px;
-                font-size: 8px;
-                color: @themeInheritColor;
-                text-align: center;
-                border-radius: 8px;
-                padding: 4px;
-            }
-        }
     }
     .subheading {
         font-size: 12px;
@@ -815,6 +792,13 @@ body {
             /* For desktop: */
             display: flex;
             justify-content: space-between;
+        }
+        a {
+            text-decoration: underline;
+            font-size: 13px;
+            color: @themeInheritColor;
+            text-align: center;
+            padding: 5px;
         }
     }
     input[type=text] {

@@ -32,7 +32,7 @@
                     @if( strtolower($livedetails['details']['status']) != "finished" && ($run['inning']%2) == 0 )
                         {{ $run['inning'] == count($livedetails['runs']['data']) ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
                     @elseif( $run['inning'] == count($livedetails['runs']['data']) )
-                        {{ $livedetails['details']['note'] }}
+                        {{ $livedetails['details']['note'] ? $livedetails['details']['note'] : $livedetails['details']['status'] }}
                     @endif
                 </div>
             @endforeach

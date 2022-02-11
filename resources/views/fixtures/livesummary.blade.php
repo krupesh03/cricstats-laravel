@@ -235,6 +235,48 @@
                 @endforeach
             </table>
         </div>
+        
+        @if( isset($livedetails['lineup']) && !empty($livedetails['lineup']) )
+            <div class="team-playing-eleven">
+                <table class="table playing-eleven" width="100%">
+                    <tr>
+                        <th width="20%"> {{ $livedetails['visitorteam']['name'] }} Playing XI</th>
+                        <td width="80%">
+                        @foreach( $livedetails['lineup'] as $lineup )
+                            @if( $lineup['lineup']['team_id'] == $livedetails['visitorteam']['id'] )
+                                {{  $lineup['fullname'] }}
+                                @if( $lineup['lineup']['captain'] )
+                                    (c)
+                                @endif
+                                @if( $lineup['lineup']['wicketkeeper'] )
+                                    (wk)
+                                @endif,
+                            @endif
+                        @endforeach
+                        </td>
+                    </tr>
+                </table>  
+                <table class="table playing-eleven" width="100%">
+                    <tr>
+                        <th width="20%"> {{ $livedetails['localteam']['name'] }} Playing XI</th>
+                        <td width="80%">
+                        @foreach( $livedetails['lineup'] as $lineup )
+                            @if( $lineup['lineup']['team_id'] == $livedetails['localteam']['id'] )
+                                {{  $lineup['fullname'] }}
+                                @if( $lineup['lineup']['captain'] )
+                                    (c)
+                                @endif
+                                @if( $lineup['lineup']['wicketkeeper'] )
+                                    (wk)
+                                @endif,
+                            @endif
+                        @endforeach
+                        </td>
+                    </tr>
+                </table>                 
+            </div>
+        @endif
+
     </div>
 </div>
 

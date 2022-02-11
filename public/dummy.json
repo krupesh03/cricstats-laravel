@@ -479,6 +479,558 @@
                 }
             }
         ],
+        "lineup": [
+            {
+                "resource": "players",
+                "id": 25395,
+                "country_id": 146,
+                "firstname": "Joshua",
+                "lastname": "Richards",
+                "fullname": "Joshua Richards",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "1998-12-20",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "legbreak",
+                "position": {
+                    "resource": "positions",
+                    "id": 1,
+                    "name": "Batsman"
+                },
+                "updated_at": "2021-02-11T05:36:36.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 6092,
+                "country_id": 146,
+                "firstname": "Dominic",
+                "lastname": "Hendricks",
+                "fullname": "Dominic Hendricks",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/12/6092.png",
+                "dateofbirth": "1990-11-07",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-offbreak",
+                "position": {
+                    "resource": "positions",
+                    "id": 1,
+                    "name": "Batsman"
+                },
+                "updated_at": "2020-04-01T17:33:36.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 62,
+                "country_id": 146,
+                "firstname": "Reeza",
+                "lastname": "Hendricks",
+                "fullname": "Reeza Hendricks",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/30/62.png",
+                "dateofbirth": "1989-08-14",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-offbreak",
+                "position": {
+                    "resource": "positions",
+                    "id": 1,
+                    "name": "Batsman"
+                },
+                "updated_at": "2020-04-06T07:59:01.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 24909,
+                "country_id": 146,
+                "firstname": "Mitchell",
+                "lastname": "Van Buuren",
+                "fullname": "Mitchell Van Buuren",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "1998-01-21",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "legbreak",
+                "position": {
+                    "resource": "positions",
+                    "id": 1,
+                    "name": "Batsman"
+                },
+                "updated_at": "2021-01-22T11:22:48.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 10731,
+                "country_id": 146,
+                "firstname": "Shane",
+                "lastname": "Dadswell",
+                "fullname": "Shane Dadswell",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "1997-11-18",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-offbreak",
+                "position": {
+                    "resource": "positions",
+                    "id": 4,
+                    "name": "Allrounder"
+                },
+                "updated_at": "2020-02-26T11:19:00.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 25812,
+                "country_id": 146,
+                "firstname": "Ruan",
+                "lastname": "Haasbroek",
+                "fullname": "Ruan Haasbroek",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "2000-01-01",
+                "gender": "m",
+                "battingstyle": null,
+                "bowlingstyle": null,
+                "position": {
+                    "resource": "positions",
+                    "id": 1,
+                    "name": "Batsman"
+                },
+                "updated_at": "2021-02-26T08:01:24.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": true,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 671,
+                "country_id": 146,
+                "firstname": "Sisanda",
+                "lastname": "Magala",
+                "fullname": "Sisanda Magala",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/31/671.png",
+                "dateofbirth": "1991-01-07",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-fast-medium",
+                "position": {
+                    "resource": "positions",
+                    "id": 1,
+                    "name": "Batsman"
+                },
+                "updated_at": "2020-04-08T04:35:28.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 680,
+                "country_id": 146,
+                "firstname": "Bjorn",
+                "lastname": "Fortuin",
+                "fullname": "Bjorn Fortuin",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/8/680.png",
+                "dateofbirth": "1994-10-21",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "slow-left-arm-orthodox",
+                "position": {
+                    "resource": "positions",
+                    "id": 2,
+                    "name": "Bowler"
+                },
+                "updated_at": "2020-04-01T03:39:58.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 638,
+                "country_id": 146,
+                "firstname": "Malusi",
+                "lastname": "Siboto",
+                "fullname": "Malusi Siboto",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/30/638.png",
+                "dateofbirth": "1987-08-20",
+                "gender": "m",
+                "battingstyle": "left-hand-bat",
+                "bowlingstyle": "right-arm-fast-medium",
+                "position": {
+                    "resource": "positions",
+                    "id": 2,
+                    "name": "Bowler"
+                },
+                "updated_at": "2020-04-04T06:08:50.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": true,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 36257,
+                "country_id": 716,
+                "firstname": "Codi",
+                "lastname": "Yusuf",
+                "fullname": "Codi Yusuf",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "1998-10-04",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-fast-medium",
+                "position": {
+                    "resource": "positions",
+                    "id": 2,
+                    "name": "Bowler"
+                },
+                "updated_at": "2022-02-06T15:43:41.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 6119,
+                "country_id": 146,
+                "firstname": "Tshepo",
+                "lastname": "Ntuli",
+                "fullname": "Tshepo Ntuli",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/7/6119.png",
+                "dateofbirth": "1995-11-15",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-offbreak",
+                "position": {
+                    "resource": "positions",
+                    "id": 4,
+                    "name": "Allrounder"
+                },
+                "updated_at": "2020-04-08T09:01:57.000000Z",
+                "lineup": {
+                    "team_id": 64,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 9429,
+                "country_id": 146,
+                "firstname": "Wesley",
+                "lastname": "Marshall",
+                "fullname": "Wesley Marshall",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/21/9429.png",
+                "dateofbirth": "1994-01-04",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-fast-medium",
+                "position": {
+                    "resource": "positions",
+                    "id": 1,
+                    "name": "Batsman"
+                },
+                "updated_at": "2020-04-09T05:02:59.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 673,
+                "country_id": 146,
+                "firstname": "Heino",
+                "lastname": "Kuhn",
+                "fullname": "Heino Kuhn",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/1/673.png",
+                "dateofbirth": "1984-04-01",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": null,
+                "position": {
+                    "resource": "positions",
+                    "id": 3,
+                    "name": "Wicketkeeper"
+                },
+                "updated_at": "2020-04-02T08:38:32.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 658,
+                "country_id": 146,
+                "firstname": "Dwaine",
+                "lastname": "Pretorius",
+                "fullname": "Dwaine Pretorius",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/18/658.png",
+                "dateofbirth": "1989-03-29",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-fast-medium",
+                "position": {
+                    "resource": "positions",
+                    "id": 4,
+                    "name": "Allrounder"
+                },
+                "updated_at": "2020-04-02T01:33:53.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 6104,
+                "country_id": 146,
+                "firstname": "Nicky",
+                "lastname": "van den Bergh",
+                "fullname": "Nicky van den Bergh",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/24/6104.png",
+                "dateofbirth": "1989-06-20",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": null,
+                "position": {
+                    "resource": "positions",
+                    "id": 3,
+                    "name": "Wicketkeeper"
+                },
+                "updated_at": "2020-04-06T04:50:38.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": true,
+                    "wicketkeeper": true,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 6038,
+                "country_id": 146,
+                "firstname": "Senuran",
+                "lastname": "Muthusamy",
+                "fullname": "Senuran Muthusamy",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/22/6038.png",
+                "dateofbirth": "1994-02-22",
+                "gender": "m",
+                "battingstyle": "left-hand-bat",
+                "bowlingstyle": "slow-left-arm-orthodox",
+                "position": {
+                    "resource": "positions",
+                    "id": 1,
+                    "name": "Batsman"
+                },
+                "updated_at": "2020-04-07T09:03:10.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 10767,
+                "country_id": 146,
+                "firstname": "Lesego",
+                "lastname": "Senokwane",
+                "fullname": "Lesego Senokwane",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "1997-05-24",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-offbreak",
+                "position": {
+                    "resource": "positions",
+                    "id": 1,
+                    "name": "Batsman"
+                },
+                "updated_at": "2020-03-13T11:37:48.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 4271,
+                "country_id": 146,
+                "firstname": "Nono",
+                "lastname": "Pongolo",
+                "fullname": "Nono Pongolo",
+                "image_path": "https://cdn.sportmonks.com/images/cricket/players/15/4271.png",
+                "dateofbirth": "1989-08-18",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-fast-medium",
+                "position": {
+                    "resource": "positions",
+                    "id": 2,
+                    "name": "Bowler"
+                },
+                "updated_at": "2020-04-06T05:24:08.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 24741,
+                "country_id": 146,
+                "firstname": "Duan",
+                "lastname": "Jansen",
+                "fullname": "Duan Jansen",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "2001-01-01",
+                "gender": "m",
+                "battingstyle": null,
+                "bowlingstyle": null,
+                "position": {
+                    "resource": "positions",
+                    "id": 2,
+                    "name": "Bowler"
+                },
+                "updated_at": "2021-01-08T16:54:35.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 35588,
+                "country_id": 146,
+                "firstname": "Caleb",
+                "lastname": "Seleka",
+                "fullname": "Caleb Seleka",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "2003-01-01",
+                "gender": "m",
+                "battingstyle": null,
+                "bowlingstyle": null,
+                "position": {
+                    "resource": "positions",
+                    "id": 2,
+                    "name": "Bowler"
+                },
+                "updated_at": "2022-01-01T15:18:16.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 10653,
+                "country_id": 146,
+                "firstname": "Johannes",
+                "lastname": "Diseko",
+                "fullname": "Johannes Diseko",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "1990-10-02",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "slow-left-arm-orthodox",
+                "position": {
+                    "resource": "positions",
+                    "id": 2,
+                    "name": "Bowler"
+                },
+                "updated_at": "2020-02-07T12:20:12.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            },
+            {
+                "resource": "players",
+                "id": 36266,
+                "country_id": 146,
+                "firstname": "Chad",
+                "lastname": "Classen",
+                "fullname": "Chad Classen",
+                "image_path": "https://cdn.sportmonks.com",
+                "dateofbirth": "1997-01-17",
+                "gender": "m",
+                "battingstyle": "right-hand-bat",
+                "bowlingstyle": "right-arm-fast",
+                "position": {
+                    "resource": "positions",
+                    "id": 2,
+                    "name": "Bowler"
+                },
+                "updated_at": "2022-02-06T15:49:51.000000Z",
+                "lineup": {
+                    "team_id": 2066,
+                    "captain": false,
+                    "wicketkeeper": false,
+                    "substitution": false
+                }
+            }
+        ],
         "balls": [
             {
                 "resource": "balls",

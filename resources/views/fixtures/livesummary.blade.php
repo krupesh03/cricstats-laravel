@@ -29,10 +29,10 @@
                     </span>
                 </div>
                 <div class="match-note">
-                    @if( strtolower($livedetails['details']['status']) == "finished" && $run['inning'] == count($livedetails['runs']['data']) )
-                        {{ $livedetails['details']['note'] }}
-                    @else
+                    @if( strtolower($livedetails['details']['status']) != "finished" && ($run['inning']%2) == 0 )
                         {{ $run['inning'] == count($livedetails['runs']['data']) ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
+                    @else
+                        {{ $livedetails['details']['note'] }}
                     @endif
                 </div>
             @endforeach

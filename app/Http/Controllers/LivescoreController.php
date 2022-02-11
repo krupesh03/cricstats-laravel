@@ -178,14 +178,18 @@ class LivescoreController extends Controller
                         $total_wkts = $run['wickets'];
                         $scoreboard = $ball['scoreboard'];
                         if( $ball['score']['is_wicket'] ) {
-                            if( isset($ball['batsmanout']['id']) ) {
-                                $fow_score = isset($batsmanData[$ball['batsmanout']['id']]['fow_score']) ? $batsmanData[$ball['batsmanout']['id']]['fow_score'] : 0; 
-                                $fow_balls = isset($batsmanData[$ball['batsmanout']['id']]['fow_balls']) ? $this->functionHelper->calculateBallsFromOvers( $batsmanData[$ball['batsmanout']['id']]['fow_balls'] ) : 0;
-                                $fow_overs = isset($batsmanData[$ball['batsmanout']['id']]['fow_balls']) ? $batsmanData[$ball['batsmanout']['id']]['fow_balls'] : 0;
-                                $fow_batsman = isset($ball['batsmanout']['fullname']) ? $ball['batsmanout']['fullname'] : '';
-                                $bats_score = isset($batsmanData[$ball['batsmanout']['id']]['score']) ? $batsmanData[$ball['batsmanout']['id']]['score'] : 0;
-                                $bats_deli = isset($batsmanData[$ball['batsmanout']['id']]['ball']) ? $batsmanData[$ball['batsmanout']['id']]['ball'] : 0;
+                            
+                            if( isset($ball['batsmanout']['id']) && !empty($ball['batsmanout']['id']) ) {
+                                $batsmanoutId = $ball['batsmanout']['id'];
+                            } else {
+                                $batsmanoutId = $ball['batsman']['id'];
                             }
+                            $fow_score = isset($batsmanData[$batsmanoutId]['fow_score']) ? $batsmanData[$batsmanoutId]['fow_score'] : 0; 
+                            $fow_balls = isset($batsmanData[$batsmanoutId]['fow_balls']) ? $this->functionHelper->calculateBallsFromOvers( $batsmanData[$batsmanoutId]['fow_balls'] ) : 0;
+                            $fow_overs = isset($batsmanData[$batsmanoutId]['fow_balls']) ? $batsmanData[$batsmanoutId]['fow_balls'] : 0;
+                            $fow_batsman = isset($ball['batsmanout']['fullname']) ? $ball['batsmanout']['fullname'] : $ball['batsman']['fullname'];
+                            $bats_score = isset($batsmanData[$batsmanoutId]['score']) ? $batsmanData[$batsmanoutId]['score'] : 0;
+                            $bats_deli = isset($batsmanData[$batsmanoutId]['ball']) ? $batsmanData[$batsmanoutId]['ball'] : 0;
 
                             if( strpos($ball['score']['name'], 'Catch') !== false && $ball['catchstump'] && $ball['bowler']['id'] == $ball['catchstump']['id'] ) {
                                 $fow_type = "c & ";

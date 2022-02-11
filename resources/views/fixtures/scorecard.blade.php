@@ -137,22 +137,24 @@
                         </tr>
                     @endif
                 @endforeach
-                <tr>
-                    <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
-                    <td colspan="7" align="left">
-                        @foreach( $fixture['data']['lineup'] as $squad1 )
-                            @if( $squad1['lineup']['team_id'] == $s1teamId && !in_array( $squad1['id'], $s1array ) )
-                                {{ $squad1['fullname'] }}
-                                @if( $squad1['lineup']['captain'] )
-                                    (c)
+                @if( $s1teamId )
+                    <tr>
+                        <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
+                        <td colspan="7" align="left">
+                            @foreach( $fixture['data']['lineup'] as $squad1 )
+                                @if( $squad1['lineup']['team_id'] == $s1teamId && !in_array( $squad1['id'], $s1array ) )
+                                    {{ $squad1['fullname'] }}
+                                    @if( $squad1['lineup']['captain'] )
+                                        (c)
+                                    @endif
+                                    @if( $squad1['lineup']['wicketkeeper'] )
+                                        (wk)
+                                    @endif,
                                 @endif
-                                @if( $squad1['lineup']['wicketkeeper'] )
-                                    (wk)
-                                @endif,
-                            @endif
-                        @endforeach
-                    </td>
-                </tr>
+                            @endforeach
+                        </td>
+                    </tr>
+                @endif
             </table>
 
             @php
@@ -285,22 +287,24 @@
                         </tr>
                     @endif
                 @endforeach
-                <tr>
-                    <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
-                    <td colspan="7" align="left">
-                        @foreach( $fixture['data']['lineup'] as $squad2 )
-                            @if( $squad2['lineup']['team_id'] == $s2teamId && !in_array( $squad2['id'], $s2array ) )
-                                {{ $squad2['fullname'] }}
-                                @if( $squad2['lineup']['captain'] )
-                                    (c)
+                @if( $s2teamId )
+                    <tr>
+                        <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
+                        <td colspan="7" align="left">
+                            @foreach( $fixture['data']['lineup'] as $squad2 )
+                                @if( $squad2['lineup']['team_id'] == $s2teamId && !in_array( $squad2['id'], $s2array ) )
+                                    {{ $squad2['fullname'] }}
+                                    @if( $squad2['lineup']['captain'] )
+                                        (c)
+                                    @endif
+                                    @if( $squad2['lineup']['wicketkeeper'] )
+                                        (wk)
+                                    @endif,
                                 @endif
-                                @if( $squad2['lineup']['wicketkeeper'] )
-                                    (wk)
-                                @endif,
-                            @endif
-                        @endforeach
-                    </td>
-                </tr>
+                            @endforeach
+                        </td>
+                    </tr>
+                @endif
             </table>
 
             @php

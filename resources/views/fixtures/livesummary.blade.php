@@ -31,7 +31,7 @@
                 <div class="match-note">
                     @if( strtolower($livedetails['details']['status']) != "finished" && ($run['inning']%2) == 0 )
                         {{ $run['inning'] == count($livedetails['runs']['data']) ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
-                    @else
+                    @elseif( $run['inning'] == count($livedetails['runs']['data']) )
                         {{ $livedetails['details']['note'] }}
                     @endif
                 </div>
@@ -200,7 +200,7 @@
                             @endif
                             <span>
                                 @if( $commentory['score']['is_wicket'] ) <br />
-                                    {{ isset($commentory['batsmanout']['fullname']) ? $commentory['batsmanout']['fullname'] : '' }}
+                                    {{ isset($commentory['batsmanout']['fullname']) ? $commentory['batsmanout']['fullname'] : $commentory['batsman']['fullname'] }}
                                 @endif
                                 @if( $commentory['score']['is_wicket'] && strpos($commentory['score']['name'], 'Catch') !== false && $commentory['catchstump'] && $commentory['bowler']['id'] == $commentory['catchstump']['id'] )
                                     c &
@@ -224,6 +224,8 @@
 
                                 @if( $commentory['score']['is_wicket'] && $commentory['batsmanout_id'] )
                                     {{ $batsmanData[$commentory['batsmanout_id']]['score'] .'('. $batsmanData[$commentory['batsmanout_id']]['ball'] .')' }}.
+                                @elseif( $commentory['score']['is_wicket'] && $commentory['batsman_id'] )
+                                    {{ $batsmanData[$commentory['batsman_id']]['score'] .'('. $batsmanData[$commentory['batsman_id']]['ball'] .')' }}.
                                 @endif
                             </td>
                     </tr>

@@ -51,6 +51,9 @@
                     </div>
                 @endif
             </div>
+            <div class="global-match-note">
+                Note : Any super over score details wont be available here!!!
+            </div>
             <hr />
             <div class="fixture-innings-one"> 
                 <div class="team-name"> {{ isset($fixture['data']['runs'][0]['team']['name']) ? $fixture['data']['runs'][0]['team']['name'] : '' }} Innings </div>
@@ -117,7 +120,7 @@
                     @endif
                 @endforeach
                 @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
-                    @if( $scoreTotal['team_id'] == $s1teamId )
+                    @if( $scoreTotal['team_id'] == $s1teamId && strtolower($scoreTotal['scoreboard']) == 's1' )
                         <tr>
                             <td width="20%">{{ ucfirst($scoreTotal['type']) }}</td>
                             <td colspan="7" align="right">
@@ -246,7 +249,7 @@
                     @endif
                 @endforeach
                 @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
-                    @if( $scoreTotal['team_id'] == $s2teamId )
+                    @if( $scoreTotal['team_id'] == $s2teamId && strtolower($scoreTotal['scoreboard']) == 's2' )
                         <tr>
                             <td width="20%">{{ ucfirst($scoreTotal['type']) }}</td>
                             <td colspan="7" align="right">

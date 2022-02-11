@@ -196,7 +196,7 @@ body {
                     font-size: 20px;
                     color: @themeTextColor;
                     .scorecard-result {
-                        color: @themeInheritColor;
+                        color: @redColor;
                         font-size: 14px;
                     }
                     @media only screen and (min-width: 768px) {
@@ -225,6 +225,11 @@ body {
                             font-size: 12px;
                         }
                     }
+                }
+                .global-match-note {
+                    color: @redColor;
+                    font-size: 12px;
+                    font-style: italic;
                 }
                 .fixture-innings-one, .fixture-innings-two, .fixture-match-info {
                     background: @themeColor;
@@ -692,14 +697,14 @@ body {
                             width: 40px;
                             height: 40px;
                             .wickets {
-                                background-color: red;
+                                background-color: #f00;
                                 width: 35px;
                                 height: 35px;
                                 padding: 7px;
                                 font-size: 13px;
                                 border-radius: 30px;
                                 font-weight: bold;
-                                color: white;
+                                color: #fff;
                                 text-align: center;
                             }
                             .runnings {
@@ -720,7 +725,7 @@ body {
                                 font-size: 13px;
                                 border-radius: 30px;
                                 font-weight: bold;
-                                color: white;
+                                color: #fff;
                                 text-align: center;
                             }
                             .huge-one {
@@ -731,7 +736,7 @@ body {
                                 font-size: 13px;
                                 border-radius: 30px;
                                 font-weight: bold;
-                                color: white;
+                                color: #fff;
                                 text-align: center;
                             }
                             td {

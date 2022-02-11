@@ -52,7 +52,7 @@
                 @endif
             </div>
             <div class="global-match-note">
-                Note : Any super over score details wont be available here!!!
+                Note : Any super over score wont be available here!!!
             </div>
             <hr />
             <div class="fixture-innings-one"> 
@@ -69,7 +69,7 @@
                     <th width="5%">6s</th>
                     <th width="5%">SR</th>
                 </tr>
-                @php $s1teamId = 0; @endphp
+                @php $s1teamId = 0; $s1array = []; @endphp
                 @foreach( $fixture['data']['batting'] as $score )
                     @if( strtolower($score['scoreboard']) == 's1' )
                         <tr>
@@ -116,7 +116,10 @@
                             <td width="5%">{{ $score['six_x'] }}</td>
                             <td width="5%">{{ $score['rate'] }}</td>
                         </tr>
-                        @php $s1teamId = $score['team_id']; @endphp
+                        @php 
+                            $s1teamId = $score['team_id']; 
+                            $s1array[] = $score['batsman']['id'];
+                        @endphp
                     @endif
                 @endforeach
                 @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
@@ -134,6 +137,22 @@
                         </tr>
                     @endif
                 @endforeach
+                <tr>
+                    <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
+                    <td colspan="7" align="left">
+                        @foreach( $fixture['data']['lineup'] as $squad1 )
+                            @if( $squad1['lineup']['team_id'] == $s1teamId && !in_array( $squad1['id'], $s1array ) )
+                                {{ $squad1['fullname'] }}
+                                @if( $squad1['lineup']['captain'] )
+                                    (c)
+                                @endif
+                                @if( $squad1['lineup']['wicketkeeper'] )
+                                    (wk)
+                                @endif,
+                            @endif
+                        @endforeach
+                    </td>
+                </tr>
             </table>
 
             @php
@@ -200,7 +219,7 @@
                     <th width="5%">6s</th>
                     <th width="5%">SR</th>
                 </tr>
-                @php $s2teamId = 0; @endphp
+                @php $s2teamId = 0; $s2array = []; @endphp
                 @foreach( $fixture['data']['batting'] as $score )
                     @if( strtolower($score['scoreboard']) == 's2' )
                         <tr>
@@ -245,7 +264,10 @@
                             <td width="5%">{{ $score['six_x'] }}</td>
                             <td width="5%">{{ $score['rate'] }}</td>
                         </tr>
-                        @php $s2teamId = $score['team_id']; @endphp
+                        @php 
+                            $s2teamId = $score['team_id']; 
+                            $s2array[] = $score['batsman']['id'];
+                        @endphp
                     @endif
                 @endforeach
                 @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
@@ -263,6 +285,22 @@
                         </tr>
                     @endif
                 @endforeach
+                <tr>
+                    <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
+                    <td colspan="7" align="left">
+                        @foreach( $fixture['data']['lineup'] as $squad2 )
+                            @if( $squad2['lineup']['team_id'] == $s2teamId && !in_array( $squad2['id'], $s2array ) )
+                                {{ $squad2['fullname'] }}
+                                @if( $squad2['lineup']['captain'] )
+                                    (c)
+                                @endif
+                                @if( $squad2['lineup']['wicketkeeper'] )
+                                    (wk)
+                                @endif,
+                            @endif
+                        @endforeach
+                    </td>
+                </tr>
             </table>
 
             @php

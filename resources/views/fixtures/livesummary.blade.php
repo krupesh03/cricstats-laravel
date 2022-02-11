@@ -14,27 +14,29 @@
 
 <div class="row main-div">
     <div class="live-scorecard {{ strtolower($livedetails['details']['status']) == 'finished' ? '' : 'match-in-progress' }}">
-        @foreach( $livedetails['runs']['data'] as $run )
-            <div class="{{ $run['inning'] == count($livedetails['runs']['data']) ? 'innings-progress-score' : 'innings-completed-score' }}">
-                <img src="{{ $helper->setImage($run['team']['image_path']) }}">
-                {{ $run['team']['code'] }} {{ $run['score'] }}-{{ $run['wickets'] }} ({{ $run['overs'] }})
-                <span>
-                    @if( $run['inning'] == count($livedetails['runs']['data']) && strtolower($livedetails['details']['status']) != "finished" )
-                        CRR: {{ $run['crr'] }}
+        @if( isset($livedetails['runs']['data']) && !empty($livedetails['runs']['data']) )
+            @foreach( $livedetails['runs']['data'] as $run )
+                <div class="{{ $run['inning'] == count($livedetails['runs']['data']) ? 'innings-progress-score' : 'innings-completed-score' }}">
+                    <img src="{{ $helper->setImage($run['team']['image_path']) }}">
+                    {{ $run['team']['code'] }} {{ $run['score'] }}-{{ $run['wickets'] }} ({{ $run['overs'] }})
+                    <span>
+                        @if( $run['inning'] == count($livedetails['runs']['data']) && strtolower($livedetails['details']['status']) != "finished" )
+                            CRR: {{ $run['crr'] }}
+                        @endif
+                        @if( $run['inning'] == count($livedetails['runs']['data']) && $livedetails['runs']['rr'] )
+                            REQ: {{ $livedetails['runs']['rr'] }}
+                        @endif
+                    </span>
+                </div>
+                <div class="match-note">
+                    @if( strtolower($livedetails['details']['status']) == "finished" && $run['inning'] == count($livedetails['runs']['data']) )
+                        {{ $livedetails['details']['note'] }}
+                    @else
+                        {{ $run['inning'] == count($livedetails['runs']['data']) ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
                     @endif
-                    @if( $run['inning'] == count($livedetails['runs']['data']) && $livedetails['runs']['rr'] )
-                        REQ: {{ $livedetails['runs']['rr'] }}
-                    @endif
-                </span>
-            </div>
-            <div class="match-note">
-                @if( strtolower($livedetails['details']['status']) == "finished" && $run['inning'] == count($livedetails['runs']['data']) )
-                    {{ $livedetails['details']['note'] }}
-                @else
-                    {{ $run['inning'] == count($livedetails['runs']['data']) ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
-                @endif
-            </div>
-        @endforeach
+                </div>
+            @endforeach
+        @endif
         @if( strtolower($livedetails['details']['status']) != "finished" )
             <div class="row progress-summary">
                 <div class="col-md-8">

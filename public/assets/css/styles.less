@@ -185,9 +185,23 @@ body {
                         }
                     }
                 }
-                .home-away-fixtures {
-                    text-decoration: none;
-                    color: @themeTextColor;
+                .home-away {
+                    display: flex;
+                    div {
+                        font-size: 13px;
+                        padding: 5px;
+                        a{
+                            text-decoration: none;
+                            color: @themeInheritColor;
+                        }
+                        &.active {
+                            border-bottom: 2px solid @themeTextColor;
+                            a{
+                                text-decoration: none;
+                                color: @themeTextColor;
+                            }
+                        }
+                    }
                 }
             }
             .fixture-scorecard{
@@ -815,9 +829,28 @@ body {
         a {
             text-decoration: underline;
             font-size: 13px;
-            color: @themeInheritColor;
+            color: @themeTextColor;
             text-align: center;
             padding: 5px;
+        }
+    }
+    .sub-menu {
+        display: flex;
+        padding-top: 5px;
+        div {
+            font-size: 13px;
+            padding: 5px;
+            a{
+                text-decoration: none;
+                color: @themeInheritColor;
+            }
+            &.active {
+                border-bottom: 2px solid @themeTextColor;
+                a{
+                    text-decoration: none;
+                    color: @themeTextColor;
+                }
+            }
         }
     }
     input[type=text] {

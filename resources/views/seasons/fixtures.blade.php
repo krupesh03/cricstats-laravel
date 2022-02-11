@@ -25,10 +25,16 @@
                 </div>
             @endif
             <hr />
-            @php 
-                $newFtype = ($fixtureType == 'home' ? 'away' : 'home');
-            @endphp
-            <a href="{{ str_replace($fixtureType, $newFtype, url()->current()) }}" class="home-away-fixtures"> Switch to {{ ucfirst($newFtype) }} Fixtures </a>
+
+            <div class="home-away">
+                <div class="{{ $fixtureType == 'home' ? 'active' : '' }}">
+                    <a href="{{ str_replace($fixtureType, 'home', url()->current()) }}"> Home </a>
+                </div>
+                <div class="{{ $fixtureType == 'away' ? 'active' : '' }}">
+                    <a href="{{ str_replace($fixtureType, 'away', url()->current()) }}"> Away </a>
+                </div>
+            </div>
+
             <div class="row">
                 @foreach( $fixtures['data'] as $fixture )
                     <div class="col-md-6 fixture-list">

@@ -3,12 +3,20 @@
 @section('content')
 
 <div class="heading"> 
-    {{ $livedetails['localteam']['name'] }} vs {{ $livedetails['visitorteam']['name'] }}, {{ $livedetails['details']['round'] }} - {{ strtolower($livedetails['details']['status']) == 'finished' ? '' : 'Live' }} Cricket Score, Commentary
+    {{ $livedetails['localteam']['name'] }} vs {{ $livedetails['visitorteam']['name'] }}, {{ $livedetails['details']['round'] }} - Live Cricket Score, Commentary
 </div>
 <div class="subheading">
     <span>Series : {{ $livedetails['stage']['name'] }}, {{ $livedetails['season']['name'] }} </span>
     <span>Venue :  {{ $livedetails['venue']['name'] }}, {{ $livedetails['venue']['city'] }}</span>
-    <span>Date & Time : {{ $livedetails['details']['starting_at'] ? date('M d, h:i A', strtotime($livedetails['details']['starting_at'])) : '' }} </span>
+    <span>Date & Time : {{ $livedetails['details']['starting_at'] ? date('M d, Y h:i A', strtotime($livedetails['details']['starting_at'])) : '' }} </span>
+</div>
+<div class="sub-menu">
+    <div class="sub-menu-one active"> 
+        <a href="/livescores/{{ $livedetails['fixtureId'] }}/score"> Commentary </a> 
+    </div>
+    <div class="sub-menu-two">
+        <a href="/fixture/{{ $livedetails['fixtureId'] }}"> Scorecard </a>
+    </div>
 </div>
 <hr />
 

@@ -96,6 +96,7 @@ class LivescoreController extends Controller
             $livedetails['season'] = $livescore['data']['season'];
             $livedetails['manofmatch'] = $livescore['data']['manofmatch'];
             $livedetails['lineup'] = $livescore['data']['lineup'];
+            $livedetails['fixtureId'] = $livescore['data']['id'];
             $runs = [];
             $k = $current_innings = 0;
             $crr = $rr = $req = $rem_o = $total_1 = $total_2 = $overs_2 = 0;

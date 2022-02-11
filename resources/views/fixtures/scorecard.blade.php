@@ -4,12 +4,20 @@
 
 @if( $fixture['success'] )
     <div class="heading"> 
-        {{ $fixture['data']['localteam']['name'] }} vs {{ $fixture['data']['visitorteam']['name'] }}, {{ $fixture['data']['round'] }}
+        {{ $fixture['data']['localteam']['name'] }} vs {{ $fixture['data']['visitorteam']['name'] }}, {{ $fixture['data']['round'] }} - Live Cricket Score, Commentary
     </div>
     <div class="subheading">
         <span>Series : {{ $fixture['data']['stage']['name'] }}, {{ date('Y', strtotime($fixture['data']['starting_at'])) }}</span>
-        <span>Venue : {{ $fixture['data']['venue']['name'] }}, {{ $fixture['data']['venue']['city'] }}{{ isset($fixture['data']['venue']['country']['name']) ? ', ' . $fixture['data']['venue']['country']['name'] : '' }}</span>
-        <span>Date & Time : {{ date('M d, Y h:i A', strtotime($fixture['data']['starting_at'])) }}</span>
+        <span>Venue : {{ $fixture['data']['venue']['name'] }}, {{ $fixture['data']['venue']['city'] }}</span>
+        <span>Date & Time : {{ $fixture['data']['starting_at'] ? date('M d, Y h:i A', strtotime($fixture['data']['starting_at'])) : '' }}</span>
+    </div>
+    <div class="sub-menu">
+        <div class="sub-menu-one"> 
+            <a href="/livescores/{{ $fixture['data']['id'] }}/score"> Commentary </a>
+        </div>
+        <div class="sub-menu-two active">
+            <a href="/fixture/{{ $fixture['data']['id'] }}"> Scorecard </a>
+        </div>
     </div>
     <hr />
 

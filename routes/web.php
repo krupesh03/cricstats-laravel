@@ -24,6 +24,8 @@ use App\Http\Controllers\LivescoreController;
 */
 Route::get('/', [LeaguesController::class, 'index']);
 
+Route::get('/leagues', [LeaguesController::class, 'index']);
+
 Route::group(['prefix' => 'seasons'], function($route) {
     $route->get('/{leagueid}', [SeasonsController::class, 'index']);
     $route->get('/{leagueid}/teams/{seasonid}', [SeasonsController::class, 'getTeams']);

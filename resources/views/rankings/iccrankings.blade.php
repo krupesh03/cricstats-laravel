@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="heading"> ICC TEAM RANKINGS <span> - {{ ucfirst($slug) }} </span> </div>
+<div class="heading"> ICC Team Rankings <span> - {{ ucfirst($slug) }} </span> </div>
 <hr />
 
 <div class="row main-div">

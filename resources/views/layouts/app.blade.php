@@ -36,28 +36,30 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a href="{{ url('/teams') }}" class="nav-link">Teams</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('/players') }}" class="nav-link">Players</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('/officials') }}" class="nav-link">Officials</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('/venues') }}" class="nav-link">Venues</a>
+                        <a href="{{ url('/livescores') }}" class="nav-link">Live Scores</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/fixture') }}" class="nav-link">Schedule/Results</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/livescores') }}" class="nav-link">Live Scores</a>
+                        <a href="{{ url('/teams') }}" class="nav-link">Teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/players') }}" class="nav-link">Players</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Rankings</a>
                         <div class="dropdown-menu">
                             <a href="{{ url('icc-rankings/men/teams') }}" class="dropdown-item">ICC Team Rankings - Men</a>
                             <a href="{{ url('icc-rankings/women/teams') }}" class="dropdown-item">ICC Team Rankings - Women</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">More</a>
+                        <div class="dropdown-menu">
+                            <a href="{{ url('/leagues') }}" class="dropdown-item">Leagues</a>
+                            <a href="{{ url('/officials') }}" class="dropdown-item">Officials</a>
+                            <a href="{{ url('/venues') }}" class="dropdown-item">Venues</a>
                         </div>
                     </li>
                 </ul>

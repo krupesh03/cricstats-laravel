@@ -145,7 +145,7 @@
                 @if( strtolower($livedetails['details']['status']) == 'innings break' )
                     <tr>
                         <td colspan="3"> 
-                            <span> {{ strtoupper($livedetails['details']['status']) }} </span> - {{ $livedetails['details']['note'] }} 
+                            <span> {{ strtoupper($livedetails['details']['status']) }} {{ isset($keyStats['innings_score']) && !empty($keyStats['innings_score']) ? ' - ' . $keyStats['innings_score'] : '' }} </span>
                         </td>
                     </tr>
                 @elseif( strtolower($livedetails['details']['status']) == 'finished' )
@@ -237,10 +237,10 @@
                                 @endif
                             </td>
                     </tr>
-                    @if( $commentory['scoreboard'] == 'S2' && $commentory['ball'] == '0.1' )
+                    @if( isset($commentory['innings_score']) )
                         <tr>
                             <td colspan="3"> 
-                                <span> INNINGS BREAK </span>
+                                <span> INNINGS BREAK {{ !empty($commentory['innings_score']) ? ' - ' . $commentory['innings_score'] : '' }} </span>
                             </td>
                         </tr>
                     @endif

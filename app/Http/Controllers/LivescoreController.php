@@ -101,10 +101,10 @@ class LivescoreController extends Controller
             $k = $current_innings = 0;
             $crr = $rr = $req = $rem_o = $total_1 = $total_2 = $overs_2 = 0;
             foreach( $livescore['data']['runs'] as $run ) {
-                if( $run['inning'] == 1 ) {
+                if( ($run['inning']%2) != 0 ) {
                     $current_innings++;
                     $total_1 = (int)$run['score'] ;
-                } elseif( $run['inning'] == 2 ) {
+                } elseif( ($run['inning']%2) == 0 ) {
                     $current_innings++;
                     $total_2 = (int)$run['score'];
                     $overs_2 = $this->functionHelper->calculateBallsFromOvers( $run['overs'] );
@@ -146,9 +146,10 @@ class LivescoreController extends Controller
                 $bowlerData[$bowling['player_id']] = $bowling;
             }
 
-            $scoreboard = '';
+            $scoreboard = $innings_score = '';
             foreach( $livescore['data']['balls'] as $ball ) {
                 $liveCommentory[$ball['id']] = $ball;
+                $inningNumber = (int)preg_replace('/[^0-9]/', '', $ball['scoreboard']);
 
                 $batsman['batsmanone'] = $ball['batsmanone'];
                 if( isset($batsman['batsmanone']) && !empty($batsman['batsmanone']) ) {
@@ -171,13 +172,17 @@ class LivescoreController extends Controller
                 if( $scoreboard != $ball['scoreboard'] ) { //separate innings
                     $total_score = $total_overs = $fow_score = $fow_overs = $total_wkts = $bats_score = $bats_deli = $fow_balls = 0;
                     $fow_batsman = $fow_bowler = $fow_type = '';
+                    $iAlreadyStarted = false;
                 }
                 foreach( $runs['data'] as $run ) {
-                    if( $ball['team']['id'] == $run['team']['id'] ) {
+                    if( $ball['team']['id'] == $run['team']['id'] && $inningNumber == $run['inning'] ) {
                         $total_score = $run['score'];
                         $total_overs = $this->functionHelper->calculateBallsFromOvers( $run['overs'] );
                         $total_wkts = $run['wickets'];
                         $scoreboard = $ball['scoreboard'];
+                        if( ($run['inning']%2) != 0 ) {
+                            $innings_score = $run['team']['code'] . ' ' . $total_score . '-' . $total_wkts . ' (' . $run['overs'] . ')  [Target ' . ((int)$total_score + 1) . ' runs]';
+                        }
                         if( $ball['score']['is_wicket'] ) {
                             
                             if( isset($ball['batsmanout']['id']) && !empty($ball['batsmanout']['id']) ) {
@@ -217,9 +222,14 @@ class LivescoreController extends Controller
                         break;
                     }
                 }
+                if( $inningNumber > 1 && $ball['ball'] == '0.1' && !$iAlreadyStarted ) {
+                    $iAlreadyStarted = true;
+                    $liveCommentory[$ball['id']]['innings_score'] = ($inningNumber%2) == 0 ? $innings_score : '';
+                }
                 $keyStats['partnership'] = ($total_score - $fow_score) . '(' . ($total_overs - $fow_balls) . ')';
                 $keyStats['last_wkt'] = $fow_batsman ? ($fow_batsman . ' '. $fow_type .' '.$fow_bowler. ' '. $bats_score . '(' .$bats_deli. ') - ' . $fow_score . '/' . $total_wkts . ' in '. $fow_overs . ' ov.') : '';
                 $keyStats['toss'] = $livescore['data']['tosswon'] ? $livescore['data']['tosswon']['name'] . ' (' .ucfirst($livescore['data']['elected']). ')' : '';
+                $keyStats['innings_score'] = ($inningNumber%2) != 0 ? $innings_score : '';
             }
             krsort($liveCommentory);
         

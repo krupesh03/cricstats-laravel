@@ -31,7 +31,7 @@
                         @if( $run['inning'] == count($livedetails['runs']['data']) && strtolower($livedetails['details']['status']) != "finished" )
                             CRR: {{ $run['crr'] }}
                         @endif
-                        @if( $run['inning'] == count($livedetails['runs']['data']) && $livedetails['runs']['rr'] )
+                        @if( $run['inning'] == count($livedetails['runs']['data']) && $livedetails['runs']['rr'] && strtolower($livedetails['details']['status']) != "finished" )
                             REQ: {{ $livedetails['runs']['rr'] }}
                         @endif
                     </span>

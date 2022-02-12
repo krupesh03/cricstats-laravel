@@ -7,7 +7,7 @@
         {{ $fixture['data']['localteam']['name'] }} vs {{ $fixture['data']['visitorteam']['name'] }}, {{ $fixture['data']['round'] }} - Live Cricket Score, Commentary
     </div>
     <div class="subheading">
-        <span>Series : {{ $fixture['data']['stage']['name'] }}, {{ date('Y', strtotime($fixture['data']['starting_at'])) }}</span>
+        <span>Series : {{ $fixture['data']['stage']['name'] }}, {{ $fixture['data']['season']['name'] }}</span>
         <span>Venue : {{ $fixture['data']['venue']['name'] }}, {{ $fixture['data']['venue']['city'] }}</span>
         <span>Date & Time : {{ $fixture['data']['starting_at'] ? date('M d, Y h:i A', strtotime($fixture['data']['starting_at'])) : '' }}</span>
     </div>
@@ -372,7 +372,7 @@
                 <tr>
                     <td width="20%">Match</td>
                     <td width="80%">
-                        {{ $fixture['data']['localteam']['code'] }} vs {{ $fixture['data']['visitorteam']['code'] }}, {{ $fixture['data']['round'] }}, {{ $fixture['data']['stage']['name'] }}, {{ date('Y', strtotime($fixture['data']['starting_at'])) }}
+                        {{ $fixture['data']['localteam']['code'] }} vs {{ $fixture['data']['visitorteam']['code'] }}, {{ $fixture['data']['round'] }}, {{ $fixture['data']['stage']['name'] }}, {{ $fixture['data']['season']['name'] }}
                     </td>
                 </tr>
                 <tr>

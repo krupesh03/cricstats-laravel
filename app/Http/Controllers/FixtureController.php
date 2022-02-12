@@ -22,7 +22,7 @@ class FixtureController extends Controller
         $fixturesApiEndpoint = $fixturesApiEndpoint . '/' . $id;
 
         $fixturesQueryStr = [
-            'include' => 'localteam,visitorteam,batting.result,venue.country,manofmatch,batting.batsman,batting.bowler,tosswon,runs.team,batting.catchstump,batting.runoutby,bowling.bowler,manofseries,lineup,firstumpire,secondumpire,tvumpire,referee,stage,scoreboards'
+            'include' => 'localteam,visitorteam,batting.result,venue.country,manofmatch,batting.batsman,batting.bowler,tosswon,runs.team,batting.catchstump,batting.runoutby,bowling.bowler,manofseries,lineup,firstumpire,secondumpire,tvumpire,referee,stage,scoreboards,season'
         ];
 
         $fixture = $this->apicallHelper->getDataFromAPI( $fixturesApiEndpoint, $fixturesQueryStr );

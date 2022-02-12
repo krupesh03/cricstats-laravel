@@ -147,6 +147,7 @@ class LivescoreController extends Controller
             }
 
             $scoreboard = $innings_score = '';
+            $perOverScore = [];
             foreach( $livescore['data']['balls'] as $ball ) {
                 $liveCommentory[$ball['id']] = $ball;
                 $inningNumber = (int)preg_replace('/[^0-9]/', '', $ball['scoreboard']);
@@ -230,12 +231,14 @@ class LivescoreController extends Controller
                 $keyStats['last_wkt'] = $fow_batsman ? ($fow_batsman . ' '. $fow_type .' '.$fow_bowler. ' '. $bats_score . '(' .$bats_deli. ') - ' . $fow_score . '/' . $total_wkts . ' in '. $fow_overs . ' ov.') : '';
                 $keyStats['toss'] = $livescore['data']['tosswon'] ? $livescore['data']['tosswon']['name'] . ' (' .ucfirst($livescore['data']['elected']). ')' : '';
                 $keyStats['innings_score'] = ($inningNumber%2) != 0 ? $innings_score : '';
+
+                $perOverScore[$ball['team_id']][ceil($ball['ball'])][] = $ball['score']['runs'] + $ball['score']['leg_bye'] + $ball['score']['bye'] + $ball['score']['noball_runs'];
             }
             krsort($liveCommentory);
         
             $helper = $this->functionHelper;
 
-            return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'keyStats', 'batsmanData', 'helper'));
+            return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'keyStats', 'batsmanData', 'perOverScore', 'helper'));
         }
         
         return abort(404);

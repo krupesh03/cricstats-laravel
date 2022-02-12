@@ -158,7 +158,7 @@
                 @foreach( $liveCommentory as $id => $commentory )
                     @if( strpos($commentory['ball'], '.6') !== false && $commentory['score']['ball'] && !$commentory['score']['noball'] )
                         <tr>
-                            <td colspan="3"> <span> End of Over {{ ceil($commentory['ball']) }} </span> </td>
+                            <td colspan="3"> <span> End of Over {{ ceil($commentory['ball']) }} </span> - {{ isset($perOverScore[$commentory['team_id']][ceil($commentory['ball'])]) ? array_sum($perOverScore[$commentory['team_id']][ceil($commentory['ball'])]) : 0 }} Run(s)</td>
                         </tr>
                     @endif
                     <tr>

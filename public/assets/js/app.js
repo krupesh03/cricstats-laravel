@@ -106,4 +106,25 @@ $(document).ready( function() {
         newPageTitle = $('.heading').text();
         document.title = $('title').text() +' | '+ pageTitle + newPageTitle;
     }
+
+    if( $('.live-scorecard').length != 0 ) {
+        if( localStorage.getItem('fullLoad') === null ) {
+            localStorage.setItem('fullLoad', 'false');
+        }
+    } else {
+        localStorage.removeItem('fullLoad');
+    }
+    if( $('.live-commentary').length != 0 ) {
+        if( localStorage.getItem('fullLoad') == 'false' ) {
+            $('.live-commentary').find('table tr:gt(70)').hide();
+            $('.load-more-commentary').show();
+        }
+    }
+
+    $(document).on('click', '.load-more-commentary', function() {
+        
+        $(this).hide();
+        $('.live-commentary').find('table tr:gt(70)').show();
+        localStorage.setItem('fullLoad', 'true');
+    });
 });

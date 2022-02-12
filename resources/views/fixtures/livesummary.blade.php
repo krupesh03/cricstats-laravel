@@ -247,6 +247,10 @@
                 @endforeach
             </table>
         </div>
+
+        <table class="table load-more-commentary" style="display:none">
+            <tr><td>Load More Commentary</td></tr>
+        </table>
         
         @if( isset($livedetails['lineup']) && !empty($livedetails['lineup']) )
             <div class="team-playing-eleven">

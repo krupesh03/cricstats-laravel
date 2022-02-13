@@ -46,9 +46,7 @@ class FunctionHelper
             }
         } else {
             if( $ball['score']['noball'] ) {
-                $runs = (int)$ball['score']['noball_runs'];
-            } else {
-                $runs = (int)$ball['score']['runs'];
+                $runs = (int)$ball['score']['runs'] > 1 ? ((int)$ball['score']['runs'] - (int)$ball['score']['noball_runs']) : 0 ;
             }
         }
         if( strpos($ball['ball'], '.6') !== false ) { //if last ball

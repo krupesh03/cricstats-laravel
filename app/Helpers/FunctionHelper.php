@@ -30,4 +30,39 @@ class FunctionHelper
         }
         return 0;
     }
+
+    public function batterOnStrike( $ball = [], $batsman = 0 ) {
+
+        if( !$batsman ) return false;
+
+        $runs = 0;
+        if( $ball['score']['ball'] ) { //if valid ball
+            if( $ball['score']['leg_bye'] ) {
+                $runs = (int)$ball['score']['leg_bye'];
+            } elseif( $ball['score']['bye'] ) {
+                $runs = (int)$ball['score']['bye'];
+            } else {
+                $runs = (int)$ball['score']['runs'];
+            }
+        } else {
+            if( $ball['score']['noball'] ) {
+                $runs = (int)$ball['score']['noball_runs'];
+            } else {
+                $runs = (int)$ball['score']['runs'];
+            }
+        }
+        if( strpos($ball['ball'], '.6') !== false ) { //if last ball
+            if( (int)$runs%2 !== 0 ) { //if odd number scored on last ball
+                return $ball['batsman']['id'] == $batsman; 
+            } else {
+                return $ball['batsman']['id'] !== $batsman;
+            }
+        }
+
+        if( (int)$runs%2 !== 0 ) { //during current over
+            return $ball['batsman']['id'] !== $batsman; 
+        } else {
+            return $ball['batsman']['id'] == $batsman;
+        }
+    }
 }

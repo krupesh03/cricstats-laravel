@@ -115,7 +115,7 @@ $(document).ready( function() {
         localStorage.removeItem('fullLoad');
     }
     if( $('.live-commentary').length != 0 ) {
-        if( localStorage.getItem('fullLoad') == 'false' ) {
+        if( localStorage.getItem('fullLoad') == 'false' && $('.live-commentary').find('table tr').length > 70 ) {
             $('.live-commentary').find('table tr:gt(70)').hide();
             $('.load-more-commentary').show();
         }

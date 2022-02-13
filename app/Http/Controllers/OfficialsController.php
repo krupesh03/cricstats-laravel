@@ -20,7 +20,8 @@ class OfficialsController extends Controller
         $apiEndpoint = Config::get('constants.API_ENDPOINTS.OFFICIALS');
 
         $queryStrs = [
-            'include'   => 'country'
+            'include'   => 'country',
+            'sort'      => 'fullname'
         ];
 
         $officials = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );

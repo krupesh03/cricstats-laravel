@@ -7,8 +7,8 @@
 </div>
 <div class="subheading">
     <span>Series : {{ $livedetails['stage']['name'] }}, {{ $livedetails['season']['name'] }} </span>
-    <span>Venue :  {{ $livedetails['venue']['name'] }}, {{ $livedetails['venue']['city'] }}</span>
-    <span>Date & Time : {{ $livedetails['details']['starting_at'] ? date('M d, Y h:i A', strtotime($livedetails['details']['starting_at'])) : '' }} </span>
+    <span>Venue :  {{ isset($livedetails['venue']['name']) ? $livedetails['venue']['name'] : '' }}, {{ isset($livedetails['venue']['city']) ? $livedetails['venue']['city'] : '' }}</span>
+    <span>Date & Time : {{ isset($livedetails['details']['starting_at']) && !empty($livedetails['details']['starting_at']) ? date('M d, Y h:i A', strtotime($livedetails['details']['starting_at'])) : '' }} </span>
 </div>
 <div class="sub-menu">
     <div class="sub-menu-one active"> 
@@ -38,14 +38,14 @@
                 </div>
                 <div class="match-note">
                     @if( strtolower($livedetails['details']['status']) != "finished" && ($run['inning']%2) == 0 )
-                        {{ $run['inning'] == count($livedetails['runs']['data']) ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
+                        {{ $run['inning'] == count($livedetails['runs']['data']) && (int)$livedetails['runs']['required_total'] > 0 ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
                     @elseif( $run['inning'] == count($livedetails['runs']['data']) )
                         {{ $livedetails['details']['note'] ? $livedetails['details']['note'] : $livedetails['details']['status'] }}
                     @endif
                 </div>
             @endforeach
         @endif
-        @if( strtolower($livedetails['details']['status']) != "finished" )
+        @if( strtolower($livedetails['details']['status']) != "finished" && strpos($livedetails['details']['note'], 'Super Over') === false )
             <div class="row progress-summary">
                 <div class="col-md-8">
                     <table class="table batting-table" width="100%">
@@ -161,8 +161,8 @@
                             <td> 
                                 <span> {{ ceil($commentory['ball']) }} </span> Ov </td>
                             <td colspan="2">
-                                Runs Scored : <span> {{ isset($perOverScore[$commentory['team_id']][ceil($commentory['ball'])]) ? array_sum($perOverScore[$commentory['team_id']][ceil($commentory['ball'])]) : 0 }} </span>
-                                <div> {{ isset($perOverBallScore[$commentory['team_id']][ceil($commentory['ball'])]) ? implode(' ', $perOverBallScore[$commentory['team_id']][ceil($commentory['ball'])]) : '' }} </div>
+                                Runs Scored : <span> {{ isset($perOverScore[$commentory['team_id']][$commentory['scoreboard']][ceil($commentory['ball'])]) ? array_sum($perOverScore[$commentory['team_id']][$commentory['scoreboard']][ceil($commentory['ball'])]) : 0 }} </span>
+                                <div> {{ isset($perOverBallScore[$commentory['team_id']][$commentory['scoreboard']][ceil($commentory['ball'])]) ? implode(' ', $perOverBallScore[$commentory['team_id']][$commentory['scoreboard']][ceil($commentory['ball'])]) : '' }} </div>
                             </td>
                         </tr>
                     @endif

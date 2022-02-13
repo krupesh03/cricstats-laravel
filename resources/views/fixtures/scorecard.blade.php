@@ -8,8 +8,8 @@
     </div>
     <div class="subheading">
         <span>Series : {{ $fixture['data']['stage']['name'] }}, {{ $fixture['data']['season']['name'] }}</span>
-        <span>Venue : {{ $fixture['data']['venue']['name'] }}, {{ $fixture['data']['venue']['city'] }}</span>
-        <span>Date & Time : {{ $fixture['data']['starting_at'] ? date('M d, Y h:i A', strtotime($fixture['data']['starting_at'])) : '' }}</span>
+        <span>Venue : {{ isset($fixture['data']['venue']['name']) ? $fixture['data']['venue']['name'] : '' }}, {{ isset($fixture['data']['venue']['city']) ? $fixture['data']['venue']['city'] : '' }}</span>
+        <span>Date & Time : {{ isset($fixture['data']['starting_at']) && !empty($fixture['data']['starting_at']) ? date('M d, Y h:i A', strtotime($fixture['data']['starting_at'])) : '' }}</span>
     </div>
     <div class="sub-menu">
         <div class="sub-menu-one"> 
@@ -378,7 +378,7 @@
                 <tr>
                     <td width="20%">Date</td>
                     <td width="80%">
-                        {{ date('l, F d, Y', strtotime($fixture['data']['starting_at'])) }}
+                        {{ isset($fixture['data']['starting_at']) && !empty($fixture['data']['starting_at']) ? date('l, F d, Y', strtotime($fixture['data']['starting_at'])) : '' }}
                     </td>
                 </tr>
                 <tr>
@@ -392,13 +392,13 @@
                 <tr>
                     <td width="20%">Time</td>
                     <td width="80%">
-                        {{ date('h:i A (M d)', strtotime($fixture['data']['starting_at'])) }} 
+                        {{ isset($fixture['data']['starting_at']) && !empty($fixture['data']['starting_at']) ? date('h:i A (M d)', strtotime($fixture['data']['starting_at'])) : '' }} 
                     </td>
                 </tr>
                 <tr>
                     <td width="20%">Venue</td>
                     <td width="80%">
-                        {{ $fixture['data']['venue']['name'] }}, {{ $fixture['data']['venue']['city'] }}{{ isset($fixture['data']['venue']['country']['name']) ? ', ' . $fixture['data']['venue']['country']['name'] : '' }} 
+                        {{ isset($fixture['data']['venue']['name']) ? $fixture['data']['venue']['name'] : '' }}, {{ isset($fixture['data']['venue']['city']) ? $fixture['data']['venue']['city'] : '' }}{{ isset($fixture['data']['venue']['country']['name']) ? ', ' . $fixture['data']['venue']['country']['name'] : '' }} 
                     </td>
                 </tr>
                 <tr>

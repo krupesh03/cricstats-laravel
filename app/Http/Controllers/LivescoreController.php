@@ -124,6 +124,10 @@ class LivescoreController extends Controller
                 $k++;
             }
             $runs['current_innings'] = $current_innings;
+            $mainInnings = (int)preg_replace('/[^0-9]/', '', $livescore['data']['status']);
+            if( $mainInnings > 0 && $mainInnings%2 == 0 ) {
+                $total_1 = (int)preg_replace('/[^0-9]/', '', $livescore['data']['note']);
+            }
             $req = $total_1 - $total_2;
             $runs['required_total'] = $req;
             if( $rem_o > 0 ) {
@@ -232,7 +236,7 @@ class LivescoreController extends Controller
                 $keyStats['toss'] = $livescore['data']['tosswon'] ? $livescore['data']['tosswon']['name'] . ' (' .ucfirst($livescore['data']['elected']). ')' : '';
                 $keyStats['innings_score'] = ($inningNumber%2) != 0 ? $innings_score : '';
 
-                $perOverScore[$ball['team_id']][ceil($ball['ball'])][] = $ball['score']['runs'] + $ball['score']['leg_bye'] + $ball['score']['bye'] + $ball['score']['noball_runs'];
+                $perOverScore[$ball['team_id']][$ball['scoreboard']][ceil($ball['ball'])][] = $ball['score']['runs'] + $ball['score']['leg_bye'] + $ball['score']['bye'] + $ball['score']['noball_runs'];
 
                 $ballRun = 0;
                 if( $ball['score']['is_wicket'] ) {
@@ -250,7 +254,7 @@ class LivescoreController extends Controller
                         $ballRun = $ball['score']['runs'];
                     }
                 }
-                $perOverBallScore[$ball['team_id']][ceil($ball['ball'])][] = $ballRun;
+                $perOverBallScore[$ball['team_id']][$ball['scoreboard']][ceil($ball['ball'])][] = $ballRun;
             }
             krsort($liveCommentory);
         

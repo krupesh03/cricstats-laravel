@@ -147,7 +147,7 @@ class LivescoreController extends Controller
             }
 
             $scoreboard = $innings_score = '';
-            $perOverScore = [];
+            $perOverScore = $perOverBallScore = [];
             foreach( $livescore['data']['balls'] as $ball ) {
                 $liveCommentory[$ball['id']] = $ball;
                 $inningNumber = (int)preg_replace('/[^0-9]/', '', $ball['scoreboard']);
@@ -167,7 +167,7 @@ class LivescoreController extends Controller
                 $bowler['bowlerone'] = $ball['bowler'];
                 if( isset($bowler['bowlerone']) && !empty($bowler['bowlerone']) ) {
                     $bowler['bowlerone']['figures'] = isset($bowlerData[$ball['bowler']['id']]) ? $bowlerData[$ball['bowler']['id']] : [];
-                    $bowler['bowlerone']['on_strike'] = 1;
+                    $bowler['bowlerone']['on_strike'] = true;
                 }
 
                 if( $scoreboard != $ball['scoreboard'] ) { //separate innings
@@ -233,12 +233,30 @@ class LivescoreController extends Controller
                 $keyStats['innings_score'] = ($inningNumber%2) != 0 ? $innings_score : '';
 
                 $perOverScore[$ball['team_id']][ceil($ball['ball'])][] = $ball['score']['runs'] + $ball['score']['leg_bye'] + $ball['score']['bye'] + $ball['score']['noball_runs'];
+
+                $ballRun = 0;
+                if( $ball['score']['is_wicket'] ) {
+                    $ballRun = 'W';
+                } else {
+                    if( $ball['score']['leg_bye'] ) {
+                        $ballRun = $ball['score']['leg_bye'] . 'lb';
+                    } elseif( $ball['score']['bye'] ) {
+                        $ballRun = $ball['score']['bye'] . 'b'; 
+                    } elseif( $ball['score']['noball'] ) {
+                        $ballRun = $ball['score']['noball_runs'] . 'nb'; 
+                    } elseif( !$ball['score']['ball'] ) {
+                        $ballRun = $ball['score']['runs'] . 'wd'; 
+                    } else {
+                        $ballRun = $ball['score']['runs'];
+                    }
+                }
+                $perOverBallScore[$ball['team_id']][ceil($ball['ball'])][] = $ballRun;
             }
             krsort($liveCommentory);
         
             $helper = $this->functionHelper;
 
-            return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'keyStats', 'batsmanData', 'perOverScore', 'helper'));
+            return view('fixtures/livesummary', compact('livedetails', 'batsman', 'bowler', 'liveCommentory', 'keyStats', 'batsmanData', 'perOverScore', 'perOverBallScore', 'helper'));
         }
         
         return abort(404);

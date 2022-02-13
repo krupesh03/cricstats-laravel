@@ -143,13 +143,13 @@
             @endif
             <table class="table" width="100%">
                 @if( strtolower($livedetails['details']['status']) == 'innings break' )
-                    <tr>
+                    <tr class="end-of-innings">
                         <td colspan="3"> 
                             <span> {{ strtoupper($livedetails['details']['status']) }} {{ isset($keyStats['innings_score']) && !empty($keyStats['innings_score']) ? ' - ' . $keyStats['innings_score'] : '' }} </span>
                         </td>
                     </tr>
                 @elseif( strtolower($livedetails['details']['status']) == 'finished' )
-                    <tr>
+                    <tr class="end-of-innings">
                         <td colspan="3"> 
                             <span> {{ strtoupper($livedetails['details']['note']) }} </span> 
                         </td>
@@ -157,8 +157,13 @@
                 @endif
                 @foreach( $liveCommentory as $id => $commentory )
                     @if( strpos($commentory['ball'], '.6') !== false && $commentory['score']['ball'] && !$commentory['score']['noball'] )
-                        <tr>
-                            <td colspan="3"> <span> End of Over {{ ceil($commentory['ball']) }} </span> - {{ isset($perOverScore[$commentory['team_id']][ceil($commentory['ball'])]) ? array_sum($perOverScore[$commentory['team_id']][ceil($commentory['ball'])]) : 0 }} Run(s)</td>
+                        <tr class="end-of-over">
+                            <td> 
+                                <span> {{ ceil($commentory['ball']) }} </span> Ov </td>
+                            <td colspan="2">
+                                Runs Scored : <span> {{ isset($perOverScore[$commentory['team_id']][ceil($commentory['ball'])]) ? array_sum($perOverScore[$commentory['team_id']][ceil($commentory['ball'])]) : 0 }} </span>
+                                <div> {{ isset($perOverBallScore[$commentory['team_id']][ceil($commentory['ball'])]) ? implode(' ', $perOverBallScore[$commentory['team_id']][ceil($commentory['ball'])]) : '' }} </div>
+                            </td>
                         </tr>
                     @endif
                     <tr>
@@ -238,7 +243,7 @@
                             </td>
                     </tr>
                     @if( isset($commentory['innings_score']) )
-                        <tr>
+                        <tr class="end-of-innings">
                             <td colspan="3"> 
                                 <span> INNINGS BREAK {{ !empty($commentory['innings_score']) ? ' - ' . $commentory['innings_score'] : '' }} </span>
                             </td>

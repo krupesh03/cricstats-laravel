@@ -88,13 +88,13 @@ $(document).ready( function() {
     if( $('.team-allLiveScores').length != 0 ) {
         setTimeout(function () {
             location.reload(true);
-        }, 50000);
+        }, 30000);
     }
 
     if( $('.match-in-progress').length != 0 ) {
         setTimeout(function () {
             location.reload(true);
-        }, 50000);
+        }, 30000);
     }
     
     //change title of pages

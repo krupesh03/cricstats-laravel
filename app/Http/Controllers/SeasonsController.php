@@ -42,7 +42,7 @@ class SeasonsController extends Controller
         $apiEndpoint = $apiEndpoint . '/' . $seasonid;
 
         $queryStrs = [
-            'include'   => 'league,teams'
+            'include'   => 'league,teams,stages'
         ];
 
         $seasonTeams = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );

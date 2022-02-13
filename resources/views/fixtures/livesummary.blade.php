@@ -64,11 +64,11 @@
                                         <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
                                         @if( $value['on_strike'] ) <span>*</span> @endif 
                                     </td>
-                                    <td> {{ isset($value['scores']['score']) ? $value['scores']['score'] : '' }} </td>
-                                    <td> {{ isset($value['scores']['ball']) ? $value['scores']['ball'] : '' }} </td>
-                                    <td> {{ isset($value['scores']['four_x']) ? $value['scores']['four_x'] : '' }} </td>
-                                    <td> {{ isset($value['scores']['six_x']) ? $value['scores']['six_x'] : '' }} </td>
-                                    <td> {{ isset($value['scores']['rate']) ? $value['scores']['rate'] : '' }} </td>
+                                    <td> {{ isset($value['scores']['score']) ? $value['scores']['score'] : '0' }} </td>
+                                    <td> {{ isset($value['scores']['ball']) ? $value['scores']['ball'] : '0' }} </td>
+                                    <td> {{ isset($value['scores']['four_x']) ? $value['scores']['four_x'] : '0' }} </td>
+                                    <td> {{ isset($value['scores']['six_x']) ? $value['scores']['six_x'] : '0' }} </td>
+                                    <td> {{ isset($value['scores']['rate']) ? $value['scores']['rate'] : '0' }} </td>
                                 </tr>
                             @endif
                         @endforeach
@@ -89,11 +89,11 @@
                                         <a href="{{ '/players/' . $value['id'] }}"> {{ $value['fullname'] }} </a> 
                                         @if( $value['on_strike'] ) <span>*</span> @endif 
                                     </td>
-                                    <td> {{ isset($value['figures']['overs']) ? $value['figures']['overs'] : '' }} </td>
-                                    <td> {{ isset($value['figures']['medians']) ? $value['figures']['medians'] : '' }} </td>
-                                    <td> {{ isset($value['figures']['runs']) ? $value['figures']['runs'] : '' }} </td>
-                                    <td> {{ isset($value['figures']['wickets']) ? $value['figures']['wickets'] : '' }} </td>
-                                    <td> {{ isset($value['figures']['rate']) ? $value['figures']['rate'] : '' }} </td>
+                                    <td> {{ isset($value['figures']['overs']) ? $value['figures']['overs'] : '0' }} </td>
+                                    <td> {{ isset($value['figures']['medians']) ? $value['figures']['medians'] : '0' }} </td>
+                                    <td> {{ isset($value['figures']['runs']) ? $value['figures']['runs'] : '0' }} </td>
+                                    <td> {{ isset($value['figures']['wickets']) ? $value['figures']['wickets'] : '0' }} </td>
+                                    <td> {{ isset($value['figures']['rate']) ? $value['figures']['rate'] : '0' }} </td>
                                 </tr>
                             @endif
                         @endforeach

@@ -7,7 +7,7 @@
         {{ $fixture['data']['localteam']['name'] }} vs {{ $fixture['data']['visitorteam']['name'] }}, {{ $fixture['data']['round'] }} - Live Cricket Score, Commentary
     </div>
     <div class="subheading">
-        <span>Series : {{ $fixture['data']['stage']['name'] }}, {{ $fixture['data']['season']['name'] }}</span>
+        <span>Series : {{ $fixture['data']['league']['id'] == 3 ? $fixture['data']['stage']['name'] : $fixture['data']['league']['name'] }}, {{ $fixture['data']['season']['name'] }}</span>
         <span>Venue : 
             @if( isset($fixture['data']['venue']['id']) && !empty($fixture['data']['venue']['id']) ) 
                 <a href="/venues/{{ $fixture['data']['venue']['id'] }}">{{ isset($fixture['data']['venue']['name']) ? $fixture['data']['venue']['name'] : '' }}, {{ isset($fixture['data']['venue']['city']) ? $fixture['data']['venue']['city'] : '' }} </a>

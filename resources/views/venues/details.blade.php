@@ -34,8 +34,9 @@
                 @if( !empty($fixture['starting_at']) && strtotime( date('Ymd', strtotime($fixture['starting_at'])) ) >= strtotime(date('Ymd')) )
                     <table class="table venue-matches-table" width="100%">
                         <tr>
-                            <td> {{  date('M d, Y h:i A', strtotime($fixture['starting_at'])) }} </td>
-                            <td>
+                            <td width="20%"> {{  date('M d, Y h:i A', strtotime($fixture['starting_at'])) }} </td>
+                            <td width="30%"> {{  isset($stagesArray[$fixture['stage_id']]) ? $stagesArray[$fixture['stage_id']] : '' }} </td>
+                            <td width="30%">
                                 <a href="/livescores/{{ $fixture['id'] }}/score">
                                     <div class="match-teams">
                                         <img src="{{ $helper->setImage( $fixture['localteam']['image_path'] ) }}"> 
@@ -45,6 +46,7 @@
                                     </div>
                                 </a>
                             </td>
+                            <td width="20%"> {{  $fixture['note'] ? $fixture['note'] : $fixture['status'] }} </td>
                         </tr>
                     </table>
                 @endif

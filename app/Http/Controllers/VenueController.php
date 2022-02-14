@@ -41,6 +41,21 @@ class VenueController extends Controller
 
     public function details( $id ) {
 
+        $stageApiEndpoint = Config::get('constants.API_ENDPOINTS.STAGES');
+
+        $stageApiQueryStrs = [
+            'include'   => 'league'
+        ];
+
+        $stages = $this->apicallHelper->getDataFromAPI( $stageApiEndpoint, $stageApiQueryStrs );
+
+        $stagesArray = [];
+        if( $stages['success'] ) {
+            foreach( $stages['data'] as $stage ) {
+                $stagesArray[$stage['id']] = $stage['league_id'] == 3 ? $stage['name'] : $stage['league']['name'];
+            }
+        }
+
         $apiEndpoint = Config::get('constants.API_ENDPOINTS.VENUES');
 
         $apiEndpoint = $apiEndpoint . '/' . $id;
@@ -53,6 +68,6 @@ class VenueController extends Controller
 
         $helper = $this->functionHelper;
 
-        return view('venues/details', compact('venue', 'helper'));
+        return view('venues/details', compact('venue', 'stagesArray', 'helper'));
     }
 }

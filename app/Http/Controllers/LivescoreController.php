@@ -78,7 +78,7 @@ class LivescoreController extends Controller
         $apiEndpoint = $apiEndpoint . '/' . $fixtureId;
 
         $queryStr = [
-            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby,batting,bowling,tosswon,manofmatch,lineup'
+            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby,batting,bowling,tosswon,manofmatch,lineup,league'
         ];
 
         $livescore = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStr );
@@ -96,6 +96,7 @@ class LivescoreController extends Controller
             $livedetails['season'] = $livescore['data']['season'];
             $livedetails['manofmatch'] = $livescore['data']['manofmatch'];
             $livedetails['lineup'] = $livescore['data']['lineup'];
+            $livedetails['league'] = $livescore['data']['league'];
             $livedetails['fixtureId'] = $livescore['data']['id'];
             $runs = [];
             $k = $current_innings = 0;

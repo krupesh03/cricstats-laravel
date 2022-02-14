@@ -28,15 +28,21 @@
             </div>
             <hr />
             <div class="matches-scheduled"> 
-                Upcoming matches scheduled at this venue 
+                Matches scheduled at this venue for the year {{ date('Y') }}
             </div>
-            @foreach( $venue['data']['fixtures'] as $fixture )
-                @if( !empty($fixture['starting_at']) && strtotime( date('Ymd', strtotime($fixture['starting_at'])) ) >= strtotime(date('Ymd')) )
-                    <table class="table venue-matches-table" width="100%">
+            <table class="table venue-matches-table" width="100%">
+                <tr>
+                    <th width="20%"> Date & Time </th> 
+                    <th width="30%"> Series </th> 
+                    <th width="30%"> Match </th> 
+                    <th width="20%"> Result/Note </th> 
+                </tr>
+                @foreach( $venue['data']['fixtures'] as $fixture )
+                    @if( !empty($fixture['starting_at']) && strtotime( date('Y', strtotime($fixture['starting_at'])) ) == strtotime(date('Y')) )
                         <tr>
-                            <td width="20%"> {{  date('M d, Y h:i A', strtotime($fixture['starting_at'])) }} </td>
-                            <td width="30%"> {{  isset($stagesArray[$fixture['stage_id']]) ? $stagesArray[$fixture['stage_id']] : '' }} </td>
-                            <td width="30%">
+                            <td> {{  date('M d, Y h:i A', strtotime($fixture['starting_at'])) }} </td>
+                            <td> {{  isset($stagesArray[$fixture['stage_id']]) ? $stagesArray[$fixture['stage_id']] : '' }} </td>
+                            <td>
                                 <a href="/livescores/{{ $fixture['id'] }}/score">
                                     <div class="match-teams">
                                         <img src="{{ $helper->setImage( $fixture['localteam']['image_path'] ) }}"> 
@@ -46,11 +52,11 @@
                                     </div>
                                 </a>
                             </td>
-                            <td width="20%"> {{  $fixture['note'] ? $fixture['note'] : $fixture['status'] }} </td>
+                            <td> {{  $fixture['note'] ? $fixture['note'] : $fixture['status'] }} </td>
                         </tr>
-                    </table>
-                @endif
-            @endforeach
+                    @endif
+                @endforeach
+            </table>
         @else
             <div class="error-msg"> {{ $venue['data'] }} </div>
         @endif

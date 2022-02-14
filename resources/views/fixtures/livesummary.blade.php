@@ -7,7 +7,11 @@
 </div>
 <div class="subheading">
     <span>Series : {{ $livedetails['stage']['name'] }}, {{ $livedetails['season']['name'] }} </span>
-    <span>Venue :  {{ isset($livedetails['venue']['name']) ? $livedetails['venue']['name'] : '' }}, {{ isset($livedetails['venue']['city']) ? $livedetails['venue']['city'] : '' }}</span>
+    <span>Venue : 
+        @if( isset($livedetails['venue']['id']) && !empty($livedetails['venue']['id']) ) 
+            <a href="/venues/{{ $livedetails['venue']['id'] }}">{{ isset($livedetails['venue']['name']) ? $livedetails['venue']['name'] : '' }}, {{ isset($livedetails['venue']['city']) ? $livedetails['venue']['city'] : '' }}</a>
+        @endif
+    </span>
     <span>Date & Time : {{ isset($livedetails['details']['starting_at']) && !empty($livedetails['details']['starting_at']) ? date('M d, Y h:i A', strtotime($livedetails['details']['starting_at'])) : '' }} </span>
 </div>
 <div class="sub-menu">

@@ -8,7 +8,11 @@
     </div>
     <div class="subheading">
         <span>Series : {{ $fixture['data']['stage']['name'] }}, {{ $fixture['data']['season']['name'] }}</span>
-        <span>Venue : {{ isset($fixture['data']['venue']['name']) ? $fixture['data']['venue']['name'] : '' }}, {{ isset($fixture['data']['venue']['city']) ? $fixture['data']['venue']['city'] : '' }}</span>
+        <span>Venue : 
+            @if( isset($fixture['data']['venue']['id']) && !empty($fixture['data']['venue']['id']) ) 
+                <a href="/venues/{{ $fixture['data']['venue']['id'] }}">{{ isset($fixture['data']['venue']['name']) ? $fixture['data']['venue']['name'] : '' }}, {{ isset($fixture['data']['venue']['city']) ? $fixture['data']['venue']['city'] : '' }} </a>
+            @endif
+        </span>
         <span>Date & Time : {{ isset($fixture['data']['starting_at']) && !empty($fixture['data']['starting_at']) ? date('M d, Y h:i A', strtotime($fixture['data']['starting_at'])) : '' }}</span>
     </div>
     <div class="sub-menu">

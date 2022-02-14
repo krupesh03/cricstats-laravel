@@ -94,7 +94,7 @@
                                     (wk)
                                 @endif
                             </td>
-                            <td>
+                            <td width="31%">
                                 @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'] && $score['bowler']['id'] == $score['catchstump']['id'] )
                                     <span class="caught-bowled"> c & </span> 
                                 @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
@@ -111,7 +111,7 @@
                                     st {{ $score['catchstump']['fullname'] }}
                                 @endif
                             </td>
-                            <td>
+                            <td width="24%">
                                 @if( strpos($score['result']['name'], 'Run') === false )
                                     @if( $score['result']['out'] && $score['bowler'] )
                                         b {{ $score['bowler']['fullname'] }}
@@ -246,8 +246,10 @@
                                     (wk)
                                 @endif
                             </td>
-                            <td>
-                                @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
+                            <td width="31%">
+                                @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'] && $score['bowler']['id'] == $score['catchstump']['id'] )
+                                    <span class="caught-bowled"> c & </span>
+                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
                                     c {{ $score['catchstump']['fullname'] }}
                                 @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Run') !== false )
                                     @if( $score['runoutby'] )
@@ -261,7 +263,7 @@
                                     st {{ $score['catchstump']['fullname'] }}
                                 @endif
                             </td>
-                            <td>
+                            <td width="24%">
                                 @if( strpos($score['result']['name'], 'Run') === false )
                                     @if( $score['result']['out'] && $score['bowler'] )
                                         b {{ $score['bowler']['fullname'] }}

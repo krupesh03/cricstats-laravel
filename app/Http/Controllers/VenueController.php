@@ -38,4 +38,21 @@ class VenueController extends Controller
 
         return view('venues/listing', compact('applicableVenues', 'helper'));
     }
+
+    public function details( $id ) {
+
+        $apiEndpoint = Config::get('constants.API_ENDPOINTS.VENUES');
+
+        $apiEndpoint = $apiEndpoint . '/' . $id;
+
+        $queryStrs = [
+            'include'   => 'country,fixtures.localteam,fixtures.visitorteam'
+        ];
+
+        $venue = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );
+
+        $helper = $this->functionHelper;
+
+        return view('venues/details', compact('venue', 'helper'));
+    }
 }

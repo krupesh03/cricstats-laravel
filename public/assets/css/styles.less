@@ -96,9 +96,6 @@ body {
                     text-decoration: none;
                     color: @themeTextColor;
                     font-style: italic;
-                    span {
-                        color: @redColor;
-                    }
                 }
             }
             .team-squads{
@@ -569,23 +566,90 @@ body {
             }
             .venue-info {
                 padding: 8px 16px;
-                img {
-                    width: 210px;
-                    height: 140px;
-                }
-                .venue-details {
-                    color: @themeInheritColor;
-                    font-size: 12px;
-                    .country-data {
-                        img {
-                            width: 20px;
-                            height: 15px;
-                        }
-                        font-size: 13px;
-                        font-style: italic;
+                a {
+                    text-decoration: none;
+                    img {
+                        width: 210px;
+                        height: 140px;
                     }
+                    .venue-details {
+                        color: @themeInheritColor;
+                        font-size: 12px;
+                        .country-data {
+                            img {
+                                width: 20px;
+                                height: 15px;
+                            }
+                            font-size: 13px;
+                            font-style: italic;
+                        }
+                        span {
+                            font-style: italic;
+                        }
+                    }
+                }
+            }
+            .venue-information {
+                .venueSing-info {
+                    font-size: 13px;
+                    display: flex;
+                    color: @themeInheritColor;
+                    .venue-pic {
+                        padding: auto;
+                        img {
+                            width: 200px;
+                            height: 200px;
+                        }
+                        .name {
+                            text-align: center;
+                            padding-top: 5px;
+                        }
+                    }
+                    .venue-other-details {
+                        padding-top: 30px;
+                        .country {
+                            img {
+                                width: 20px;
+                                height: 15px;
+                            }
+                        }
+                        div {
+                            padding: 5px 10px;
+                            span {
+                                font-style: italic;
+                            }
+                        }
+                    }
+                }
+                .matches-scheduled {
+                    background: @themeColor;
+                    color: @themeInheritColor;
+                    padding: 8px 10px;
+                    display: flex;
+                    font-size: 13px;
                     span {
                         font-style: italic;
+                        font-size: 13px;
+                    }
+                }
+                .venue-matches-table {
+                    tr {
+                        vertical-align: middle;
+                        font-size: 12px;
+                        font-weight: 100;
+                        td {
+                            a {
+                                text-decoration: none;
+                                .match-teams {
+                                    color: @themeInheritColor;
+                                    text-align: left;
+                                    img {
+                                        width: 40px;
+                                        height: 40px;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

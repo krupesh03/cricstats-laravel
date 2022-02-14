@@ -60,6 +60,7 @@ Route::group(['prefix' => 'players'], function($route) {
 
 Route::group(['prefix' => 'venues'], function($route) {
     $route->get('/', [VenueController::class, 'index']);
+    $route->get('/{id}', [VenueController::class, 'details']);
 });
 
 Route::group(['prefix' => 'officials'], function($route) {

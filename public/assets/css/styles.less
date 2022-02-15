@@ -909,15 +909,8 @@ body {
         color: @themeInheritColor;
         @media only screen and (min-width: 768px) {
             /* For desktop: */
-           .left {
-               text-align: left;
-           }
-           .center {
-               text-align: center;
-           }
-           .right {
-               text-align: right;
-           }
+            display: flex;
+            justify-content: space-between;
         }
         a {
             text-decoration: underline;
@@ -927,6 +920,7 @@ body {
             padding: 5px;
         }
         span {
+            display: block;
             a {
                 text-decoration: none;
                 font-size: 12px;

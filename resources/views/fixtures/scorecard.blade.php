@@ -7,21 +7,13 @@
         {{ $fixture['data']['localteam']['name'] }} vs {{ $fixture['data']['visitorteam']['name'] }}, {{ $fixture['data']['round'] }} - Live Cricket Score, Commentary
     </div>
     <div class="subheading">
-        <div class="row">
-            <div class="col-md-4 left">
-                <span> Series : {{ $fixture['data']['league']['id'] == 3 ? $fixture['data']['stage']['name'] : $fixture['data']['league']['name'] }}, {{ $fixture['data']['season']['name'] }} </span>
-            </div>
-            <div class="col-md-4 center">
-                <span> Venue : 
-                    @if( isset($fixture['data']['venue']['id']) && !empty($fixture['data']['venue']['id']) ) 
-                        <a href="/venues/{{ $fixture['data']['venue']['id'] }}">{{ isset($fixture['data']['venue']['name']) ? $fixture['data']['venue']['name'] : '' }}, {{ isset($fixture['data']['venue']['city']) ? $fixture['data']['venue']['city'] : '' }} </a>
-                    @endif
-                </span>
-            </div>
-            <div class="col-md-4 right">
-                <span> Date & Time : {{ isset($fixture['data']['starting_at']) && !empty($fixture['data']['starting_at']) ? date('M d, Y h:i A', strtotime($fixture['data']['starting_at'])) : '' }} </span>
-            </div>
-        </div>
+        <span> Series : {{ $fixture['data']['league']['id'] == 3 ? $fixture['data']['stage']['name'] : $fixture['data']['league']['name'] }}, {{ $fixture['data']['season']['name'] }} </span>
+        <span> Venue : 
+            @if( isset($fixture['data']['venue']['id']) && !empty($fixture['data']['venue']['id']) ) 
+                <a href="/venues/{{ $fixture['data']['venue']['id'] }}">{{ isset($fixture['data']['venue']['name']) ? $fixture['data']['venue']['name'] : '' }}, {{ isset($fixture['data']['venue']['city']) ? $fixture['data']['venue']['city'] : '' }} </a>
+            @endif
+        </span>
+        <span> Date & Time : {{ isset($fixture['data']['starting_at']) && !empty($fixture['data']['starting_at']) ? date('M d, Y h:i A', strtotime($fixture['data']['starting_at'])) : '' }} </span>
     </div>
     <div class="sub-menu">
         <div class="sub-menu-one"> 

@@ -909,8 +909,15 @@ body {
         color: @themeInheritColor;
         @media only screen and (min-width: 768px) {
             /* For desktop: */
-            display: flex;
-            justify-content: space-between;
+           .left {
+               text-align: left;
+           }
+           .center {
+               text-align: center;
+           }
+           .right {
+               text-align: right;
+           }
         }
         a {
             text-decoration: underline;

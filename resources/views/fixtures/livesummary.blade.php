@@ -6,13 +6,21 @@
     {{ $livedetails['localteam']['name'] }} vs {{ $livedetails['visitorteam']['name'] }}, {{ $livedetails['details']['round'] }} - Live Cricket Score, Commentary
 </div>
 <div class="subheading">
-    <span>Series : {{ $livedetails['league']['id'] == 3 ? $livedetails['stage']['name'] : $livedetails['league']['name'] }}, {{ $livedetails['season']['name'] }} </span>
-    <span>Venue : 
-        @if( isset($livedetails['venue']['id']) && !empty($livedetails['venue']['id']) ) 
-            <a href="/venues/{{ $livedetails['venue']['id'] }}">{{ isset($livedetails['venue']['name']) ? $livedetails['venue']['name'] : '' }}, {{ isset($livedetails['venue']['city']) ? $livedetails['venue']['city'] : '' }}</a>
-        @endif
-    </span>
-    <span>Date & Time : {{ isset($livedetails['details']['starting_at']) && !empty($livedetails['details']['starting_at']) ? date('M d, Y h:i A', strtotime($livedetails['details']['starting_at'])) : '' }} </span>
+    <div class="row">
+        <div class="col-md-4 left">
+            <span> Series : {{ $livedetails['league']['id'] == 3 ? $livedetails['stage']['name'] : $livedetails['league']['name'] }}, {{ $livedetails['season']['name'] }} </span>
+        </div>
+        <div class="col-md-4 center">
+            <span> Venue : 
+                @if( isset($livedetails['venue']['id']) && !empty($livedetails['venue']['id']) ) 
+                    <a href="/venues/{{ $livedetails['venue']['id'] }}">{{ isset($livedetails['venue']['name']) ? $livedetails['venue']['name'] : '' }}, {{ isset($livedetails['venue']['city']) ? $livedetails['venue']['city'] : '' }}</a>
+                @endif 
+            </span>
+        </div>
+        <div class="col-md-4 right">
+            <span> Date & Time : {{ isset($livedetails['details']['starting_at']) && !empty($livedetails['details']['starting_at']) ? date('M d, Y h:i A', strtotime($livedetails['details']['starting_at'])) : '' }} </span>
+        </div>
+    </div>
 </div>
 <div class="sub-menu">
     <div class="sub-menu-one active"> 

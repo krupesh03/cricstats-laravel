@@ -8,12 +8,14 @@
 <div class="row main-div">
     <div class="venue-information">
         @if( $venue['success'] )
-            <div class="venueSing-info">
-                <div class="venue-pic">
+            <div class="row venueSing-info">
+                <div class="col-md-3 venue-pic">
                     <img src="{{ $helper->setImage($venue['data']['image_path']) }}">
-                    <div class="name"> {{ $venue['data']['name'] }}, {{ $venue['data']['city'] }} </div>
                 </div>
-                <div class="venue-other-details">
+                <div class="col-md-3 venue-other-details">
+                    <div class="name"> 
+                        Name: <span> {{ $venue['data']['name'] }}, {{ $venue['data']['city'] }} </span> 
+                    </div>
                     <div class="country"> 
                         Nationality: <img src="{{ $helper->setImage($venue['data']['country']['image_path']) }}">
                         <span> {{ $venue['data']['country']['name'] }} </span>

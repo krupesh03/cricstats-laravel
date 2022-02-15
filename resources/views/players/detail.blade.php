@@ -8,12 +8,14 @@
 <div class="row main-div">
     <div class="player-information">
         @if( $player['success'] )
-            <div class="personal-info">
-                <div class="profile-pic">
+            <div class="row personal-info">
+                <div class="col-md-3 profile-pic">
                     <img src="{{ $helper->setImage($player['data']['image_path']) }}">
-                    <div class="name"> {{ $player['data']['fullname'] }} </div>
                 </div>
-                <div class="personal-other-details">
+                <div class="col-md-6 personal-other-details">
+                    <div class="name"> 
+                        Name: <span> {{ $player['data']['fullname'] }} </span>
+                    </div>
                     <div class="country"> 
                         Nationality: <img src="{{ $helper->setImage($player['data']['country']['image_path']) }}">
                         <span> {{ $player['data']['country']['name'] }} </span>

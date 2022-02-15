@@ -12,7 +12,7 @@
                 <div class="col-md-3 venue-pic">
                     <img src="{{ $helper->setImage($venue['data']['image_path']) }}">
                 </div>
-                <div class="col-md-3 venue-other-details">
+                <div class="col-md-9 venue-other-details">
                     <div class="name"> 
                         Name: <span> {{ $venue['data']['name'] }}, {{ $venue['data']['city'] }} </span> 
                     </div>

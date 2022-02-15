@@ -12,7 +12,7 @@
                 <div class="col-md-3 profile-pic">
                     <img src="{{ $helper->setImage($player['data']['image_path']) }}">
                 </div>
-                <div class="col-md-6 personal-other-details">
+                <div class="col-md-9 personal-other-details">
                     <div class="name"> 
                         Name: <span> {{ $player['data']['fullname'] }} </span>
                     </div>

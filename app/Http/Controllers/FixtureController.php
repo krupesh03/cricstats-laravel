@@ -112,6 +112,9 @@ class FixtureController extends Controller
                     $i++;
                 }
             }
+            usort( $recentMatches, function( $arr1, $arr2 ) {
+                return strtotime($arr1['starting_at']) >= strtotime($arr2['starting_at']);
+            });
 
             $helper = $this->functionHelper;
 

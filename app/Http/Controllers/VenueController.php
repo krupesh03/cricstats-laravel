@@ -15,7 +15,26 @@ class VenueController extends Controller
         $this->functionHelper = new FunctionHelper;
     }
 
-    public function index() {
+    public function index( Request $request ) {
+
+        $countryApiEndpoint = Config::get('constants.API_ENDPOINTS.COUNTRIES');
+
+        $countryQueryStr = [
+            'sort'      => 'name'
+        ];
+
+        $countries = $this->apicallHelper->getDataFromAPI( $countryApiEndpoint, $countryQueryStr );
+
+        $dropdowns = $countryIds = [];
+        if( $countries['success'] ) {
+            foreach( $countries['data'] as $country ) {
+                if( in_array( $country['name'], Config::get('constants.APPLICABLE_COUNTRIES') ) ) {
+                    $countryIds[$country['id']] = $country['name'];
+                }
+            }
+        }
+
+        $dropdowns['countries'] = $countryIds;
 
         $apiEndpoint = Config::get('constants.API_ENDPOINTS.VENUES');
 
@@ -23,20 +42,32 @@ class VenueController extends Controller
             'include'   => 'country'
         ];
 
+        if( $request->query('city') ) {
+            $queryStrs['filter[city]'] = $request->query('city');
+        }
+
         $venues = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStrs );
 
         $applicableVenues = [];
         if( $venues['success'] ) {
             foreach( $venues['data'] as $venue ) {
-                if( in_array( $venue['country']['name'], Config::get('constants.APPLICABLE_COUNTRIES') ) ) {
+                if( in_array( $venue['country']['name'], Config::get('constants.APPLICABLE_COUNTRIES') ) ) { 
                     $applicableVenues[] = $venue;
+                }
+            }
+        }
+
+        if( $request->query('find_venues') == 'search' && $request->query('country') ) {
+            foreach( $applicableVenues as $k => $venues ) {
+                if( $venues['country_id'] != $request->query('country') ) {
+                    unset($applicableVenues[$k]);
                 }
             }
         }
 
         $helper = $this->functionHelper;
 
-        return view('venues/listing', compact('applicableVenues', 'helper'));
+        return view('venues/listing', compact('applicableVenues', 'dropdowns', 'helper'));
     }
 
     public function details( $id ) {

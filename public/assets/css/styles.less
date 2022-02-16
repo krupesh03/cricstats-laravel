@@ -558,27 +558,66 @@ body {
                     }
                 }
             }
-            .venue-info {
-                padding: 8px 16px;
-                a {
-                    text-decoration: none;
-                    img {
-                        width: 210px;
-                        height: 140px;
-                    }
-                    .venue-details {
+            .venue-filter-list{
+                .search-form {
+                    .col-form-label {
+                        font-size: 13px;
                         color: @themeInheritColor;
-                        font-size: 12px;
-                        .country-data {
-                            img {
-                                width: 20px;
-                                height: 15px;
-                            }
+                    }
+                    select {
+                        width: auto;
+                        height: 30px;
+                        font-size: 13px;
+                        padding: 5px 10px;
+                        font-style: italic;
+                    }
+                    input[type=text] {
+                        width: auto;
+                        height: 30px;
+                        font-size: 13px;
+                        padding: 5px 10px;
+                        font-style: italic;
+                        border: 1px solid #ced4da;
+                        margin: 0;
+                    }
+                    .search-button {
+                        text-align: right;
+                        padding: 8px 16px;
+                        input[type=submit] {
+                            padding: 5px 10px;
                             font-size: 13px;
+                            color: @themeInheritColor;
+                            background-color: @themeColor;
                             font-style: italic;
+                            font-weight: bold;
+                            border: 0;
                         }
-                        span {
-                            font-style: italic;
+                    }
+                }
+                .all-venues{
+                    .venue-info {
+                        padding: 8px 16px;
+                        a {
+                            text-decoration: none;
+                            img {
+                                width: 210px;
+                                height: 140px;
+                            }
+                            .venue-details {
+                                color: @themeInheritColor;
+                                font-size: 12px;
+                                .country-data {
+                                    img {
+                                        width: 20px;
+                                        height: 15px;
+                                    }
+                                    font-size: 13px;
+                                    font-style: italic;
+                                }
+                                span {
+                                    font-style: italic;
+                                }
+                            }
                         }
                     }
                 }

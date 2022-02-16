@@ -35,7 +35,7 @@
                             </div>
                         @else
                             <div class="match-result">
-                                Result: <span> {{ !empty($fixture['note']) ? $fixture['note'] : 'NA' }} </span>
+                                Result: <span> {{ !empty($fixture['note']) ? $fixture['note'] : $fixture['status'] }} </span>
                             </div>
                             @if( !$fixture['draw_noresult'] && !empty($fixture['note']) )
                                 <div class="man-ofthe-match">

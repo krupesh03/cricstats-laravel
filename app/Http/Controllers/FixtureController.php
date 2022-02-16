@@ -105,6 +105,7 @@ class FixtureController extends Controller
                         'round'         => $fixture['round'],
                         'starting_at'   => $fixture['starting_at'],
                         'note'          => $fixture['note'],
+                        'status'        => $fixture['status'],
                         'draw_noresult' => $fixture['draw_noresult']
                     ];
                     $allFixtures[$fixture['stage']['id']]['fixtures'][$i]['facts'] = $matchFacts;

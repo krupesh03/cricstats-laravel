@@ -27,7 +27,7 @@
                             </div>
                         @else
                             <div class="match-result">
-                                Result: <span> {{ !empty($recent['note']) ? $recent['note'] : 'NA' }} </span>
+                                Result: <span> {{ !empty($recent['note']) ? $recent['note'] : $recent['status'] }} </span>
                             </div>
                             <div class="man-ofthe-match">
                                 Player of the match: <span> {{ isset($recent['manofmatch']['fullname']) ? $recent['manofmatch']['fullname'] : 'NA' }} </span> 
@@ -63,7 +63,7 @@
                             </div>
                         @else
                             <div class="match-result">
-                                Result: <span> {{ !empty($matches['facts']['note']) ? $matches['facts']['note'] : 'NA' }} </span>
+                                Result: <span> {{ !empty($matches['facts']['note']) ? $matches['facts']['note'] : $matches['facts']['status'] }} </span>
                             </div>
                             <div class="man-ofthe-match">
                                 Player of the match: <span> {{ isset($matches['manofmatch']['fullname']) ? $matches['manofmatch']['fullname'] : 'NA' }} </span> 

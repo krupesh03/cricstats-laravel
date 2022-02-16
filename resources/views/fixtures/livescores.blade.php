@@ -44,7 +44,7 @@
             </div>
         @endforeach
         @if( count($allLiveScores) == 0 ) 
-            <div class="error-msg"> No applicable live matches today! </div>
+            <div class="error-msg"> There are no matches at the moment. Please check back later! </div>
         @endif
     </div>
 </div>

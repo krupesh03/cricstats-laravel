@@ -83,11 +83,16 @@ class FixtureController extends Controller
 
             $fixtures = $this->apicallHelper->getDataFromAPI( $fixturesApiEndpoint, $fixturesQueryStr );
 
-            $pagination = $allFixtures = [];
+            $pagination = $allFixtures = $recentMatches = [];
             if( $fixtures['success'] ) {
                 $pagination = $fixtures['meta'];
                 $i=0;
                 foreach( $fixtures['data'] as $fixture ) {
+
+                    if( (strtotime($fixture['starting_at']) >= strtotime(date('Y-m-d', strtotime('-1 days'))) && strtotime($fixture['starting_at']) <= strtotime(date('Y-m-d', strtotime('+1 days')))) && ($request->query('page') == 1 || !$request->query('page') ) ) {
+                        $recentMatches[] = $fixture;
+                    }
+
                     $allFixtures[$fixture['stage']['id']]['stage_name'] = $fixture['stage']['name'];
                     $allFixtures[$fixture['stage']['id']]['league_name'] = $fixture['league']['name'];
                     $allFixtures[$fixture['stage']['id']]['season_name'] = $fixture['season']['name'];
@@ -109,7 +114,7 @@ class FixtureController extends Controller
 
             $helper = $this->functionHelper;
 
-            return view('fixtures/listing', compact('allFixtures', 'pagination', 'helper'));
+            return view('fixtures/listing', compact('allFixtures', 'recentMatches', 'pagination', 'helper'));
         }
         return abort(404);
     }

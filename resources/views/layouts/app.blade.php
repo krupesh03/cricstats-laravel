@@ -85,6 +85,19 @@
 </body>
 
 <footer>
+    <div class="kricstats-footer kricstats-col-100 kricstats-col">
+        <div class="kricstats-ftr-cntnr">
+            <div class="kricstats-col-25 kricstats-col">
+                <a href="/" target="_self" class="kricstats-hm-text">
+                    <img id="kricstats-logo-main-menu" itemprop="image" height="40" width="auto" alt="Kricstats Logo" title="Kricstats Logo" src="/assets/logo/logo.png">
+                </a>
+            </div>
+            <div class="kricstats-col-100 kricstats-col kricstats-ftr-cpyrght">
+                © {{ date('Y') }} KricStats Limited. All rights reserved 
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/app.min.js') }}" type="text/javascript"></script>
 </footer>

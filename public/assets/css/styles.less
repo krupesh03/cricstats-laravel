@@ -918,6 +918,47 @@ body {
                     }
                 }
             }
+            .featured-matches {
+                .fixture-listing {
+                    padding: 10px 20px;
+                    .match-teams {
+                        .localteam-score, .visitorteam-score {
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: 13px;
+                            color: @themeInheritColor;
+                            padding: 3px;
+                            .team {
+                                img {
+                                    width: 20px;
+                                    height: auto;
+                                }
+                            }
+                        }
+                    }
+                    .match-result {
+                        font-size: 12px;
+                        span {
+                            font-style: italic;
+                            color: @redColor;
+                        }
+                    }
+                    .match-time {
+                        font-size: 12px;
+                        span {
+                            font-style: italic;
+                            color: #a36501;
+                        }
+                    }
+                    .featured-match-details {
+                        font-size: 12px;
+                        a {
+                            font-weight: 300;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
         }
         @media only screen and (max-width: 768px) {
             /* For mobile phones: */

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaguesController;
 use App\Http\Controllers\SeasonsController;
 use App\Http\Controllers\SquadController;
@@ -22,7 +23,7 @@ use App\Http\Controllers\LivescoreController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [LeaguesController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/leagues', [LeaguesController::class, 'index']);
 

@@ -23,7 +23,7 @@ class LeaguesController extends Controller
 
         $helper = $this->functionHelper;
         
-        return view('leagues', compact('leagues', 'helper'));
+        return view('leagues/listing', compact('leagues', 'helper'));
     }
 
     public function getStandings( $leagueid, $seasonid ) {

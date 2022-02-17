@@ -42,10 +42,10 @@
                         <a href="{{ url('/fixture') }}" class="nav-link">Schedule/Results</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/teams') }}" class="nav-link">Teams</a>
+                        <a href="{{ url('/leagues') }}" class="nav-link">Leagues</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/players') }}" class="nav-link">Players</a>
+                        <a href="{{ url('/teams') }}" class="nav-link">Teams</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Rankings</a>
@@ -57,7 +57,7 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">More</a>
                         <div class="dropdown-menu">
-                            <a href="{{ url('/leagues') }}" class="dropdown-item">Leagues</a>
+                            <a href="{{ url('/players') }}" class="dropdown-item">Players</a>
                             <a href="{{ url('/officials') }}" class="dropdown-item">Officials</a>
                             <a href="{{ url('/venues') }}" class="dropdown-item">Venues</a>
                         </div>

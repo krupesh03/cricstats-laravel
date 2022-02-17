@@ -127,4 +127,14 @@ $(document).ready( function() {
         $('.live-commentary').find('table tr:gt(70)').show();
         localStorage.setItem('fullLoad', 'true');
     });
+
+    $(document).on('click', 'input[type=reset]', function(e) {
+
+        e.preventDefault();
+        var $this = $(this);
+        $this.closest('form').find(':input').each( function() {
+            $(this).not('[type=reset],[type=submit]').val('');
+        });
+        $this.closest('form').submit();
+    });
 });

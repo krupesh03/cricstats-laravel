@@ -464,7 +464,7 @@ body {
                     .search-button {
                         text-align: right;
                         padding: 8px 16px;
-                        input[type=submit] {
+                        input[type=submit], input[type=reset] {
                             padding: 5px 10px;
                             font-size: 13px;
                             color: @themeInheritColor;
@@ -583,7 +583,7 @@ body {
                     .search-button {
                         text-align: right;
                         padding: 8px 16px;
-                        input[type=submit] {
+                        input[type=submit], input[type=reset] {
                             padding: 5px 10px;
                             font-size: 13px;
                             color: @themeInheritColor;
@@ -684,19 +684,56 @@ body {
                     }
                 }
             }
-            .official-list-table {
-                tr:first-child {
-                    background-color: @themeColor;
-                    font-size: 13px;
-                    color: @themeInheritColor;
+            .official-filter-list {
+                .search-form {
+                    .col-form-label {
+                        font-size: 13px;
+                        color: @themeInheritColor;
+                    }
+                    select {
+                        width: auto;
+                        height: 30px;
+                        font-size: 13px;
+                        padding: 5px 10px;
+                        font-style: italic;
+                    }
+                    input[type=text] {
+                        width: auto;
+                        height: 30px;
+                        font-size: 13px;
+                        padding: 5px 10px;
+                        font-style: italic;
+                        border: 1px solid #ced4da;
+                        margin: 0;
+                    }
+                    .search-button {
+                        text-align: right;
+                        padding: 8px 16px;
+                        input[type=submit], input[type=reset] {
+                            padding: 5px 10px;
+                            font-size: 13px;
+                            color: @themeInheritColor;
+                            background-color: @themeColor;
+                            font-style: italic;
+                            font-weight: bold;
+                            border: 0;
+                        }
+                    }
                 }
-                tr {
-                    font-size: 12px;
-                    font-weight: 300;
-                    .country-data {
-                        img {
-                            width: 20px;
-                            height: 15px;
+                .official-list-table {
+                    tr:first-child {
+                        background-color: @themeColor;
+                        font-size: 13px;
+                        color: @themeInheritColor;
+                    }
+                    tr {
+                        font-size: 12px;
+                        font-weight: 300;
+                        .country-data {
+                            img {
+                                width: 20px;
+                                height: 15px;
+                            }
                         }
                     }
                 }

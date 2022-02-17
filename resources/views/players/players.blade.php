@@ -30,6 +30,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-12 search-button">
+                    <input type="reset" name="reset_search" value="Reset">
                     <input type="submit" name="find_players" value="search">
                 </div>
             </div>

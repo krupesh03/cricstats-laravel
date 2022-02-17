@@ -7,43 +7,6 @@
 
 <div class="row main-div">
     <div class="team-allfixtures">
-        @if( count($recentMatches) )
-            <div class="col-md-12 league-stage-name"> Recent Matches </div>
-            <div class="row">
-                @foreach( $recentMatches as $recent )
-                    <div class="col-md-6 fixture-listing">
-                        <div class="match-number">
-                            {{ isset($recent['round']) ? $recent['round'] : '' }}, <span> {{ date('d M Y h:i A', strtotime($recent['starting_at'])) }}</span>, <span class="match-venue"> {{ isset($recent['venue']['name']) ? $recent['venue']['name'] : '' }}, {{ isset($recent['venue']['city']) ? $recent['venue']['city'] : '' }}</span>,
-                            <span>{{ $recent['league_id'] == 3 ? $recent['stage']['name'] : $recent['league']['name'] }}, {{ $recent['season']['name'] }}</span>
-                        </div>
-                        <div class="opponent-team">
-                            <img src="{{ $helper->setImage( $recent['localteam']['image_path'] ) }}"> 
-                            <span> {{ isset($recent['localteam']['name']) ? $recent['localteam']['name'] : '' }} </span> Vs <img src="{{ $helper->setImage( $recent['visitorteam']['image_path'] ) }}"> 
-                            <span> {{ isset($recent['visitorteam']['name']) ? $recent['visitorteam']['name'] : '' }} </span>
-                        </div>
-                        @if( strtotime($recent['starting_at']) > time() )
-                            <div class="match-result">
-                                Note: <span> Upcoming match </span>
-                            </div>
-                        @else
-                            <div class="match-result">
-                                Result: <span> {{ !empty($recent['note']) ? $recent['note'] : $recent['status'] }} </span>
-                            </div>
-                            <div class="man-ofthe-match">
-                                Player of the match: <span> {{ isset($recent['manofmatch']['fullname']) ? $recent['manofmatch']['fullname'] : 'NA' }} </span> 
-                                @if( !$recent['draw_noresult'] && !empty($recent['note']) )
-                                    <div class="commentary-score">
-                                        <a href="javascript:void(0)" class="live-score-url" data-pid="{{ $recent['id'] }}" data-current-url="{{ url('') }}">Commentary</a> |
-                                        <a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $recent['id'] }}" data-current-url="{{ url('') }}">Scorecard</a>
-                                    </div>
-                                @endif
-                            </div>
-                        @endif
-                    </div>
-                @endforeach
-            </div>
-        @endif
-
         @foreach( $allFixtures as $stageid => $fixture )
             <div class="col-md-12 league-stage-name"> {{ $fixture['league_name']}}, {{ $fixture['stage_name'] }} {{ $fixture['season_name'] }} </div>
             <div class="row">

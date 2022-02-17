@@ -58,8 +58,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">More</a>
                         <div class="dropdown-menu">
                             <a href="{{ url('/players') }}" class="dropdown-item">Players</a>
-                            <a href="{{ url('/officials') }}" class="dropdown-item">Officials</a>
                             <a href="{{ url('/venues') }}" class="dropdown-item">Venues</a>
+                            <a href="{{ url('/officials') }}" class="dropdown-item">Officials</a>
                         </div>
                     </li>
                 </ul>

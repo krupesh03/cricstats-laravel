@@ -4,6 +4,7 @@
 @themeTextColor: #3988ff; 
 @redColor: #d11a1a;
 @themeInheritColor: rgba(0,0,0,.55);
+@fDetailColor: #a36501;
 
 body {
     font-family: helvetica,"Segoe UI",Arial,sans-serif;
@@ -29,7 +30,7 @@ body {
     }
     .main-content {
         background-color: #fff;
-        min-height: 583px;
+        min-height: 600px;
         padding: 25px;
         .main-div {
             padding-left: 10px;
@@ -413,9 +414,9 @@ body {
                         td {
                             span {
                                 background-color: @background;
-                                padding: 5px 10px;
+                                padding: 5px 5px;
                                 border-radius: 10px;
-                                font-size: 10px;
+                                font-size: 8px;
                                 &.W-style {
                                     background-color: #31ce31;
                                 }
@@ -678,6 +679,17 @@ body {
                                         width: 40px;
                                         height: 40px;
                                     }
+                                }
+                            }
+                            &.result-note {
+                                font-style: italic;
+                                .ongoing-match {
+                                    color: @redColor;
+                                    font-weight: bold;
+                                }
+                                .not-started {
+                                    color: @fDetailColor;
+                                    font-weight: bold;
                                 }
                             }
                         }
@@ -984,7 +996,7 @@ body {
                         font-size: 12px;
                         span {
                             font-style: italic;
-                            color: #a36501;
+                            color: @fDetailColor;
                         }
                     }
                     .featured-match-details {

@@ -54,7 +54,31 @@
                                     </div>
                                 </a>
                             </td>
-                            <td> {{  $fixture['note'] ? $fixture['note'] : $fixture['status'] }} </td>
+                            <td class="result-note"> 
+                                @if( isset($fixture['status']) && $fixture['status'] == '1st Innings' )
+                                    @if( isset($fixture['visitorteam']['id']) && $fixture['visitorteam']['id'] == $fixture['toss_won_team_id'] && isset($fixture['elected']) )
+                                        <span class="ongoing-match"> {{ $fixture['visitorteam']['name'] . ' opt for ' . $fixture['elected'] }} </span>
+                                    @elseif( isset($fixture['localteam']['id']) && $fixture['localteam']['id'] == $fixture['toss_won_team_id'] && isset($fixture['elected']) )
+                                        <span class="ongoing-match"> {{ $fixture['localteam']['name'] . ' opt for ' . $fixture['elected'] }} </span>
+                                    @endif
+                                @elseif( !$fixture['winner_team_id'] ) 
+                                    @if( isset($fixture['status']) && strtolower($fixture['status']) == 'innings break' )
+                                        <span class="ongoing-match"> {{ $fixture['status'] }} </span>
+                                    @elseif( isset($fixture['status']) && $fixture['status'] == 'NS' )
+                                        <span class="not-started"> Not Started </span>
+                                    @elseif( isset($fixture['note']) && !empty($fixture['note']) )
+                                        <span class="ongoing-match"> {{ $fixture['note'] }} </span>
+                                    @else
+                                        {{ $fixture['status'] }}
+                                    @endif
+                                @else
+                                    @if( isset($fixture['note']) && !empty($fixture['note']) )
+                                        {{ $fixture['note'] }}
+                                    @elseif ( isset($fixture['status']) && !empty($fixture['status']) )
+                                        {{ $fixture['status'] }}
+                                    @endif
+                                @endif
+                            </td>
                         </tr>
                     @endif
                 @endforeach

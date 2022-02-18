@@ -137,4 +137,10 @@ $(document).ready( function() {
         });
         $this.closest('form').submit();
     });
+
+    if( $('.featured-matches').length != 0 ) {
+        setTimeout(function () {
+            location.reload(true);
+        }, 30000);
+    }
 });

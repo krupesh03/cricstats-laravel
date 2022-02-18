@@ -42,7 +42,12 @@
                 </div>
                 <div class="match-note">
                     @if( strtolower($livedetails['details']['status']) != "finished" && ($run['inning']%2) == 0 )
-                        {{ $run['inning'] == count($livedetails['runs']['data']) && (int)$livedetails['runs']['required_total'] > 0 ? $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' : '' }}
+                        @if( $run['inning'] == count($livedetails['runs']['data']) && (int)$livedetails['runs']['required_total'] > 0 )
+                            {{  $run['team']['name'] . ' need ' . $livedetails['runs']['required_total'] .' runs' }}
+                            @if( isset($livedetails['details']['balls_remaining']) && $livedetails['details']['balls_remaining'] )
+                                {{ $livedetails['details']['balls_remaining'] }}
+                            @endif
+                        @endif
                     @elseif( $run['inning'] == count($livedetails['runs']['data']) )
                         {{ $livedetails['details']['note'] ? $livedetails['details']['note'] : $livedetails['details']['status'] }}
                     @endif

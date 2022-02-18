@@ -111,6 +111,7 @@ class LivescoreController extends Controller
                     $overs_2 = $this->functionHelper->calculateBallsFromOvers( $run['overs'] );
                     $total_overs = $this->functionHelper->calculateBallsFromOvers( $livescore['data']['total_overs_played'] );
                     $rem_o = $total_overs - $overs_2;
+                    $maxNumBall = $total_overs;
                 }
                 $c_overs = $this->functionHelper->calculateBallsFromOvers( $run['overs'] );
                 if( $c_overs > 0 ) {
@@ -152,6 +153,7 @@ class LivescoreController extends Controller
             }
 
             $scoreboard = $innings_score = '';
+            $lastBall = 0;
             $perOverScore = $perOverBallScore = [];
             foreach( $livescore['data']['balls'] as $ball ) {
                 $liveCommentory[$ball['id']] = $ball;
@@ -256,8 +258,22 @@ class LivescoreController extends Controller
                     }
                 }
                 $perOverBallScore[$ball['team_id']][$ball['scoreboard']][ceil($ball['ball'])][] = $ballRun;
+                $lastBall = $ball['ball'];
             }
             krsort($liveCommentory);
+
+            $balls_remaining = false;
+            if( isset($maxNumBall) && !empty($maxNumBall) ) {
+                $balls_remaining = $maxNumBall - $this->functionHelper->calculateBallsFromOvers( $lastBall );
+                if( $balls_remaining <= 0 ) {
+                    $balls_remaining = false;
+                } elseif( $balls_remaining > 99 ) {
+                    $balls_remaining = ' in ' . $this->functionHelper->calculateOversFromBalls( $balls_remaining ) . ' overs';
+                } else {
+                    $balls_remaining = ' in ' . $balls_remaining . ' balls';
+                }
+            }
+            $livedetails['details']['balls_remaining'] = $balls_remaining;
         
             $helper = $this->functionHelper;
 

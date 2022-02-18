@@ -63,4 +63,18 @@ class FunctionHelper
             return $ball['batsman']['id'] == $batsman;
         }
     }
+
+    public function calculateOversFromBalls( $balls = 0 ) {
+
+        if( $balls ) {
+
+            $overs = floor( $balls / 6 );
+            $ball = $balls - ( $overs * 6 );
+            if( $ball ) {
+                $overs .= '.' . $ball;
+            }
+            return $overs;
+        }
+        return 0;
+    }
 }

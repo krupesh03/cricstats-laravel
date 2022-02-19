@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="heading"> Standings </div>
+<div class="heading"> Points Table </div>
 <hr />
 
 <div class="row main-div">
@@ -26,7 +26,7 @@
                 <table class="table table-league-rankings" width="100%">
                     <tr>
                         <th width="6%">Position</th>
-                        <th width="15%">Team</th>
+                        <th width="32%">Team</th>
                         <th width="6%">Played</th>
                         <th width="6%">Won</th>
                         <th width="6%">Lost</th>
@@ -34,7 +34,7 @@
                         <th width="6%">NR</th>
                         <th width="6%">Points</th>
                         <th width="6%">NRR</th>
-                        <th width="17%">Recent Form</th>
+                        <th width="20%">Recent Form</th>
                     </tr>
                     @foreach( $standings['data'] as $standing )
                         <tr>
@@ -53,9 +53,11 @@
                             <td>{{ $standing['points'] }}</td>
                             <td>{{ ($standing['netto_run_rate'] > 0) ? '+' . $standing['netto_run_rate'] : $standing['netto_run_rate'] }}</td>
                             <td>
-                                @foreach( $standing['recent_form'] as $form )
-                                    <span class="{{ $form }}-style"> {{ $form }} </span>
-                                @endforeach
+                                <div class="recent-form">
+                                    @foreach( $standing['recent_form'] as $form )
+                                        <div class="{{ $form }}-style"> {{ $form }} </div>
+                                    @endforeach
+                                </div>
                             </td>
                         </tr>
                     @endforeach

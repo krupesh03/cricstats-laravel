@@ -21,7 +21,7 @@
                             <span> {{ isset($matches['visitorteam']['name']) ? $matches['visitorteam']['name'] : '' }} </span>
                         </div>
                         @if( strtotime($matches['facts']['starting_at']) > time() )
-                            <div class="match-result">
+                            <div class="match-result-ns">
                                 Note: <span> Upcoming match </span>
                             </div>
                         @else

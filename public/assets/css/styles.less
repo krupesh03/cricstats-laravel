@@ -183,6 +183,13 @@ body {
                             text-decoration: none;
                         }
                     }
+                    .match-result-ns {
+                        font-size: 12px;
+                        span {
+                            font-style: italic;
+                            color: @fDetailColor;
+                        }
+                    }
                 }
                 .home-away {
                     display: flex;
@@ -371,6 +378,13 @@ body {
                             text-decoration: none;
                         }
                     }
+                    .match-result-ns {
+                        font-size: 12px;
+                        span {
+                            font-style: italic;
+                            color: @fDetailColor;
+                        }
+                    }
                 }
             }
             .league-standings-table {
@@ -394,7 +408,6 @@ body {
                 }
                 .team-name-ranking {
                     text-align: left;
-                    height: 35px;
                     width: 170px;
                     img {
                         width: 30px;
@@ -403,6 +416,7 @@ body {
                 }
                 .table-league-rankings {
                     margin-top: 20px;
+                    vertical-align: middle;
                     tr:first-child {
                         background-color: @themeColor;
                         font-size: 13px;
@@ -412,16 +426,26 @@ body {
                         font-size: 12px;
                         font-weight: 300;
                         td {
-                            span {
-                                background-color: @background;
-                                padding: 5px 5px;
-                                border-radius: 10px;
-                                font-size: 8px;
-                                &.W-style {
-                                    background-color: #31ce31;
-                                }
-                                &.L-style {
-                                    background-color: #e45b5b;
+                            .recent-form {
+                                display: flex;
+                                justify-content: space-between;
+                                div {
+                                    background-color: @background;
+                                    padding: 5px 5px;
+                                    border-radius: 15px;
+                                    font-size: 10px;
+                                    font-weight: bold;
+                                    width: 25px;
+                                    height: 25px;
+                                    text-align: center;
+                                    &.W-style {
+                                        background-color: #31ce31;
+                                        color: #fff;
+                                    }
+                                    &.L-style {
+                                        background-color: #e45b5b;
+                                        color: #fff;
+                                    }
                                 }
                             }
                         }

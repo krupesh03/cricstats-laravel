@@ -36,7 +36,7 @@
                             <div class="team-logo">
                                 <img src="{{ $helper->setImage($team['image_path']) }}">
                             </div>
-                            <div class="season-team-name"> {{ $team['name'] }} </div>
+                            <div class="season-team-name"> {{ $team['name'] }} {{ !empty($team['code']) ? '(' . $team['code'] . ')' : '' }} </div>
                         </a>
                     </div>
                 @endforeach

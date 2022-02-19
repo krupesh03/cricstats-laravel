@@ -20,7 +20,7 @@ class HomeController extends Controller
         $fixturesApiEndpoint = Config::get('constants.API_ENDPOINTS.FIXTURES');
 
         $dayBeforeYest = date('Y-m-d 00:00:00', strtotime('-1 days'));
-        $today = date('Y-m-d 23:59:59', strtotime('+1 days'));
+        $today = date('Y-m-d 23:59:59', strtotime('today'));
 
         $fixturesQueryStr = [
             'include'                   => 'localteam,visitorteam,league,tosswon,runs',

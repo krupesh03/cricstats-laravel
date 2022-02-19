@@ -30,7 +30,7 @@
                             <span> {{ isset($fixture['visitorteam']['name']) ? $fixture['visitorteam']['name'] : '' }} </span>
                         </div>
                         @if( strtotime($fixture['starting_at']) > time() )
-                            <div class="match-result">
+                            <div class="match-result-ns">
                                 Note: <span> Upcoming match </span>
                             </div>
                         @else

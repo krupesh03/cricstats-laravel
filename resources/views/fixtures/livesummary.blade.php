@@ -25,7 +25,7 @@
 <hr />
 
 <div class="row main-div">
-    <div class="live-scorecard {{ strtolower($livedetails['details']['status']) == 'finished' ? '' : 'match-in-progress' }}">
+    <div class="live-scorecard {{ !$livedetails['details']['live_match'] ? '' : 'match-in-progress' }}">
         @if( isset($livedetails['runs']['data']) && !empty($livedetails['runs']['data']) )
             @foreach( $livedetails['runs']['data'] as $run )
                 <div class="{{ $run['inning'] == count($livedetails['runs']['data']) ? 'innings-progress-score' : 'innings-completed-score' }}">
@@ -151,15 +151,26 @@
         <hr />
 
         <div class="live-commentary">
-            @if( isset($livedetails['manofmatch']['fullname']) )
-                <div class="fixture-mom">
-                    Player of the match
-                    <img src="{{ isset($livedetails['manofmatch']['image_path']) ? $helper->setImage($livedetails['manofmatch']['image_path']) : '' }}">
-                    <div class="fixture-mom-name"> 
-                        {{ isset($livedetails['manofmatch']['fullname']) ? $livedetails['manofmatch']['fullname'] : '' }} {{ isset($livedetails['manofmatch']['position']['name']) ? '('.$livedetails['manofmatch']['position']['name'].')' : '' }} 
+            <div class="match-awards">
+                @if( isset($livedetails['manofmatch']['fullname']) )
+                    <div class="fixture-mom">
+                        Player of the match
+                        <img src="{{ isset($livedetails['manofmatch']['image_path']) ? $helper->setImage($livedetails['manofmatch']['image_path']) : '' }}">
+                        <div class="fixture-mom-name"> 
+                            {{ isset($livedetails['manofmatch']['fullname']) ? $livedetails['manofmatch']['fullname'] : '' }} {{ isset($livedetails['manofmatch']['position']['name']) ? '('.$livedetails['manofmatch']['position']['name'].')' : '' }} 
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
+                @if( isset($livedetails['manofseries']['fullname']) )
+                    <div class="fixture-pos">
+                        Player of the series
+                        <img src="{{ $helper->setImage($livedetails['manofseries']['image_path']) }}">
+                        <div class="fixture-pos-name"> 
+                            {{ $livedetails['manofseries']['fullname'] }} ({{ $livedetails['manofseries']['position']['name'] }})
+                        </div>
+                    </div>
+                @endif
+            </div>
             <table class="table" width="100%">
                 @if( strtolower($livedetails['details']['status']) == 'innings break' )
                     <tr class="end-of-innings">

@@ -31925,6 +31925,7 @@
             }
         ],
         "manofmatch": null,
+        "manofseries": null,
         "tosswon": {
             "resource": "teams",
             "id": 43,

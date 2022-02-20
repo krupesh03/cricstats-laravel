@@ -39,7 +39,14 @@
                             <span> {{ $match['matchNote'] }} </span>
                         </div>
                         <div class="featured-match-details">
-                            <a href="javascript:void(0)" class="live-score-url" data-pid="{{ $match['id'] }}" data-current-url="{{ url('') }}">Live Score</a> | <a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $match['id'] }}"  data-current-url="{{ url('') }}">Scorecard</a>
+                            @if( !$match['draw_noresult'] && !empty($match['note']) )
+                                @if( strtolower($match['status']) == 'finished' && $match['winner_team_id'] )
+                                    <a href="javascript:void(0)" class="live-score-url" data-pid="{{ $match['id'] }}" data-current-url="{{ url('') }}">Commentary</a> |
+                                @else
+                                    <a href="javascript:void(0)" class="live-score-url" data-pid="{{ $match['id'] }}" data-current-url="{{ url('') }}">Live Score</a> |
+                                @endif 
+                                <a href="javascript:void(0)" class="fixture-list-url" data-pid="{{ $match['id'] }}"  data-current-url="{{ url('') }}">Scorecard</a>
+                            @endif
                         </div>
                     @endif
                 </div>

@@ -80,7 +80,7 @@ class LivescoreController extends Controller
         $apiEndpoint = $apiEndpoint . '/' . $fixtureId;
 
         $queryStr = [
-            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby,batting,bowling,tosswon,manofmatch,lineup,league'
+            'include' => 'localteam,visitorteam,stage,season,venue,balls.score,balls.batsmanone,balls.batsmantwo,runs.team,balls.batsmanout,balls.catchstump,balls.runoutby,batting,bowling,tosswon,manofmatch,lineup,league,manofseries'
         ];
 
         $livescore = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStr );
@@ -101,6 +101,7 @@ class LivescoreController extends Controller
             $livedetails['league'] = $livescore['data']['league'];
             $livedetails['fixtureId'] = $livescore['data']['id'];
             $livedetails['tosswon'] = $livescore['data']['tosswon'];
+            $livedetails['manofseries'] = $livescore['data']['manofseries'];
             $runs = [];
             $k = $current_innings = 0;
             $crr = $rr = $req = $rem_o = $total_1 = $total_2 = $overs_2 = 0;
@@ -147,6 +148,16 @@ class LivescoreController extends Controller
             $livedetails['details']['status'] = $livescore['data']['status'];
             $livedetails['details']['note'] = $livescore['data']['note'];
             $livedetails['details']['elected'] = $livescore['data']['elected'];
+
+            //check if match is live
+            $livedetails['details']['live_match'] = false;
+            if( !$livescore['data']['draw_noresult'] && !empty($livescore['data']['note']) ) {
+                if(  strtolower($livescore['data']['status']) == 'finished' && $livescore['data']['winner_team_id'] ) {
+                    $livedetails['details']['live_match'] = false;
+                } else {
+                    $livedetails['details']['live_match'] = true;
+                }
+            }
 
             $batsmanData = $bowlerData = [];
             foreach($livescore['data']['batting'] as $batting ) {

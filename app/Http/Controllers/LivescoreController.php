@@ -223,6 +223,8 @@ class LivescoreController extends Controller
                                 $fow_type = "lbw";
                             }elseif( strpos($ball['score']['name'], 'Stump') !== false && $ball['catchstump']) {
                                 $fow_type = "st " . $ball['catchstump']['fullname'];
+                            } else {
+                                $fow_type = "";
                             }
 
                             if( $ball['bowler'] && !$ball['runoutby'] && strpos($ball['score']['name'], 'Run') === false ) {

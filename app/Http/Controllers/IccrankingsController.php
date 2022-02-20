@@ -30,9 +30,21 @@ class IccrankingsController extends Controller
         if( is_array($apiData['data']) ) {
             array_splice($apiData['data'], 3);
         }
-        
+
+        $formats = $rankingData = [];
+        $i = 0;
+        if( $apiData['success'] ) {
+            foreach( $apiData['data'] as $format ) {
+                if ( count($format['team']) > 0 ) {
+                    $formats[$format['gender']][$i] = $format['type'];
+                    $rankingData[$i] = $format;
+                    $i++;
+                }
+            }
+        }
+
         $helper = $this->functionHelper;
 
-        return view('rankings/iccrankings', compact('apiData', 'slug', 'helper'));
+        return view('rankings/iccrankings', compact('rankingData', 'formats', 'slug', 'helper'));
     }
 }

@@ -48,7 +48,7 @@
             @include('pagination.pagination')
         </div>
     @else
-        <div class="error-msg"> No featured matches </div>
+        <div class="error-msg"> There are no featured matches at the moment. Please check back later! </div>
     @endif
 </div>
 

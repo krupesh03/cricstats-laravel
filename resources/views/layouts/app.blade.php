@@ -60,6 +60,7 @@
                             <a href="{{ url('/players') }}" class="dropdown-item">Players</a>
                             <a href="{{ url('/venues') }}" class="dropdown-item">Venues</a>
                             <a href="{{ url('/officials') }}" class="dropdown-item">Officials</a>
+                            <a href="{{ url('/aboutus') }}" class="dropdown-item">About Us</a>
                         </div>
                     </li>
                 </ul>

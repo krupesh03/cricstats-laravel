@@ -49,7 +49,15 @@
                             @endif
                         @endif
                     @elseif( $run['inning'] == count($livedetails['runs']['data']) )
-                        {{ $livedetails['details']['note'] ? $livedetails['details']['note'] : $livedetails['details']['status'] }}
+                        @if( isset($livedetails['details']['status']) && ($livedetails['details']['status'] == '1st Innings' || $livedetails['details']['status'] == 'NS') )
+                            @if( isset($livedetails['tosswon']['name']) && isset($livedetails['details']['elected']) )
+                                {{ $livedetails['tosswon']['name'] . ' opt for ' . $livedetails['details']['elected'] }}
+                            @else
+                                {{ $livedetails['details']['status'] }}
+                            @endif
+                        @else
+                            {{ $livedetails['details']['note'] ? $livedetails['details']['note'] : $livedetails['details']['status'] }}
+                        @endif
                     @endif
                 </div>
             @endforeach

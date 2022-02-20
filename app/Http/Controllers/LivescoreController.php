@@ -42,9 +42,11 @@ class LivescoreController extends Controller
                 }
                 $allLiveScores[$score['stage']['id']]['fixtures'][$i]['matchRuns'] = $matchRuns;
                 $matchNote = '';
-                if( isset($score['status']) && $score['status'] == '1st Innings' ) {
+                if( isset($score['status']) && ($score['status'] == '1st Innings' || $score['status'] == 'NS') ) {
                     if( isset($score['tosswon']['name']) && isset($score['elected']) ) { 
                         $matchNote = $score['tosswon']['name'] . ' opt for ' . $score['elected'];
+                    } else {
+                        $matchNote = $score['status'];
                     }
                 } elseif ( isset($score['status']) && $score['status'] == '2nd Innings' ) {
                     if( isset($score['note']) && !empty($score['note']) ) { 
@@ -98,6 +100,7 @@ class LivescoreController extends Controller
             $livedetails['lineup'] = $livescore['data']['lineup'];
             $livedetails['league'] = $livescore['data']['league'];
             $livedetails['fixtureId'] = $livescore['data']['id'];
+            $livedetails['tosswon'] = $livescore['data']['tosswon'];
             $runs = [];
             $k = $current_innings = 0;
             $crr = $rr = $req = $rem_o = $total_1 = $total_2 = $overs_2 = 0;
@@ -143,6 +146,7 @@ class LivescoreController extends Controller
             $livedetails['details']['starting_at'] = $livescore['data']['starting_at'];
             $livedetails['details']['status'] = $livescore['data']['status'];
             $livedetails['details']['note'] = $livescore['data']['note'];
+            $livedetails['details']['elected'] = $livescore['data']['elected'];
 
             $batsmanData = $bowlerData = [];
             foreach($livescore['data']['batting'] as $batting ) {

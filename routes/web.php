@@ -72,3 +72,5 @@ Route::group(['prefix' => 'livescores'], function($route) {
     $route->get('/', [LivescoreController::class, 'index']);
     $route->get('/{fixtureId}/score', [LivescoreController::class, 'getLivescores']);
 });
+
+Route::get('/aboutus', [HomeController::class, 'aboutus']);

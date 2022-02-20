@@ -48,9 +48,11 @@ class HomeController extends Controller
                 }
                 $featuredFixtures[$i]['matchRuns'] = $matchRuns;
                 $matchNote = '';
-                if( isset($fixture['status']) && $fixture['status'] == '1st Innings' ) {
+                if( isset($fixture['status']) && ($fixture['status'] == '1st Innings' || $fixture['status'] == 'NS') ) {
                     if( isset($fixture['tosswon']['name']) && isset($fixture['elected']) ) { 
                         $matchNote = $fixture['tosswon']['name'] . ' opt for ' . $fixture['elected'];
+                    } else {
+                        $matchNote = $fixture['status'];
                     }
                 } else {
                     if( isset($fixture['note']) && !empty($fixture['note']) ) { 
@@ -72,5 +74,10 @@ class HomeController extends Controller
         $helper = $this->functionHelper;
 
         return view('home', compact('featuredFixtures', 'pagination', 'helper'));
+    }
+
+    public function aboutus() {
+
+        return view('aboutus/aboutus');
     }
 }

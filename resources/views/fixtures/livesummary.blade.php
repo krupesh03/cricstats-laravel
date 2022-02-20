@@ -55,6 +55,8 @@
                             @else
                                 {{ $livedetails['details']['status'] }}
                             @endif
+                        @elseif( isset($livedetails['details']['status']) && $livedetails['details']['status'] == 'Innings Break' )
+                            {{ $livedetails['details']['status'] }}
                         @else
                             {{ $livedetails['details']['note'] ? $livedetails['details']['note'] : $livedetails['details']['status'] }}
                         @endif

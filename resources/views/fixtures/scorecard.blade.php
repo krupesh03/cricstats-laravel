@@ -30,16 +30,16 @@
             <div class="scorecard-label">
                 SCORECARD
                 <div class="scorecard-result">
-                    @if( isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' )
+                    @if( isset($fixture['data']['status']) && ($fixture['data']['status'] == '1st Innings' || $fixture['data']['status'] == 'NS') )
                         @if( isset($fixture['data']['tosswon']['name']) && isset($fixture['data']['elected']) ) 
                            ({{ $fixture['data']['tosswon']['name'] . ' opt for ' . $fixture['data']['elected'] }})
+                        @else
+                            ({{ $fixture['data']['status'] }})
                         @endif
-                    @elseif ( isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' )
-                        @if( isset($fixture['data']['note']) && !empty($fixture['data']['note']) ) 
-                            ({{ $fixture['data']['note'] }})
-                        @endif
-                    @elseif( isset($fixture['data']['note']) && !empty($fixture['data']['note']) ) 
-                        ({{ $fixture['data']['note'] }})
+                    @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == 'Innings Break' )
+                            ({{ $fixture['data']['status'] }})
+                    @else
+                        {{ $fixture['data']['note'] ? '('.$fixture['data']['note'].')' : '('.$fixture['data']['status'].')' }}
                     @endif
                 </div>
             </div>

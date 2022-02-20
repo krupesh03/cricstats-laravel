@@ -54,6 +54,8 @@ class HomeController extends Controller
                     } else {
                         $matchNote = $fixture['status'];
                     }
+                } elseif( isset($fixture['status']) && $fixture['status'] == 'Innings Break' ) {
+                    $matchNote = $fixture['status'];
                 } else {
                     if( isset($fixture['note']) && !empty($fixture['note']) ) { 
                         $matchNote = $fixture['note'];

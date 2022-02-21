@@ -14,19 +14,19 @@
                     <select name="country" class="form-control">
                         <option value="">--Select--</option>
                         @foreach( $dropdowns['countries'] as $id => $name )
-                            <option value="{{ $id }}" {{ (isset($_GET['country']) && $id == $_GET['country']) ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
+                            <option value="{{ $id }}" {{ $id == request()->query('country') ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
                         @endforeach
                     </select> 
                 </div>
-                <label class="col-md-1 col-form-label">City : </label>
+                <label class="col-md-2 col-form-label">City : </label>
                 <div class="col-md-2">
-                    <input type="text" class="form-control" placeholder="Search by city name" name="city" autocomplete="off" value="{{ (isset($_GET['city'])) ? $_GET['city'] : '' }}">
+                    <input type="text" class="form-control" placeholder="Search by city name" name="city" autocomplete="off" value="{{ request()->query('city') }}">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12 search-button">
-                    <input type="reset" name="reset_search" value="Reset">
                     <input type="submit" name="find_venues" value="search">
+                    <input type="reset" name="reset_search" value="reset">
                 </div>
             </div>
         </form>

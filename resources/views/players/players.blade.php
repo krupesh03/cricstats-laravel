@@ -9,29 +9,29 @@
     <div class="player-filter-list">
         <form method="GET" class="search-form">
             <div class="form-group row">
-                <label class="col-md-1 col-form-label">Team : </label>
+                <label class="col-md-2 col-form-label">Team : </label>
                 <div class="col-md-2">
                     <select name="team" class="form-control">
                         <option value="">--Select--</option>
                         @foreach( $dropdowns['countries'] as $id => $name )
-                            <option value="{{ $id }}" {{ (isset($_GET['team']) && $id == $_GET['team']) ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
+                            <option value="{{ $id }}" {{ $id == request()->query('team') ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
                         @endforeach
                     </select> 
                 </div>
-                <label class="col-md-1 col-form-label">Role : </label>
+                <label class="col-md-2 col-form-label">Role : </label>
                 <div class="col-md-2">
                     <select name="position" class="form-control">
                         <option value="">--Select--</option>
                         @foreach( $dropdowns['positions'] as $id => $name )
-                            <option value="{{ $id }}" {{ (isset($_GET['position']) && $id == $_GET['position']) ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
+                            <option value="{{ $id }}" {{ $id == request()->query('position') ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
                         @endforeach
                     </select> 
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12 search-button">
-                    <input type="reset" name="reset_search" value="Reset">
                     <input type="submit" name="find_players" value="search">
+                    <input type="reset" name="reset_search" value="reset">
                 </div>
             </div>
         </form>

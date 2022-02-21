@@ -7,7 +7,7 @@
 
 <div class="row main-div">
     <div class="col-md-3 about-us-site-logo">
-        <img src="{{url('assets/logo/logo.png') }}" alt="" width="auto" height="auto">
+        <img src="{{url('assets/logo/logo.png') }}" alt="">
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-7 about-us-site-description">

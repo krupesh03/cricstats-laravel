@@ -39,6 +39,7 @@
                     <th width="30%"> Match </th> 
                     <th width="20%"> Result/Note </th> 
                 </tr>
+                @php $i=0; @endphp
                 @foreach( $venue['data']['fixtures'] as $fixture )
                     @if( !empty($fixture['starting_at']) && strtotime( date('Y', strtotime($fixture['starting_at'])) ) == strtotime(date('Y')) )
                         <tr>
@@ -74,8 +75,14 @@
                                 @endif
                             </td>
                         </tr>
+                        @php $i++; @endphp
                     @endif
                 @endforeach
+                @if( $i == 0 )
+                    <tr>
+                        <td colspan="4"> No matches scheduled at this venue </td>
+                    </tr>
+                @endif
             </table>
         @else
             <div class="error-msg"> {{ $venue['data'] }} </div>

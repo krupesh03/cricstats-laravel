@@ -150,13 +150,9 @@ class LivescoreController extends Controller
             $livedetails['details']['elected'] = $livescore['data']['elected'];
 
             //check if match is live
-            $livedetails['details']['live_match'] = false;
-            if( !$livescore['data']['draw_noresult'] && !empty($livescore['data']['note']) ) {
-                if(  strtolower($livescore['data']['status']) == 'finished' && $livescore['data']['winner_team_id'] ) {
-                    $livedetails['details']['live_match'] = false;
-                } else {
-                    $livedetails['details']['live_match'] = true;
-                }
+            $livedetails['details']['liveMatch'] = false;
+            if( isset($livescore['data']['status']) && !in_array( $livescore['data']['status'], Config::get('constants.MATCH_NOT_LIVE_STATUSES') ) ) {
+                $livedetails['details']['liveMatch'] = true;
             }
 
             $batsmanData = $bowlerData = [];

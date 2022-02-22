@@ -25,7 +25,7 @@
 <hr />
 
 <div class="row main-div">
-    <div class="live-scorecard {{ !$livedetails['details']['live_match'] ? '' : 'match-in-progress' }}">
+    <div class="live-scorecard {{ !$livedetails['details']['liveMatch'] ? '' : 'match-in-progress' }}">
         @if( isset($livedetails['runs']['data']) && !empty($livedetails['runs']['data']) )
             @foreach( $livedetails['runs']['data'] as $run )
                 <div class="{{ $run['inning'] == count($livedetails['runs']['data']) ? 'innings-progress-score' : 'innings-completed-score' }}">

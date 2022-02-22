@@ -2,30 +2,34 @@
 
 @section('content')
 
-<div class="heading"> Players List </div>
+<div class="heading"> Players </div>
 <hr />
 
 <div class="row main-div">
     <div class="player-filter-list">
         <form method="GET" class="search-form">
             <div class="form-group row">
-                <label class="col-md-2 col-form-label">Team : </label>
-                <div class="col-md-2">
+                <label class="col-md-3 col-form-label">Team : </label>
+                <div class="col-md-3">
                     <select name="team" class="form-control">
-                        <option value="">--Select--</option>
+                        <option value="">Search by team</option>
                         @foreach( $dropdowns['countries'] as $id => $name )
                             <option value="{{ $id }}" {{ $id == request()->query('team') ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
                         @endforeach
                     </select> 
                 </div>
-                <label class="col-md-2 col-form-label">Role : </label>
-                <div class="col-md-2">
+                <label class="col-md-3 col-form-label">Role : </label>
+                <div class="col-md-3">
                     <select name="position" class="form-control">
-                        <option value="">--Select--</option>
+                        <option value="">Search by role</option>
                         @foreach( $dropdowns['positions'] as $id => $name )
                             <option value="{{ $id }}" {{ $id == request()->query('position') ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
                         @endforeach
                     </select> 
+                </div>
+                <label class="col-md-3 col-form-label">Lastname : </label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Search by lastname" name="lastname" autocomplete="off" value="{{ request()->query('lastname') }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -55,7 +59,7 @@
                 </div>
             @endforeach
             @if( empty($playerList) )
-                @if( (isset($_GET['find_players']) && $_GET['find_players'] == 'search' && (isset($_GET['team']) || isset($_GET['position']) ) ) || (isset($_GET['search_key'])))
+                @if( request()->query('find_players') == 'search' || request()->query('search_key') )
                     <div class="error-msg"> No Data Found </div>
                 @endif
             @endif

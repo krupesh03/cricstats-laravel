@@ -9,17 +9,17 @@
     <div class="official-filter-list">
         <form method="GET" class="search-form">
             <div class="form-group row">
-                <label class="col-md-2 col-form-label">Country : </label>
-                <div class="col-md-2">
+                <label class="col-md-3 col-form-label">Country : </label>
+                <div class="col-md-3">
                     <select name="country" class="form-control">
-                        <option value="">--Select--</option>
+                        <option value="">Search by country</option>
                         @foreach( $dropdowns['countries'] as $id => $name )
                             <option value="{{ $id }}" {{ $id == request()->query('country') ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
                         @endforeach
                     </select> 
                 </div>
-                <label class="col-md-2 col-form-label">Lastname : </label>
-                <div class="col-md-2">
+                <label class="col-md-3 col-form-label">Lastname : </label>
+                <div class="col-md-3">
                     <input type="text" class="form-control" placeholder="Search by lastname" name="lastname" autocomplete="off" value="{{ request()->query('lastname') }}">
                 </div>
             </div>
@@ -52,6 +52,15 @@
                     </td>
                 </tr>
             @endforeach
+            @if( empty($applicableOfficials) )
+                @if( request()->query('find_officials') == 'search' )
+                    <tr>
+                        <td colspan="4">
+                            <div class="error-msg"> No Data Found </div>
+                        </td>
+                    </tr>
+                @endif
+            @endif
         </table>
     </div>
 </div>

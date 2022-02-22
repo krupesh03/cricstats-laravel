@@ -64,6 +64,10 @@ class HomeController extends Controller
                     }
                 }
                 $featuredFixtures[$i]['matchNote'] = $matchNote;
+                $featuredFixtures[$i]['liveMatch'] = false;
+                if( isset($fixture['status']) && !in_array( $fixture['status'], Config::get('constants.MATCH_NOT_LIVE_STATUSES') ) ) {
+                    $featuredFixtures[$i]['liveMatch'] = true;
+                }
                 $i++;
             }
 

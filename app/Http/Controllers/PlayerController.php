@@ -50,7 +50,7 @@ class PlayerController extends Controller
         $helper = $this->functionHelper;
 
         $playerList = [];
-        if( ($request->query('find_players') == 'search' && ($request->query('team') || $request->query('position') ) ) || ($request->query('search_key')) ) {
+        if( ($request->query('find_players') == 'search' && ($request->query('team') || $request->query('position') || $request->query('lastname'))) || ($request->query('search_key')) ) {
 
             $apiEndpoint = Config::get('constants.API_ENDPOINTS.PLAYERS');
 
@@ -67,6 +67,9 @@ class PlayerController extends Controller
             }
             if( $request->query('search_key') ) {
                 $queryStr['filter[lastname]'] = $request->query('search_key');
+            }
+            if( $request->query('lastname') ) {
+                $queryStr['filter[lastname]'] = $request->query('lastname');
             }
 
             $players = $this->apicallHelper->getDataFromAPI( $apiEndpoint, $queryStr );

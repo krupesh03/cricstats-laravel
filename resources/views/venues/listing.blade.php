@@ -9,18 +9,18 @@
     <div class="venue-filter-list">
         <form method="GET" class="search-form">
             <div class="form-group row">
-                <label class="col-md-2 col-form-label">Country : </label>
-                <div class="col-md-2">
+                <label class="col-md-3 col-form-label">Country : </label>
+                <div class="col-md-3">
                     <select name="country" class="form-control">
-                        <option value="">--Select--</option>
+                        <option value="">Search by country</option>
                         @foreach( $dropdowns['countries'] as $id => $name )
                             <option value="{{ $id }}" {{ $id == request()->query('country') ? 'selected' : '' }}> {{ ucfirst($name) }} </option>
                         @endforeach
                     </select> 
                 </div>
-                <label class="col-md-2 col-form-label">City : </label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" placeholder="Search by city name" name="city" autocomplete="off" value="{{ request()->query('city') }}">
+                <label class="col-md-3 col-form-label">City : </label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Search by cityname" name="city" autocomplete="off" value="{{ request()->query('city') }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -47,6 +47,11 @@
                     </a>
                 </div>
             @endforeach
+            @if( empty($applicableVenues) )
+                @if( request()->query('find_venues') == 'search' )
+                    <div class="error-msg"> No Data Found </div>
+                @endif
+            @endif
         </div>
     </div>
 </div>

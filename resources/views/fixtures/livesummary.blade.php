@@ -64,7 +64,16 @@
                 </div>
             @endforeach
         @endif
-        @if( strtolower($livedetails['details']['status']) != "finished" && strpos($livedetails['details']['note'], 'Super Over') === false )
+
+        @if( isset($livedetails['details']['status']) && $livedetails['details']['status'] == 'NS' )
+            @if( isset($livedetails['tosswon']['name']) && isset($livedetails['details']['elected']) )
+                <div class="match-note">
+                    {{ $livedetails['tosswon']['name'] . ' opt for ' . $livedetails['details']['elected'] }}
+                </div>              
+            @endif  
+        @endif
+
+        @if( $livedetails['details']['liveMatch'] && $livedetails['details']['status'] != 'NS' && strpos($livedetails['details']['note'], 'Super Over') === false )
             <div class="row progress-summary">
                 <div class="col-md-8">
                     <table class="table batting-table" width="100%">
@@ -147,6 +156,16 @@
                     </table>
                 </div>
             </div>
+        @else
+            @if( isset($livedetails['details']['status']) && strtolower($livedetails['details']['status']) != 'finished' )
+                <div class="match-status">
+                    @if( $livedetails['details']['status'] == 'NS' )
+                        <span class="ns"> {{ !empty($livedetails['details']['starting_at']) ? 'Match Start Time : ' . date('l, d M, h:i A ', strtotime($livedetails['details']['starting_at'])) : '' }} </span> 
+                    @else
+                        <span class="not-ns"> {{ !empty($livedetails['details']['status']) ? 'Match is '. $livedetails['details']['status'] : '' }} </span>
+                    @endif
+                </div>
+            @endif
         @endif
         <hr />
 

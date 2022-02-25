@@ -34,12 +34,18 @@
                         @if( isset($fixture['data']['tosswon']['name']) && isset($fixture['data']['elected']) ) 
                            ({{ $fixture['data']['tosswon']['name'] . ' opt for ' . $fixture['data']['elected'] }})
                         @else
-                            ({{ $fixture['data']['status'] }})
+                            ({{ $fixture['data']['status'] == 'NS' ? 'Match not started' : $fixture['data']['status'] }})
                         @endif
                     @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == 'Innings Break' )
                             ({{ $fixture['data']['status'] }})
                     @else
-                        {{ $fixture['data']['note'] ? '('.$fixture['data']['note'].')' : '('.$fixture['data']['status'].')' }}
+                        @if( $fixture['data']['note'] )
+                            ({{ $fixture['data']['note'] }})
+                        @elseif( $fixture['data']['status'] == 'NS' )
+                            (Match not started)
+                        @else
+                            {{ $fixture['data']['status'] ? '(The match is '.$fixture['data']['status'].')' : '' }}
+                        @endif
                     @endif
                 </div>
             </div>
@@ -67,309 +73,314 @@
                 Note : Any super over score wont be available here!!!
             </div>
             <hr />
-            <div class="fixture-innings-one"> 
-                <div class="team-name"> {{ isset($fixture['data']['runs'][0]['team']['name']) ? $fixture['data']['runs'][0]['team']['name'] : '' }} Innings </div>
-                <div class="team-score"> {{ isset($fixture['data']['runs'][0]['score']) ? $fixture['data']['runs'][0]['score'] : '' }}-{{ isset($fixture['data']['runs'][0]['wickets']) ? $fixture['data']['runs'][0]['wickets'] : '' }} ({{ isset($fixture['data']['runs'][0]['overs']) ? $fixture['data']['runs'][0]['overs'] : '' }} Ov) </div>
-            </div>
-            <table class="table match-scorecard" width="100%">
-                <tr>
-                    <th width="20%">Batter</th>
-                    <th colspan="2"></th>
-                    <th width="5%">R</th>
-                    <th width="5%">B</th>
-                    <th width="5%">4s</th>
-                    <th width="5%">6s</th>
-                    <th width="5%">SR</th>
-                </tr>
-                @php $s1teamId = 0; $s1array = []; @endphp
-                @foreach( $fixture['data']['batting'] as $score )
-                    @if( strtolower($score['scoreboard']) == 's1' )
-                        <tr>
-                            <td width="20%">
-                                {{ $score['batsman']['fullname'] }} 
-                                @if( isset($lineupArray[$score['batsman']['id']]['captain']) && $lineupArray[$score['batsman']['id']]['captain'] )
-                                    (c)
-                                @endif
-                                @if( isset($lineupArray[$score['batsman']['id']]['wicketkeeper']) && $lineupArray[$score['batsman']['id']]['wicketkeeper'] )
-                                    (wk)
-                                @endif
-                            </td>
-                            <td width="31%">
-                                @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'] && $score['bowler']['id'] == $score['catchstump']['id'] )
-                                    <span class="caught-bowled"> c & </span> 
-                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
-                                    c {{ $score['catchstump']['fullname'] }}
-                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Run') !== false )
-                                    @if( $score['runoutby'] )
-                                        run out ({{ $score['runoutby']['fullname'] }})
-                                    @elseif( $score['catchstump'] )
-                                        run out ({{ $score['catchstump']['fullname'] }})
-                                    @endif
-                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'LBW') !== false )
-                                    lbw
-                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Stump') !== false && $score['catchstump'])
-                                    st {{ $score['catchstump']['fullname'] }}
-                                @endif
-                            </td>
-                            <td width="24%">
-                                @if( strpos($score['result']['name'], 'Run') === false )
-                                    @if( $score['result']['out'] && $score['bowler'] )
-                                        b {{ $score['bowler']['fullname'] }}
-                                    @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' )
-                                        batting
-                                    @elseif(  !$score['result']['out'] )
-                                        not out
-                                    @endif
-                                @endif
-                            </td>
-                            <td width="5%">{{ $score['score'] }}</td>
-                            <td width="5%">{{ $score['ball'] }}</td>
-                            <td width="5%">{{ $score['four_x'] }}</td>
-                            <td width="5%">{{ $score['six_x'] }}</td>
-                            <td width="5%">{{ $score['rate'] }}</td>
-                        </tr>
-                        @php 
-                            $s1teamId = $score['team_id']; 
-                            $s1array[] = $score['batsman']['id'];
-                        @endphp
-                    @endif
-                @endforeach
-                @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
-                    @if( $scoreTotal['team_id'] == $s1teamId && strtolower($scoreTotal['scoreboard']) == 's1' )
-                        <tr>
-                            <td width="20%">{{ ucfirst($scoreTotal['type']) }}</td>
-                            <td colspan="7" align="right">
-                                @if( $scoreTotal['type'] == 'extra' ) 
-                                    <b>{{ (int)$scoreTotal['bye'] + (int)$scoreTotal['leg_bye'] + (int)$scoreTotal['wide'] + (int)$scoreTotal['noball_runs'] + (int)$scoreTotal['penalty'] }}</b> ({{ 'b ' . $scoreTotal['bye'] . ', lb ' . $scoreTotal['leg_bye'] . ', w ' . (int)$scoreTotal['wide'] .', nb ' . $scoreTotal['noball_runs'] .', p ' . $scoreTotal['penalty'] }})
-                                @endif
-                                @if( $scoreTotal['type'] == 'total' )
-                                    <b>{{ $scoreTotal['total'] }}</b> ({{ $scoreTotal['wickets'] . ' wkts, ' . $scoreTotal['overs'] . ' Ov' }})
-                                @endif
-                            </td>
-                        </tr>
-                    @endif
-                @endforeach
-                @if( $s1teamId )
+
+            @if( isset($fixture['data']['runs'][0]) && !empty($fixture['data']['runs'][0]) )
+                <div class="fixture-innings-one"> 
+                    <div class="team-name"> {{ isset($fixture['data']['runs'][0]['team']['name']) ? $fixture['data']['runs'][0]['team']['name'] : '' }} Innings </div>
+                    <div class="team-score"> {{ isset($fixture['data']['runs'][0]['score']) ? $fixture['data']['runs'][0]['score'] : '' }}-{{ isset($fixture['data']['runs'][0]['wickets']) ? $fixture['data']['runs'][0]['wickets'] : '' }} ({{ isset($fixture['data']['runs'][0]['overs']) ? $fixture['data']['runs'][0]['overs'] : '' }} Ov) </div>
+                </div>
+                <table class="table match-scorecard" width="100%">
                     <tr>
-                        <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
-                        <td colspan="7" align="left">
-                            @foreach( $fixture['data']['lineup'] as $squad1 )
-                                @if( $squad1['lineup']['team_id'] == $s1teamId && !in_array( $squad1['id'], $s1array ) )
-                                    {{ $squad1['fullname'] }}
-                                    @if( $squad1['lineup']['captain'] )
+                        <th width="20%">Batter</th>
+                        <th colspan="2"></th>
+                        <th width="5%">R</th>
+                        <th width="5%">B</th>
+                        <th width="5%">4s</th>
+                        <th width="5%">6s</th>
+                        <th width="5%">SR</th>
+                    </tr>
+                    @php $s1teamId = 0; $s1array = []; @endphp
+                    @foreach( $fixture['data']['batting'] as $score )
+                        @if( strtolower($score['scoreboard']) == 's1' )
+                            <tr>
+                                <td width="20%">
+                                    {{ $score['batsman']['fullname'] }} 
+                                    @if( isset($lineupArray[$score['batsman']['id']]['captain']) && $lineupArray[$score['batsman']['id']]['captain'] )
                                         (c)
                                     @endif
-                                    @if( $squad1['lineup']['wicketkeeper'] )
+                                    @if( isset($lineupArray[$score['batsman']['id']]['wicketkeeper']) && $lineupArray[$score['batsman']['id']]['wicketkeeper'] )
                                         (wk)
-                                    @endif,
-                                @endif
-                            @endforeach
-                        </td>
-                    </tr>
-                @endif
-            </table>
-
-            @php
-                if( isset($fowArray[$s1teamId]) && !empty($fowArray[$s1teamId]) ) {
-                    ksort($fowArray[$s1teamId]); @endphp
-                    <table class="table match-scorecard" width="100%">
-                        <tr>
-                            <th>Fall of Wickets</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                @php 
-                                    $wkt1 = 1;
-                                    foreach( $fowArray[$s1teamId] as $over1 => $score1 ) {
-                                        echo $score1['fow_score'] . '-' . $wkt1 . ' (' . $score1['player'] . ', ' . $over1 .'), ';
-                                        $wkt1++;
-                                    }
-                                @endphp
-                            </td>
-                        </tr>
-                    </table>
-            @php
-                }
-            @endphp
-
-            <table class="table match-scorecard" width="100%">
-                <tr>
-                    <th width="65%">Bowler</th>
-                    <th width="5%">O</th>
-                    <th width="5%">M</th>
-                    <th width="5%">R</th>
-                    <th width="5%">W</th>
-                    <th width="5%">NB</th>
-                    <th width="5%">WD</th>
-                    <th width="5%">ECO</th>
-                </tr>
-                @foreach( $fixture['data']['bowling'] as $score )
-                    @if( strtolower($score['scoreboard']) == 's1' )
-                        <tr>
-                            <td width="65%">{{ $score['bowler']['fullname'] }}</td>
-                            <td width="5%">{{ $score['overs'] }}</td>
-                            <td width="5%">{{ $score['medians'] }}</td>
-                            <td width="5%">{{ $score['runs'] }}</td>
-                            <td width="5%">{{ $score['wickets'] }}</td>
-                            <td width="5%">{{ $score['noball'] }}</td>
-                            <td width="5%">{{ $score['wide'] }}</td>
-                            <td width="5%">{{ $score['rate'] }}</td>
-                        </tr>
-                    @endif
-                @endforeach
-            </table>
-
-            <div class="fixture-innings-two"> 
-                <div class="team-name"> {{ isset($fixture['data']['runs'][1]['team']['name']) ? $fixture['data']['runs'][1]['team']['name'] : '' }} Innings </div>
-                <div class="team-score"> {{ isset($fixture['data']['runs'][1]['score']) ? $fixture['data']['runs'][1]['score'] : '' }}-{{ isset($fixture['data']['runs'][1]['wickets']) ? $fixture['data']['runs'][1]['wickets'] : '' }} ({{ isset($fixture['data']['runs'][1]['overs']) ? $fixture['data']['runs'][1]['overs'] : '' }} Ov) </div>
-            </div>
-            <table class="table match-scorecard" width="100%">
-                <tr>
-                    <th width="20%">Batter</th>
-                    <th colspan="2"></th>
-                    <th width="5%">R</th>
-                    <th width="5%">B</th>
-                    <th width="5%">4s</th>
-                    <th width="5%">6s</th>
-                    <th width="5%">SR</th>
-                </tr>
-                @php $s2teamId = 0; $s2array = []; @endphp
-                @foreach( $fixture['data']['batting'] as $score )
-                    @if( strtolower($score['scoreboard']) == 's2' )
-                        <tr>
-                            <td width="20%">
-                                {{ $score['batsman']['fullname'] }} 
-                                @if( isset($lineupArray[$score['batsman']['id']]['captain']) && $lineupArray[$score['batsman']['id']]['captain'] )
-                                    (c)
-                                @endif
-                                @if( isset($lineupArray[$score['batsman']['id']]['wicketkeeper']) && $lineupArray[$score['batsman']['id']]['wicketkeeper'] )
-                                    (wk)
-                                @endif
-                            </td>
-                            <td width="31%">
-                                @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'] && $score['bowler']['id'] == $score['catchstump']['id'] )
-                                    <span class="caught-bowled"> c & </span>
-                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
-                                    c {{ $score['catchstump']['fullname'] }}
-                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Run') !== false )
-                                    @if( $score['runoutby'] )
-                                        run out ({{ $score['runoutby']['fullname'] }})
-                                    @elseif( $score['catchstump'] )
-                                        run out ({{ $score['catchstump']['fullname'] }})
                                     @endif
-                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'LBW') !== false )
-                                    lbw
-                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Stump') !== false && $score['catchstump'])
-                                    st {{ $score['catchstump']['fullname'] }}
-                                @endif
-                            </td>
-                            <td width="24%">
-                                @if( strpos($score['result']['name'], 'Run') === false )
-                                    @if( $score['result']['out'] && $score['bowler'] )
-                                        b {{ $score['bowler']['fullname'] }}
-                                    @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' )
-                                        batting
-                                    @elseif(  !$score['result']['out'] )
-                                        not out
+                                </td>
+                                <td width="31%">
+                                    @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'] && $score['bowler']['id'] == $score['catchstump']['id'] )
+                                        <span class="caught-bowled"> c & </span> 
+                                    @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
+                                        c {{ $score['catchstump']['fullname'] }}
+                                    @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Run') !== false )
+                                        @if( $score['runoutby'] )
+                                            run out ({{ $score['runoutby']['fullname'] }})
+                                        @elseif( $score['catchstump'] )
+                                            run out ({{ $score['catchstump']['fullname'] }})
+                                        @endif
+                                    @elseif( $score['result']['out'] && strpos($score['result']['name'], 'LBW') !== false )
+                                        lbw
+                                    @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Stump') !== false && $score['catchstump'])
+                                        st {{ $score['catchstump']['fullname'] }}
                                     @endif
-                                @endif
-                            </td>
-                            <td width="5%">{{ $score['score'] }}</td>
-                            <td width="5%">{{ $score['ball'] }}</td>
-                            <td width="5%">{{ $score['four_x'] }}</td>
-                            <td width="5%">{{ $score['six_x'] }}</td>
-                            <td width="5%">{{ $score['rate'] }}</td>
-                        </tr>
-                        @php 
-                            $s2teamId = $score['team_id']; 
-                            $s2array[] = $score['batsman']['id'];
-                        @endphp
-                    @endif
-                @endforeach
-                @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
-                    @if( $scoreTotal['team_id'] == $s2teamId && strtolower($scoreTotal['scoreboard']) == 's2' )
+                                </td>
+                                <td width="24%">
+                                    @if( strpos($score['result']['name'], 'Run') === false )
+                                        @if( $score['result']['out'] && $score['bowler'] )
+                                            b {{ $score['bowler']['fullname'] }}
+                                        @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' )
+                                            batting
+                                        @elseif(  !$score['result']['out'] )
+                                            not out
+                                        @endif
+                                    @endif
+                                </td>
+                                <td width="5%">{{ $score['score'] }}</td>
+                                <td width="5%">{{ $score['ball'] }}</td>
+                                <td width="5%">{{ $score['four_x'] }}</td>
+                                <td width="5%">{{ $score['six_x'] }}</td>
+                                <td width="5%">{{ $score['rate'] }}</td>
+                            </tr>
+                            @php 
+                                $s1teamId = $score['team_id']; 
+                                $s1array[] = $score['batsman']['id'];
+                            @endphp
+                        @endif
+                    @endforeach
+                    @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
+                        @if( $scoreTotal['team_id'] == $s1teamId && strtolower($scoreTotal['scoreboard']) == 's1' )
+                            <tr>
+                                <td width="20%">{{ ucfirst($scoreTotal['type']) }}</td>
+                                <td colspan="7" align="right">
+                                    @if( $scoreTotal['type'] == 'extra' ) 
+                                        <b>{{ (int)$scoreTotal['bye'] + (int)$scoreTotal['leg_bye'] + (int)$scoreTotal['wide'] + (int)$scoreTotal['noball_runs'] + (int)$scoreTotal['penalty'] }}</b> ({{ 'b ' . $scoreTotal['bye'] . ', lb ' . $scoreTotal['leg_bye'] . ', w ' . (int)$scoreTotal['wide'] .', nb ' . $scoreTotal['noball_runs'] .', p ' . $scoreTotal['penalty'] }})
+                                    @endif
+                                    @if( $scoreTotal['type'] == 'total' )
+                                        <b>{{ $scoreTotal['total'] }}</b> ({{ $scoreTotal['wickets'] . ' wkts, ' . $scoreTotal['overs'] . ' Ov' }})
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    @if( $s1teamId )
                         <tr>
-                            <td width="20%">{{ ucfirst($scoreTotal['type']) }}</td>
-                            <td colspan="7" align="right">
-                                @if( $scoreTotal['type'] == 'extra' ) 
-                                    <b>{{ (int)$scoreTotal['bye'] + (int)$scoreTotal['leg_bye'] + (int)$scoreTotal['wide'] + (int)$scoreTotal['noball_runs'] + (int)$scoreTotal['penalty'] }}</b> ({{ 'b ' . $scoreTotal['bye'] . ', lb ' . $scoreTotal['leg_bye'] . ', w ' . (int)$scoreTotal['wide'] .', nb ' . $scoreTotal['noball_runs'] .', p ' . $scoreTotal['penalty'] }})
-                                @endif
-                                @if( $scoreTotal['type'] == 'total' )
-                                    <b>{{ $scoreTotal['total'] }}</b> ({{ $scoreTotal['wickets'] . ' wkts, ' . $scoreTotal['overs'] . ' Ov' }})
-                                @endif
+                            <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '1st Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
+                            <td colspan="7" align="left">
+                                @foreach( $fixture['data']['lineup'] as $squad1 )
+                                    @if( $squad1['lineup']['team_id'] == $s1teamId && !in_array( $squad1['id'], $s1array ) )
+                                        {{ $squad1['fullname'] }}
+                                        @if( $squad1['lineup']['captain'] )
+                                            (c)
+                                        @endif
+                                        @if( $squad1['lineup']['wicketkeeper'] )
+                                            (wk)
+                                        @endif,
+                                    @endif
+                                @endforeach
                             </td>
                         </tr>
                     @endif
-                @endforeach
-                @if( $s2teamId )
+                </table>
+
+                @php
+                    if( isset($fowArray[$s1teamId]) && !empty($fowArray[$s1teamId]) ) {
+                        ksort($fowArray[$s1teamId]); @endphp
+                        <table class="table match-scorecard" width="100%">
+                            <tr>
+                                <th>Fall of Wickets</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @php 
+                                        $wkt1 = 1;
+                                        foreach( $fowArray[$s1teamId] as $over1 => $score1 ) {
+                                            echo $score1['fow_score'] . '-' . $wkt1 . ' (' . $score1['player'] . ', ' . $over1 .'), ';
+                                            $wkt1++;
+                                        }
+                                    @endphp
+                                </td>
+                            </tr>
+                        </table>
+                @php
+                    }
+                @endphp
+
+                <table class="table match-scorecard" width="100%">
                     <tr>
-                        <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
-                        <td colspan="7" align="left">
-                            @foreach( $fixture['data']['lineup'] as $squad2 )
-                                @if( $squad2['lineup']['team_id'] == $s2teamId && !in_array( $squad2['id'], $s2array ) )
-                                    {{ $squad2['fullname'] }}
-                                    @if( $squad2['lineup']['captain'] )
+                        <th width="65%">Bowler</th>
+                        <th width="5%">O</th>
+                        <th width="5%">M</th>
+                        <th width="5%">R</th>
+                        <th width="5%">W</th>
+                        <th width="5%">NB</th>
+                        <th width="5%">WD</th>
+                        <th width="5%">ECO</th>
+                    </tr>
+                    @foreach( $fixture['data']['bowling'] as $score )
+                        @if( strtolower($score['scoreboard']) == 's1' )
+                            <tr>
+                                <td width="65%">{{ $score['bowler']['fullname'] }}</td>
+                                <td width="5%">{{ $score['overs'] }}</td>
+                                <td width="5%">{{ $score['medians'] }}</td>
+                                <td width="5%">{{ $score['runs'] }}</td>
+                                <td width="5%">{{ $score['wickets'] }}</td>
+                                <td width="5%">{{ $score['noball'] }}</td>
+                                <td width="5%">{{ $score['wide'] }}</td>
+                                <td width="5%">{{ $score['rate'] }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </table>
+            @endif
+
+            @if( isset($fixture['data']['runs'][1]) && !empty($fixture['data']['runs'][1]) )
+                <div class="fixture-innings-two"> 
+                    <div class="team-name"> {{ isset($fixture['data']['runs'][1]['team']['name']) ? $fixture['data']['runs'][1]['team']['name'] : '' }} Innings </div>
+                    <div class="team-score"> {{ isset($fixture['data']['runs'][1]['score']) ? $fixture['data']['runs'][1]['score'] : '' }}-{{ isset($fixture['data']['runs'][1]['wickets']) ? $fixture['data']['runs'][1]['wickets'] : '' }} ({{ isset($fixture['data']['runs'][1]['overs']) ? $fixture['data']['runs'][1]['overs'] : '' }} Ov) </div>
+                </div>
+                <table class="table match-scorecard" width="100%">
+                    <tr>
+                        <th width="20%">Batter</th>
+                        <th colspan="2"></th>
+                        <th width="5%">R</th>
+                        <th width="5%">B</th>
+                        <th width="5%">4s</th>
+                        <th width="5%">6s</th>
+                        <th width="5%">SR</th>
+                    </tr>
+                    @php $s2teamId = 0; $s2array = []; @endphp
+                    @foreach( $fixture['data']['batting'] as $score )
+                        @if( strtolower($score['scoreboard']) == 's2' )
+                            <tr>
+                                <td width="20%">
+                                    {{ $score['batsman']['fullname'] }} 
+                                    @if( isset($lineupArray[$score['batsman']['id']]['captain']) && $lineupArray[$score['batsman']['id']]['captain'] )
                                         (c)
                                     @endif
-                                    @if( $squad2['lineup']['wicketkeeper'] )
+                                    @if( isset($lineupArray[$score['batsman']['id']]['wicketkeeper']) && $lineupArray[$score['batsman']['id']]['wicketkeeper'] )
                                         (wk)
-                                    @endif,
-                                @endif
-                            @endforeach
-                        </td>
-                    </tr>
-                @endif
-            </table>
-
-            @php
-                if( isset($fowArray[$s2teamId]) && !empty($fowArray[$s2teamId]) ) {
-                    ksort($fowArray[$s2teamId]); @endphp
-                    <table class="table match-scorecard" width="100%">
+                                    @endif
+                                </td>
+                                <td width="31%">
+                                    @if( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'] && $score['bowler']['id'] == $score['catchstump']['id'] )
+                                        <span class="caught-bowled"> c & </span>
+                                    @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Catch') !== false && $score['catchstump'])
+                                        c {{ $score['catchstump']['fullname'] }}
+                                    @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Run') !== false )
+                                        @if( $score['runoutby'] )
+                                            run out ({{ $score['runoutby']['fullname'] }})
+                                        @elseif( $score['catchstump'] )
+                                            run out ({{ $score['catchstump']['fullname'] }})
+                                        @endif
+                                    @elseif( $score['result']['out'] && strpos($score['result']['name'], 'LBW') !== false )
+                                        lbw
+                                    @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Stump') !== false && $score['catchstump'])
+                                        st {{ $score['catchstump']['fullname'] }}
+                                    @endif
+                                </td>
+                                <td width="24%">
+                                    @if( strpos($score['result']['name'], 'Run') === false )
+                                        @if( $score['result']['out'] && $score['bowler'] )
+                                            b {{ $score['bowler']['fullname'] }}
+                                        @elseif( isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' )
+                                            batting
+                                        @elseif(  !$score['result']['out'] )
+                                            not out
+                                        @endif
+                                    @endif
+                                </td>
+                                <td width="5%">{{ $score['score'] }}</td>
+                                <td width="5%">{{ $score['ball'] }}</td>
+                                <td width="5%">{{ $score['four_x'] }}</td>
+                                <td width="5%">{{ $score['six_x'] }}</td>
+                                <td width="5%">{{ $score['rate'] }}</td>
+                            </tr>
+                            @php 
+                                $s2teamId = $score['team_id']; 
+                                $s2array[] = $score['batsman']['id'];
+                            @endphp
+                        @endif
+                    @endforeach
+                    @foreach( $fixture['data']['scoreboards'] as $scoreTotal )
+                        @if( $scoreTotal['team_id'] == $s2teamId && strtolower($scoreTotal['scoreboard']) == 's2' )
+                            <tr>
+                                <td width="20%">{{ ucfirst($scoreTotal['type']) }}</td>
+                                <td colspan="7" align="right">
+                                    @if( $scoreTotal['type'] == 'extra' ) 
+                                        <b>{{ (int)$scoreTotal['bye'] + (int)$scoreTotal['leg_bye'] + (int)$scoreTotal['wide'] + (int)$scoreTotal['noball_runs'] + (int)$scoreTotal['penalty'] }}</b> ({{ 'b ' . $scoreTotal['bye'] . ', lb ' . $scoreTotal['leg_bye'] . ', w ' . (int)$scoreTotal['wide'] .', nb ' . $scoreTotal['noball_runs'] .', p ' . $scoreTotal['penalty'] }})
+                                    @endif
+                                    @if( $scoreTotal['type'] == 'total' )
+                                        <b>{{ $scoreTotal['total'] }}</b> ({{ $scoreTotal['wickets'] . ' wkts, ' . $scoreTotal['overs'] . ' Ov' }})
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    @if( $s2teamId )
                         <tr>
-                            <th>Fall of Wickets</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                @php 
-                                    $wkt2 = 1;
-                                    foreach( $fowArray[$s2teamId] as $over2 => $score2 ) {
-                                        echo $score2['fow_score'] . '-' . $wkt2 . ' (' . $score2['player'] . ', ' . $over2 .'), ';
-                                        $wkt2++;
-                                    }
-                                @endphp
+                            <td width="20%">{{ isset($fixture['data']['status']) && $fixture['data']['status'] == '2nd Innings' ? 'Yet to Bat' : 'Did not Bat' }}</td>
+                            <td colspan="7" align="left">
+                                @foreach( $fixture['data']['lineup'] as $squad2 )
+                                    @if( $squad2['lineup']['team_id'] == $s2teamId && !in_array( $squad2['id'], $s2array ) )
+                                        {{ $squad2['fullname'] }}
+                                        @if( $squad2['lineup']['captain'] )
+                                            (c)
+                                        @endif
+                                        @if( $squad2['lineup']['wicketkeeper'] )
+                                            (wk)
+                                        @endif,
+                                    @endif
+                                @endforeach
                             </td>
                         </tr>
-                    </table>
-            @php
-                }
-            @endphp
-
-            <table class="table match-scorecard" width="100%">
-                <tr>
-                    <th width="65%">Bowler</th>
-                    <th width="5%">O</th>
-                    <th width="5%">M</th>
-                    <th width="5%">R</th>
-                    <th width="5%">W</th>
-                    <th width="5%">NB</th>
-                    <th width="5%">WD</th>
-                    <th width="5%">ECO</th>
-                </tr>
-                @foreach( $fixture['data']['bowling'] as $score )
-                    @if( strtolower($score['scoreboard']) == 's2' )
-                        <tr>
-                            <td width="65%">{{ $score['bowler']['fullname'] }}</td>
-                            <td width="5%">{{ $score['overs'] }}</td>
-                            <td width="5%">{{ $score['medians'] }}</td>
-                            <td width="5%">{{ $score['runs'] }}</td>
-                            <td width="5%">{{ $score['wickets'] }}</td>
-                            <td width="5%">{{ $score['noball'] }}</td>
-                            <td width="5%">{{ $score['wide'] }}</td>
-                            <td width="5%">{{ $score['rate'] }}</td>
-                        </tr>
                     @endif
-                @endforeach
-            </table>
+                </table>
+
+                @php
+                    if( isset($fowArray[$s2teamId]) && !empty($fowArray[$s2teamId]) ) {
+                        ksort($fowArray[$s2teamId]); @endphp
+                        <table class="table match-scorecard" width="100%">
+                            <tr>
+                                <th>Fall of Wickets</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @php 
+                                        $wkt2 = 1;
+                                        foreach( $fowArray[$s2teamId] as $over2 => $score2 ) {
+                                            echo $score2['fow_score'] . '-' . $wkt2 . ' (' . $score2['player'] . ', ' . $over2 .'), ';
+                                            $wkt2++;
+                                        }
+                                    @endphp
+                                </td>
+                            </tr>
+                        </table>
+                @php
+                    }
+                @endphp
+
+                <table class="table match-scorecard" width="100%">
+                    <tr>
+                        <th width="65%">Bowler</th>
+                        <th width="5%">O</th>
+                        <th width="5%">M</th>
+                        <th width="5%">R</th>
+                        <th width="5%">W</th>
+                        <th width="5%">NB</th>
+                        <th width="5%">WD</th>
+                        <th width="5%">ECO</th>
+                    </tr>
+                    @foreach( $fixture['data']['bowling'] as $score )
+                        @if( strtolower($score['scoreboard']) == 's2' )
+                            <tr>
+                                <td width="65%">{{ $score['bowler']['fullname'] }}</td>
+                                <td width="5%">{{ $score['overs'] }}</td>
+                                <td width="5%">{{ $score['medians'] }}</td>
+                                <td width="5%">{{ $score['runs'] }}</td>
+                                <td width="5%">{{ $score['wickets'] }}</td>
+                                <td width="5%">{{ $score['noball'] }}</td>
+                                <td width="5%">{{ $score['wide'] }}</td>
+                                <td width="5%">{{ $score['rate'] }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </table>
+            @endif
 
             <div class="fixture-match-info"> 
                 <div class="match-info"> Match Info </div>

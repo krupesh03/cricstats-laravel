@@ -143,4 +143,14 @@ $(document).ready( function() {
             location.reload(true);
         }, 30000);
     }
+
+    $(document).on('click', '.squad-player-url', function() {
+
+        var $this = $(this);
+        var playerId = $this.data('pid');
+        var currentUrl = $this.data('current-url');
+        if( playerId && currentUrl ) {
+            document.location.href = currentUrl + '/players/' + playerId;
+        }
+    });
 });

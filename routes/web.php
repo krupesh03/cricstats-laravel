@@ -52,6 +52,7 @@ Route::group(['prefix' => 'fixture'], function($route) {
     $route->get('/{id}', [FixtureController::class, 'index']);
     $route->get('/', [FixtureController::class, 'listing']);
     $route->get('/{leagueId}/season/{seasonId}', [FixtureController::class, 'seasonLeagueFixtures']);
+    $route->get('/stage/{stageId}/{leagueId}/{seasonId}', [FixtureController::class, 'getStageData']);
 });
 
 Route::group(['prefix' => 'players'], function($route) {

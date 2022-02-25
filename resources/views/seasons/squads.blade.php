@@ -21,7 +21,7 @@
             <div class="row">
                 @foreach( $squads['data']['squad'] as $squad )
                     <div class="col-md-2 squad-info">
-                        <a href="javascript:void(0)" class="squad-player-url" data-pid="{{ $squad['id'] }}">
+                        <a href="javascript:void(0)" class="squad-player-url" data-pid="{{ $squad['id'] }}"  data-current-url="{{ url('') }}">
                             <div class="squad-logo">
                                 <img src="{{ $helper->setImage($squad['image_path']) }}">
                             </div>

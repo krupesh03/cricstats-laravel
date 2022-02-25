@@ -6,7 +6,9 @@
     {{ $livedetails['localteam']['name'] }} vs {{ $livedetails['visitorteam']['name'] }}, {{ $livedetails['details']['round'] }} - Live Cricket Score, Commentary
 </div>
 <div class="subheading">
-    <span> Series : {{ $livedetails['league']['id'] == 3 ? $livedetails['stage']['name'] : $livedetails['league']['name'] }}, {{ $livedetails['season']['name'] }} </span>
+    <span> Series : <a href="/fixture/stage/{{ $livedetails['stage']['id'] }}/{{ $livedetails['league']['id'] }}/{{ $livedetails['season']['id'] }}">
+        {{ $livedetails['league']['id'] == 3 ? $livedetails['stage']['name'] : $livedetails['league']['name'] }}, {{ $livedetails['season']['name'] }} </a> 
+    </span>
     <span> Venue : 
         @if( isset($livedetails['venue']['id']) && !empty($livedetails['venue']['id']) ) 
             <a href="/venues/{{ $livedetails['venue']['id'] }}">{{ isset($livedetails['venue']['name']) ? $livedetails['venue']['name'] : '' }}, {{ isset($livedetails['venue']['city']) ? $livedetails['venue']['city'] : '' }}</a>

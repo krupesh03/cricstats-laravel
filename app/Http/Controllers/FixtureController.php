@@ -140,4 +140,59 @@ class FixtureController extends Controller
 
         return view('fixtures/seasonleaguefixtures', compact('fixture', 'stageArray', 'helper'));
     }
+
+    public function getStageData( $stageId, $leagueId, $seasonId ) {
+
+        $stageFixtures = [];
+        if( $stageId && $leagueId && $seasonId ) {
+
+            $seasonApiEndpoint = Config::get('constants.API_ENDPOINTS.SEASONS');
+
+            $seasonApiEndpoint = $seasonApiEndpoint . '/' . $seasonId;
+
+            $season = $this->apicallHelper->getDataFromAPI( $seasonApiEndpoint );
+
+            $seasonName = '';
+            if( $season['success'] ) {
+                $seasonName = $season['data']['name'];
+            }
+
+            $stagesApiEndpoint = Config::get('constants.API_ENDPOINTS.STAGES');
+
+            $stagesApiEndpoint = $stagesApiEndpoint . '/' . $stageId;
+
+            $stagesQueryStr = [
+                'filter[season_id]' => $seasonId,
+                'include'           => 'league,fixtures.localteam,fixtures.visitorteam'
+            ];
+
+            $fixtures = $this->apicallHelper->getDataFromAPI( $stagesApiEndpoint, $stagesQueryStr );
+
+            if( $fixtures['success'] ) {
+                $stageName = $fixtures['data']['name'] . ', ' . $fixtures['data']['league']['name'];
+                $stageName .= (!empty($stageName) && !empty($seasonName)) ? ', '.$seasonName : ''; 
+                $stageFixtures['stageName'] = $stageName;
+                $stageFixtures['standings'] = $fixtures['data']['standings'];
+                $stageFixtures['league_id'] = $fixtures['data']['league_id'];
+                $stageFixtures['season_id'] = $fixtures['data']['season_id'];
+                $stageFixtures['fixtures'] = [];
+                $stageDates = [];
+                foreach( $fixtures['data']['fixtures'] as $fixture ) {
+                    $stageFixtures['fixtures'][] = $fixture;
+                    $stageDates[] = !empty($fixture['starting_at']) ? strtotime($fixture['starting_at']) : '';
+                }
+                sort($stageDates);
+                $startDate = reset($stageDates);
+                $endDate = end($stageDates);
+                $timeSpan = !empty($startDate) ? date('M d', $startDate) : '';
+                $timeSpan .= (!empty($endDate) && !empty($timeSpan)) ? ' - ' . date('M d', $endDate) : '';
+                $stageFixtures['stageDates'] = $timeSpan;
+            }
+
+        }
+
+        $helper = $this->functionHelper;
+
+        return view('stages/fixtures', compact('stageFixtures', 'helper'));
+    }
 }

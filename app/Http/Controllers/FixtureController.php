@@ -27,28 +27,88 @@ class FixtureController extends Controller
 
         $fixture = $this->apicallHelper->getDataFromAPI( $fixturesApiEndpoint, $fixturesQueryStr );
 
-        $lineupArray = [];
+        $lineupArray = $fowArray = $scorecardArray = [];
         if( $fixture['success'] ) {
             foreach( $fixture['data']['lineup'] as $lineup ) {
                 $lineupArray[$lineup['id']]['captain'] = $lineup['lineup']['captain']; 
                 $lineupArray[$lineup['id']]['wicketkeeper'] = $lineup['lineup']['wicketkeeper']; 
             }
-        }
 
-        $fowArray = [];
-        if( $fixture['success'] ) {
             foreach( $fixture['data']['batting'] as $batsman ) {
                 if( $batsman['catch_stump_player_id'] || $batsman['runout_by_id'] || $batsman['bowling_player_id'] ) {
                     $fowArray[$batsman['team_id']][(string)$batsman['fow_balls']]['fow_score'] = $batsman['fow_score'];
                     $fowArray[$batsman['team_id']][(string)$batsman['fow_balls']]['player'] = $batsman['batsman']['fullname'];
                 }
+            }
 
+            if( isset($fixture['data']['runs']) && !empty($fixture['data']['runs']) ) {
+                foreach( $fixture['data']['runs'] as $run ) {
+                    $scorecardArray[$run['inning']]['runs'] = $run;
+
+                    $scorecardArray[$run['inning']]['batting'] = [];
+                    $scorecardArray[$run['inning']]['bowling'] = [];
+                    $scorecardArray[$run['inning']]['scoreboards'] = [];
+                    $scorecardArray[$run['inning']]['fallOfWkts'] = [];
+                    $scorecardArray[$run['inning']]['dnb'] = [];
+                    $fowktArray = $playedId = [];
+
+                    foreach( $fixture['data']['batting'] as $score ) {
+                        $inningNumber = (int)preg_replace('/[^0-9]/', '', $score['scoreboard']);
+                        if( $inningNumber == $run['inning'] ) {
+                            $scorecardArray[$run['inning']]['batting'][] = $score; 
+
+                            if( $score['catch_stump_player_id'] || $score['runout_by_id'] || $score['bowling_player_id'] ) {
+                                $fowktArray[(string)$score['fow_balls']]['fow_score'] = $score['fow_score'];
+                                $fowktArray[(string)$score['fow_balls']]['player'] = $score['batsman']['fullname'];
+                                $fowktArray[(string)$score['fow_balls']]['playerId'] = $score['batsman']['id'];
+                            }
+
+                            $playedId[] = $score['batsman']['id'];
+                        }
+                    }
+
+                    foreach( $fixture['data']['bowling'] as $score ) {
+                        $inningNumber = (int)preg_replace('/[^0-9]/', '', $score['scoreboard']);
+                        if( $inningNumber == $run['inning'] ) {
+                            $scorecardArray[$run['inning']]['bowling'][] = $score;
+                        }
+                    }
+
+                    foreach( $fixture['data']['scoreboards'] as $scoreTotal ) {
+                        $inningNumber = (int)preg_replace('/[^0-9]/', '', $scoreTotal['scoreboard']);
+                        if( $inningNumber == $run['inning'] ) {
+                            $scorecardArray[$run['inning']]['scoreboards'][$scoreTotal['type']] = $scoreTotal;
+                        }
+                    }
+
+                    ksort($fowktArray);
+                    $wkt = 1;
+                    foreach( $fowktArray as $over => $score ) {
+                        $scorecardArray[$run['inning']]['fallOfWkts'][] = $score['fow_score'] . '-' . $wkt . ' (<a href="/players/'.$score['playerId'].'">' . $score['player'] . '</a>, ' . $over .')';
+                        $wkt++;
+                    }
+
+                    $playerName = '';
+                    foreach( $fixture['data']['lineup'] as $lineup ) {
+                        if( $lineup['lineup']['team_id'] == $run['team_id'] && !in_array( $lineup['id'], $playedId ) ) {
+                            $playerName = '<a href="/players/'.$lineup['id'].'">' . $lineup['fullname'];
+                            if( $lineup['lineup']['captain'] ) {
+                                $playerName .= ' (c)';
+                            }
+                            if( $lineup['lineup']['wicketkeeper'] ) {
+                                $playerName .= ' (wk)';
+                            }
+                            $playerName .= '</a>';
+                            $scorecardArray[$run['inning']]['dnb'][] = $playerName;
+                        }  
+                    }
+                }
             }
         }
 
         $helper = $this->functionHelper;
 
-        return view('fixtures/scorecard', compact('fixture', 'lineupArray', 'fowArray', 'helper'));
+        return view('fixtures/scorecard', compact('fixture', 'lineupArray', 'scorecardArray', 'helper'));
     }
 
     public function listing( Request $request ) {

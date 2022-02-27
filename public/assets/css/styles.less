@@ -246,12 +246,7 @@ body {
                         }
                     }
                 }
-                .global-match-note {
-                    color: @redColor;
-                    font-size: 12px;
-                    font-style: italic;
-                }
-                .fixture-innings-one, .fixture-innings-two, .fixture-match-info {
+                .fixture-innings, .fixture-match-info {
                     background: @themeColor;
                     color: @themeInheritColor;
                     padding: 8px 10px;
@@ -270,6 +265,9 @@ body {
                         td {
                             .caught-bowled {
                                 float: right;
+                            }
+                            a {
+                                text-decoration: none;
                             }
                         }
                     }

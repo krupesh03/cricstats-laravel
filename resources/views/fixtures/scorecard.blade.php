@@ -214,7 +214,7 @@
                 <tr>
                     <td width="20%">Match</td>
                     <td width="80%">
-                        {{ $fixture['data']['localteam']['code'] }} vs {{ $fixture['data']['visitorteam']['code'] }}, {{ $fixture['data']['round'] }}, {{ $fixture['data']['stage']['name'] }}, {{ $fixture['data']['season']['name'] }}
+                        {{ $fixture['data']['localteam']['code'] }} vs {{ $fixture['data']['visitorteam']['code'] }}, {{ $fixture['data']['round'] }}, {{ $fixture['data']['league']['id'] == 3 ? $fixture['data']['stage']['name'] : $fixture['data']['league']['name'] }}, {{ $fixture['data']['season']['name'] }}
                     </td>
                 </tr>
                 <tr>
@@ -264,33 +264,13 @@
                 <tr>
                     <td width="20%">Playing {{ $fixture['data']['localteam']['name'] }} Squad</td>
                     <td width="80%">
-                        @foreach( $fixture['data']['lineup'] as $squad1 )
-                            @if( $squad1['lineup']['team_id'] == $fixture['data']['localteam_id'] )
-                                {{ $squad1['fullname'] }}
-                                @if( $squad1['lineup']['captain'] )
-                                    (c)
-                                @endif
-                                @if( $squad1['lineup']['wicketkeeper'] )
-                                    (wk)
-                                @endif,
-                            @endif
-                        @endforeach
+                        {{ implode(', ', $localTeamSquad) }}
                     </td>
                 </tr>
                 <tr>
                     <td width="20%">Playing {{ $fixture['data']['visitorteam']['name'] }} Squad</td>
                     <td width="80%">
-                        @foreach( $fixture['data']['lineup'] as $squad2 )
-                            @if( $squad2['lineup']['team_id'] == $fixture['data']['visitorteam_id'] )
-                                {{ $squad2['fullname'] }}
-                                @if( $squad2['lineup']['captain'] )
-                                    (c)
-                                @endif
-                                @if( $squad2['lineup']['wicketkeeper'] )
-                                    (wk)
-                                @endif,
-                            @endif
-                        @endforeach
+                        {{ implode(', ', $visitorTeamSquad) }}
                     </td>
                 </tr>
             </table>

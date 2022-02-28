@@ -27,7 +27,7 @@ class FixtureController extends Controller
 
         $fixture = $this->apicallHelper->getDataFromAPI( $fixturesApiEndpoint, $fixturesQueryStr );
 
-        $lineupArray = $fowArray = $scorecardArray = [];
+        $lineupArray = $fowArray = $scorecardArray = $localTeamSquad = $visitorTeamSquad = [];
         if( $fixture['success'] ) {
             foreach( $fixture['data']['lineup'] as $lineup ) {
                 $lineupArray[$lineup['id']]['captain'] = $lineup['lineup']['captain']; 
@@ -104,11 +104,27 @@ class FixtureController extends Controller
                     }
                 }
             }
+
+            foreach( $fixture['data']['lineup'] as $lineup ) {
+                $lineupName = $lineup['fullname'];
+                if( $lineup['lineup']['captain'] ) {
+                    $lineupName .= ' (c)';
+                }
+                if( $lineup['lineup']['wicketkeeper'] ) {
+                    $lineupName .= ' (wk)';
+                }
+                if( $lineup['lineup']['team_id'] == $fixture['data']['localteam_id'] ) {
+                    $localTeamSquad[] = $lineupName;
+                } elseif( $lineup['lineup']['team_id'] == $fixture['data']['visitorteam_id'] ) {
+                    $visitorTeamSquad[] = $lineupName;
+                }
+            }
+            
         }
 
         $helper = $this->functionHelper;
 
-        return view('fixtures/scorecard', compact('fixture', 'lineupArray', 'scorecardArray', 'helper'));
+        return view('fixtures/scorecard', compact('fixture', 'lineupArray', 'scorecardArray', 'localTeamSquad', 'visitorTeamSquad', 'helper'));
     }
 
     public function listing( Request $request ) {

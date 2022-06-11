@@ -23,7 +23,7 @@ class HomeController extends Controller
         $tomorrow = date('Y-m-d 23:59:59', strtotime('+1 days'));
 
         $fixturesQueryStr = [
-            'include'                   => 'localteam,visitorteam,league,tosswon,runs',
+            'include'                   => 'localteam,visitorteam,league,tosswon,runs,stage,season',
             'filter[starts_between]'    => (string)$dayBeforeYest.','.$tomorrow,
             'sort'                      => 'starting_at'
         ];

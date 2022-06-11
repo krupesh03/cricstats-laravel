@@ -9,7 +9,10 @@
     @if( count($featuredFixtures) )
         <div class="row featured-matches">
             @foreach( $featuredFixtures as $key => $match )
-                <div class="col-md-6 fixture-listing">
+                <div class="col-md-4 fixture-listing">
+                    <div class="league-stage-name">
+                        {{ $match['league']['id'] == 3 ? $match['stage']['name'] : $match['league']['name'] }}, {{ $match['season']['name'] }} 
+                    </div>
                     <div class="match-teams">
                         <div class="localteam-score">
                             <div class="team">

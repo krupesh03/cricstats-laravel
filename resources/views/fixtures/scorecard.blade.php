@@ -121,10 +121,14 @@
                                     lbw
                                 @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Stump') !== false && $score['catchstump'])
                                     st {{ $score['catchstump']['fullname'] }}
+                                @elseif( $score['result']['out'] && strpos($score['result']['name'], 'Hit') !== false )
+                                    Hit Wicket
+                                @elseif( strpos($score['result']['name'], 'Retired') !== false )
+                                    {{ $score['result']['name'] }}
                                 @endif
                             </td>
                             <td width="24%">
-                                @if( strpos($score['result']['name'], 'Run') === false )
+                                @if( strpos($score['result']['name'], 'Run') === false && strpos($score['result']['name'], 'Retired') === false )
                                     @if( $score['result']['out'] && $score['bowler'] )
                                         b {{ $score['bowler']['fullname'] }}
                                     @elseif( isset($fixture['data']['status']) && (int)preg_replace('/[^0-9]/', '', $fixture['data']['status']) == $inning )

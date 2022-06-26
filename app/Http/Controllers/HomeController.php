@@ -79,7 +79,13 @@ class HomeController extends Controller
 
         $helper = $this->functionHelper;
 
-        return view('home', compact('featuredFixtures', 'pagination', 'helper'));
+        $news = $this->apicallHelper->getNewsDataFromAPI();
+        if( $news['success'] )
+            $news = collect($news['data']);
+        else
+            $news = collect([]);
+
+        return view('home', compact('featuredFixtures', 'pagination', 'helper', 'news'));
     }
 
     public function aboutus() {

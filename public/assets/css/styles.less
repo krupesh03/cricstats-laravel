@@ -1131,6 +1131,36 @@ body {
                     color: #000;
                 }
             }
+            .news-section {
+                color: @themeInheritColor;
+                font-size: 13px;
+                .news-list {
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    min-height: 100px;
+                    position: relative;
+                    .source-details {
+                        display: flex;
+                        justify-content: space-between;
+                        span {
+                            font-size: 12px;
+                        }
+                        a {
+                            font-weight: 300;
+                            text-decoration: none;
+                            font-size: 12px;
+                        }
+                    }
+                    hr {
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 98%;
+                        margin: 0;
+                        color:#000;
+                    }
+                }
+            }
         }
         @media only screen and (max-width: 768px) {
             /* For mobile phones: */

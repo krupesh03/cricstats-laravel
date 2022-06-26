@@ -48,9 +48,11 @@
                     @endif
                 </div>
             @endforeach
-
-            @include('pagination.pagination')
         </div>
+        
+        @include('pagination.pagination')
+
+        @include('news.news')
     @else
         <div class="error-msg"> There are no featured matches at the moment. Please check back later! </div>
     @endif

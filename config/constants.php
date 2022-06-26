@@ -24,5 +24,12 @@ return [
     'MATCH_NOT_LIVE_STATUSES'    => [
         'Finished', 'Postp.', 'Int.', 'Aban.', 'Cancl.'
     ],
-    'API_URL'       => 'https://cricket.sportmonks.com/api/v2.0/'
+    'API_URL'       => 'https://cricket.sportmonks.com/api/v2.0/',
+    'RAPID_API_NEWS'    => [
+        'API_URL'   => 'https://t20-cricket-news.p.rapidapi.com/news',
+        'HTTPHEADER'=> [
+            "X-RapidAPI-Host: t20-cricket-news.p.rapidapi.com",
+            "X-RapidAPI-Key: c103b1740cmsh8bbe280e1733466p15db25jsn351fcd36a803"
+        ]
+    ]
 ];

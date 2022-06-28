@@ -81,7 +81,7 @@ class HomeController extends Controller
 
         $news = $this->apicallHelper->getNewsDataFromAPI();
         if( $news['success'] )
-            $news = collect($news['data']);
+            $news = collect($news['data'])->take(6);
         else
             $news = collect([]);
 

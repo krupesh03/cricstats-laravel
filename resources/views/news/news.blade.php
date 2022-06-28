@@ -1,6 +1,4 @@
-<hr />
 @if( $news->count() )
-    <div class="heading"> Latest News </div>
     <div class="row px-3 pt-3 news-section">
         @foreach( $news as $n)
             <div class="col-md-6 news-list">

@@ -12,6 +12,7 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\VenueController;
 use App\Http\Controllers\OfficialsController;
 use App\Http\Controllers\LivescoreController;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,3 +76,5 @@ Route::group(['prefix' => 'livescores'], function($route) {
 });
 
 Route::get('/aboutus', [HomeController::class, 'aboutus']);
+
+Route::get('/news', [NewsController::class, 'index']);

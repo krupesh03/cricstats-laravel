@@ -52,12 +52,14 @@
         
         @include('pagination.pagination')
 
-        <hr />
-        <div class="heading"> Latest News </div>
-        @include('news.news')
     @else
         <div class="error-msg"> There are no featured matches at the moment. Please check back later! </div>
     @endif
+
+    <hr class="hr-class" />
+    <div class="heading"> Latest News </div>
+    @include('news.news')
+    
 </div>
 
 @endsection

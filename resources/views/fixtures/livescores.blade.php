@@ -47,6 +47,11 @@
             <div class="error-msg"> There are no matches at the moment. Please check back later! </div>
         @endif
     </div>
+
+    <hr class="hr-class" />
+    <div class="heading"> Latest News </div>
+    @include('news.news')
+    
 </div>
 
 @endsection

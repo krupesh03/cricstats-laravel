@@ -67,7 +67,13 @@ class LivescoreController extends Controller
 
             $helper = $this->functionHelper;
 
-            return view('fixtures/livescores', compact('allLiveScores', 'helper'));
+            $news = $this->apicallHelper->getNewsDataFromAPI();
+            if( $news['success'] )
+                $news = collect($news['data'])->take(6);
+            else
+                $news = collect([]);
+
+            return view('fixtures/livescores', compact('allLiveScores', 'helper', 'news'));
         }
         
         return abort(404);
